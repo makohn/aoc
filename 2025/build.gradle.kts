@@ -7,3 +7,11 @@ sourceSets {
         kotlin.srcDir("src")
     }
 }
+
+tasks.withType<JavaExec> {
+    isIgnoreExitValue = true
+}
+
+dependencies {
+    implementation(project(":Library"))
+}
