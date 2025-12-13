@@ -18,10 +18,6 @@ fun main() {
     val input = readInput("Day01")
     println(part1(input))
     println(part2(input))
-<<<<<<< HEAD
-}
-=======
 }
 
 fun hasIncreased(a: Int, b: Int) = (b > a).compareTo(false)
->>>>>>> 2b4016f (Add solution for day 1)
