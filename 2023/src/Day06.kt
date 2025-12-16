@@ -1,10 +1,8 @@
 
-fun main() {
+class Day06 : Day<Int, Int>(year = 2023, day = 6) {
 
-    val day = "06"
-
-    fun part1(input: List<String>): Int {
-        val (raceLengths, records) = input.map { it.substringAfter(":").split("\\s".toRegex()).filter { it.isNotEmpty() }.map { it.toInt() } }
+    override fun part1(input: String): Int {
+        val (raceLengths, records) = input.lines().map { it.substringAfter(":").split("\\s".toRegex()).filter { it.isNotEmpty() }.map { it.toInt() } }
 
         val ans = raceLengths.withIndex().map { (idx, len) ->
             var count = 0
@@ -16,8 +14,8 @@ fun main() {
         return ans.product()
     }
 
-    fun part2(input: List<String>): Int {
-        val (raceLength, record) = input.map { it.substringAfter(":").split("\\s".toRegex()).filter { it.isNotEmpty() }.joinToString("").toLong() }
+    override fun part2(input: String): Int {
+        val (raceLength, record) = input.lines().map { it.substringAfter(":").split("\\s".toRegex()).filter { it.isNotEmpty() }.joinToString("").toLong() }
 
         var count = 0
         for (i in 0..raceLength) {
@@ -26,13 +24,9 @@ fun main() {
 
         return count
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 288)
-    check(part2(testInput) == 71503)
-
-    val input = readInput("Day${day}")
+fun main() = Day06().run {
     println(part1(input))
     println(part2(input))
 }

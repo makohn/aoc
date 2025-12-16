@@ -1,8 +1,9 @@
 import kotlin.math.abs
 
-fun main() {
-
-    val day = "15"
+class Day15(
+    private val row: Int = 2000000,
+    private val range: IntRange = 0..4000000
+) : Day<Int, Long>(year = 2022, day = 15) {
 
     fun List<List<Vec2>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
         val yDistance = abs(scanner.y - row)
@@ -12,7 +13,8 @@ fun main() {
         } else IntRange.EMPTY
     }
 
-    fun parseInput(input: List<String>) = input
+    fun parseInput(input: String) = input
+        .lines()
         .map { it.findInts() }
         .flatMap { (x1, y1, x2, y2) -> listOf( Vec2(x1, y1), Vec2(x2, y2)) }
         .chunked(2)
@@ -32,14 +34,14 @@ fun main() {
         otherRange.first < it.first || otherRange.last > it.last
     }
 
-    fun part1(input: List<String>, row: Int): Int {
+    override fun part1(input: String): Int {
         val report = parseInput(input)
         val ans = report.scanArea(row).merge()
 
         return ans.sumOf { it.last - it.first }
     }
 
-    fun part2(input: List<String>, range: IntRange): Long {
+    override fun part2(input: String): Long {
         val report = parseInput(input)
         for (row in range) {
             val ans = report.scanArea(row).merge().notIncludes(range)
@@ -51,13 +53,9 @@ fun main() {
 
         return 0
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput, 10).also { println(it) } == 26)
-    check(part2(testInput, 0..20).also { println(it) } == 56000011L)
-
-    val input = readInput("Day${day}")
-    println(part1(input, 2000000))
-    println(part2(input, 0..4000000))
+fun main() = Day15().run {
+    println(part1(input))
+    println(part2(input))
 }

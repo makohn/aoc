@@ -1,12 +1,10 @@
 import kotlin.math.abs
 
-fun main() {
+class Day11(val addEmpty: Int = 1_000_000) : Day<Int, Long>(year = 2023, day = 11) {
 
-    val day = "11"
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val universe = mutableListOf<String>()
-        for (row in input) {
+        for (row in input.lines()) {
             universe.add(row)
             if ("#" !in row) {
                 universe.add(row)
@@ -41,12 +39,13 @@ fun main() {
         return ans
     }
 
-    fun part2(input: List<String>, addEmpty: Int = 1_000_000): Long {
+    override fun part2(input: String): Long {
+        val inputLines = input.lines()
         val galaxyRows = mutableListOf(0)
-        for (row in input) {
+        for (row in inputLines) {
             galaxyRows.add(galaxyRows.last() + if ("#" !in row) addEmpty else 1)
         }
-        val input2 = input.map { it.toList() }.transpose().map { it.joinToString("") }
+        val input2 = inputLines.map { it.toList() }.transpose().map { it.joinToString("") }
 
         val galaxyCols = mutableListOf(0)
         for (row in input2) {
@@ -54,7 +53,7 @@ fun main() {
         }
         val galaxies = mutableListOf<Pair<Int, Int>>()
 
-        for ((i, row) in input.withIndex()) {
+        for ((i, row) in inputLines.withIndex()) {
             for ((j, col) in row.withIndex()) {
                 if (col == '#') {
                     galaxies.add(i to j)
@@ -71,13 +70,9 @@ fun main() {
         }
         return ans
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 374)
-    check(part2(testInput, 100) == 8410L)
-
-    val input = readInput("Day${day}")
+fun main() = Day11().run {
     println(part1(input))
     println(part2(input))
 }

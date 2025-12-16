@@ -1,29 +1,26 @@
 import kotlin.math.abs
 
-fun main() {
+class Day01 : Day<Int, Int>(year = 2024, day = 1) {
 
-    val day = "01"
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val lists = input
+            .lines()
             .map { it.split(Regex("\\s+")).map { it.toInt() } }
             .let { lists -> lists.map { it[0] } to lists.map { it[1] } }
         return lists.first.sorted().zip(lists.second.sorted())
             .sumOf { pair -> abs(pair.first - pair.second) }
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val lists = input
+            .lines()
             .map { it.split(Regex("\\s+")).map { it.toInt() } }
             .let { lists -> lists.map { it[0] } to lists.map { it[1] } }
-        return lists.first.sumOf { it * lists.second.count { i -> i == it }  }
+        return lists.first.sumOf { it * lists.second.count { i -> i == it } }
     }
+}
 
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 11)
-    check(part2(testInput) == 31)
-
-    val input = readInput("Day${day}")
+fun main() = Day01().run {
     println(part1(input))
     println(part2(input))
 }

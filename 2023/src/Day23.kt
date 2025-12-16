@@ -1,8 +1,6 @@
 import kotlin.math.max
 
-fun main() {
-
-    val day = "23"
+class Day23 : Day<Int, Int>(year = 2023, day = 23) {
 
     val directions = mapOf(
         '>' to arrayOf(Direction.East),
@@ -12,8 +10,8 @@ fun main() {
         '.' to arrayOf(Direction.North, Direction.East, Direction.South, Direction.West)
     )
 
-    fun part1(input: List<String>): Int {
-        val map = input.toCharMatrix()
+    override fun part1(input: String): Int {
+        val map = input.lines().toCharMatrix()
         val (n, _) = map.dimension
         val startCell = map[0].mapIndexed { i, d -> CharCell(0, i, d) }.first { it.data != '#' }
         val endCell = map[n-1].mapIndexed { i, d -> CharCell(n-1, i, d) }.last { it.data != '#' }
@@ -41,8 +39,8 @@ fun main() {
         return dfs(startCell)
     }
 
-    fun part2(input: List<String>): Int {
-        val map = input.toCharMatrix()
+    override fun part2(input: String): Int {
+        val map = input.lines().toCharMatrix()
         val (n, _) = map.dimension
         val charCells = map.toCharCells()
         val startCell = map[0].mapIndexed { i, d -> CharCell(0, i, d) }.first { it.data != '#' }
@@ -104,13 +102,9 @@ fun main() {
 
         return dfs(startCell)
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 94)
-    check(part2(testInput) == 154)
-
-    val input = readInput("Day${day}")
+fun main() = Day23().run {
     println(part1(input))
     println(part2(input))
 }

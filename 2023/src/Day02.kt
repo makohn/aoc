@@ -1,14 +1,11 @@
-
-fun main() {
-
-    val day = "02"
+class Day02 : Day<Int, Int>(year = 2023, day = 2) {
 
     data class Step(var r: Int, var g: Int, var b: Int)
     data class Game(val steps: MutableList<Step>)
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val games = mutableListOf<Game>()
-        for (line in input) {
+        for (line in input.lines()) {
             println(line)
             val g = Game(mutableListOf())
             games += g
@@ -41,9 +38,9 @@ fun main() {
         return ans
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val games = mutableListOf<Game>()
-        for (line in input) {
+        for (line in input.lines()) {
             println(line)
             val g = Game(mutableListOf())
             games += g
@@ -75,13 +72,9 @@ fun main() {
 
         return ans
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 8)
-    check(part2(testInput) == 2286)
-
-    val input = readInput("Day${day}")
+fun main() = Day02().run {
     println(part1(input))
     println(part2(input))
 }

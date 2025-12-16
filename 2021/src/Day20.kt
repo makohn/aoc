@@ -1,48 +1,17 @@
-import Day20.parse
-import Day20.runEnhancements
+typealias Image = Set<Pair<Int, Int>>
+typealias Bounds = List<Int>
 
-fun main() {
+class Day20 : Day<Int, Int>(year = 2021, day = 20) {
 
-    val day = "20"
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val (algorithm, image) = parse(input)
         return runEnhancements(image, algorithm, 2)
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val (algorithm, image) = parse(input)
         return runEnhancements(image, algorithm, 50)
     }
-
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 35)
-    check(part2(testInput) == 3351)
-
-    val input = readInput("Day${day}")
-    println(part1(input))
-    println(part2(input))
-}
-
-typealias Image = Set<Pair<Int, Int>>
-typealias Bounds = List<Int>
-
-fun String.indicesOf(char: Char) = mapIndexed { i, c -> if (c == char) i else null }.filterNotNull()
-fun Image.bounds(): Bounds {
-    val minX = this@bounds.minOf { it.first }
-    val maxX = this@bounds.maxOf { it.first }
-    val minY = this@bounds.minOf { it.second }
-    val maxY = this@bounds.maxOf { it.second }
-    return listOf(minX, maxX, minY, maxY)
-}
-fun Bounds.apply(padding: Int) = listOf(
-    this@apply[0] - padding,
-    this@apply[1] + padding,
-    this@apply[2] - padding,
-    this@apply[3] + padding
-)
-
-object Day20 {
 
     fun runEnhancements(baseImage: Image, algorithm: String, count: Int): Int {
         var image = baseImage
@@ -54,9 +23,10 @@ object Day20 {
         return image.count()
     }
 
-    fun parse(input: List<String>): Pair<String, Image> {
-        val algorithm = input.first().also { check(it.length == 512) }
-        val image = input.drop(2).flatMapIndexed { i, row ->
+    fun parse(input: String): Pair<String, Image> {
+        val inputLines = input.lines()
+        val algorithm = inputLines.first().also { check(it.length == 512) }
+        val image = inputLines.drop(2).flatMapIndexed { i, row ->
             row.indicesOf('#').map { i to it }
         }.toSet()
         return algorithm to image
@@ -72,7 +42,7 @@ object Day20 {
                 it.forEach { p -> print(if (image.contains(p)) "#" else ".")}
                 println()
             }
-        }
+    }
 
     private fun enhance(image: Image, algorithm: String, bounds: Bounds): Image {
         val (minX, maxX, minY, maxY) = bounds
@@ -90,4 +60,24 @@ object Day20 {
         }
         return outputImage
     }
+
+    fun String.indicesOf(char: Char) = mapIndexed { i, c -> if (c == char) i else null }.filterNotNull()
+    fun Image.bounds(): Bounds {
+        val minX = this@bounds.minOf { it.first }
+        val maxX = this@bounds.maxOf { it.first }
+        val minY = this@bounds.minOf { it.second }
+        val maxY = this@bounds.maxOf { it.second }
+        return listOf(minX, maxX, minY, maxY)
+    }
+    fun Bounds.apply(padding: Int) = listOf(
+        this@apply[0] - padding,
+        this@apply[1] + padding,
+        this@apply[2] - padding,
+        this@apply[3] + padding
+    )
+}
+
+fun main() = Day20().run {
+    println(part1(input))
+    println(part2(input))
 }

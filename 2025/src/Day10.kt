@@ -1,12 +1,12 @@
 import aoc.combineElements
 import kotlin.math.min
 
-fun main() {
+class Day10 : Day<Int, Int>(year = 2025, day = 10) {
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         var sum = 0
         val r = Regex("\\[(.*)](.*)\\{.*}")
-        for (line in input) {
+        for (line in input.lines()) {
             val (a, b) = r.matchEntire(line)!!.destructured
             val target = a.withIndex().filter { (_, v) -> v == '#' }.sumOf { 1 shl it.index }
             val buttons = b.trim().split(" ").map {
@@ -26,10 +26,10 @@ fun main() {
         return sum
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val r = Regex("\\[.*](.*)\\{(.*)}")
         var sum = 0
-        for (line in input) {
+        for (line in input.lines()) {
             val (a, b) = r.matchEntire(line)!!.destructured
             val buttons = a.trim().split(" ").map {
                 it.removeSurrounding("(", ")").split(",").map { n -> n.toInt() }.toSet()
@@ -67,12 +67,9 @@ fun main() {
         }
         return sum
     }
+}
 
-    val testInput = readInput("Day10_test")
-    check(part1(testInput) == 7)
-    check(part2(testInput) == 33)
-
-    val input = readInput("Day10")
-    part1(input).println()
-    part2(input).println()
+fun main() = Day10().run {
+    println(part1(input))
+    println(part2(input))
 }

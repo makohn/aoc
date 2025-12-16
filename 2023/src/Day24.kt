@@ -1,8 +1,9 @@
 import kotlin.math.roundToLong
 
-fun main() {
-
-    val day = "24"
+class Day24(
+    val min: Double = 200000000000000.0,
+    val max: Double = 400000000000000.0
+) : Day<Int, Long>(year = 2023, day = 24) {
 
     data class Vec2(val x: Double, val y: Double)
 
@@ -23,8 +24,11 @@ fun main() {
 
     fun Hailstone.inFuture(p: Vec2) = if (vx > 0) p.x > x else p.x < x
 
-    fun part1(input: List<String>, min: Double = 7.0, max: Double = 27.0): Int {
+    // TODO: min: Double = 7.0, max: Double = 27.0
+
+    override fun part1(input: String): Int {
         val hailstones = input
+            .lines()
             .map { it.numbersAsDouble() }
             .map { (a, b, c, d, e, f) -> Hailstone(a, b, c, d, e, f) }
 
@@ -46,8 +50,9 @@ fun main() {
         return intersections.count()
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         val hailstones = input
+            .lines()
             .map { it.numbersAsDouble() }
             .map { (a, b, c, d, e, f) -> Hailstone(a, b, c, d, e, f) }
 
@@ -77,13 +82,9 @@ fun main() {
 
         return (a + b + c).toLong()
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 2)
-    check(part2(testInput) == 47L)
-
-    val input = readInput("Day${day}")
-    println(part1(input, min = 200000000000000.0, max = 400000000000000.0))
+fun main() = Day24().run {
+    println(part1(input))
     println(part2(input))
 }

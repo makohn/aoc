@@ -1,9 +1,7 @@
-fun main() {
+class Day25 : Day<Int, Int>(year = 2021, day = 25) {
 
-    val day = "25"
-
-    fun part1(input: List<String>): Int {
-        var mat = input.map { it.toCharArray() }.toTypedArray()
+    override fun part1(input: String): Int {
+        var mat = input.lines().map { it.toCharArray() }.toTypedArray()
         val newMat = mat.map { it.copyOf() }.toTypedArray()
         var step = 0
 
@@ -34,15 +32,9 @@ fun main() {
         return step
     }
 
-    fun part2(input: List<String>): Int {
-        TODO()
-    }
+    override fun part2(input: String) = 0
+}
 
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 58)
-//    check(part2(testInput) == 0)
-
-    val input = readInput("Day${day}")
+fun main() = Day25().run {
     println(part1(input))
-//    println(part2(input))
 }

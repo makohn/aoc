@@ -1,7 +1,4 @@
-
-fun main() {
-
-    val day = "12"
+class Day12 : Day<Int, Long>(year = 2023, day = 12) {
 
     fun checkPattern(str: String, distribution: List<Int>): Boolean {
         val actualDistribution = mutableListOf<Int>()
@@ -31,8 +28,9 @@ fun main() {
         }
     }
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         return input
+            .lines()
             .map { it.split(" ") }
             .map { (a, b) -> a to b.split(",").map { it.toInt() } }
             .sumOf { (str, dist) -> countPossibilities(str, dist, 0) }
@@ -69,8 +67,9 @@ fun main() {
         return count
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         return input
+            .lines()
             .asSequence()
             .map { it.split(" ") }
             .map { (a, b) -> a to b.split(",").map { it.toInt() } }
@@ -78,13 +77,9 @@ fun main() {
             .onEach { memoize.clear() }
             .sumOf { (str, dist) -> countPossibilities(str, dist, State(0, 0, 0)) }
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 21)
-    check(part2(testInput) == 525152L)
-
-    val input = readInput("Day${day}")
+fun main() = Day12().run {
     println(part1(input))
     println(part2(input))
 }

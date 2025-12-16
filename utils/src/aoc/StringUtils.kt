@@ -1,7 +1,7 @@
 package aoc
 
 /**
- * Extracts all [Int]s from this [String], respecting their sign
+ * Extracts all [Int]s from this [String], respecting their sign.
  *
  * For example
  * ```

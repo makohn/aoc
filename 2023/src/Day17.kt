@@ -1,10 +1,7 @@
+class Day17 : Day<Int, Int>(year = 2023, day = 17){
 
-fun main() {
-
-    val day = "17"
-
-    fun part1(input: List<String>): Int {
-        val map = input.toCharMatrix()
+    override fun part1(input: String): Int {
+        val map = input.lines().toCharMatrix()
         val (n, m) = map.dimension
 
         data class Node(val x: Int, val y: Int, val d: Direction, val s: Int)
@@ -26,8 +23,8 @@ fun main() {
             .value
     }
 
-    fun part2(input: List<String>): Int {
-        val map = input.toCharMatrix()
+    override fun part2(input: String): Int {
+        val map = input.lines().toCharMatrix()
         val (n, m) = map.dimension
 
         data class Node(val x: Int, val y: Int, val d: Direction, val s: Int)
@@ -48,15 +45,9 @@ fun main() {
             .minBy { it.value }
             .value
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    val testInput2 = readInput("Day${day}_test2")
-    check(part1(testInput) == 102)
-    check(part2(testInput) == 94)
-    check(part2(testInput2) == 71)
-
-    val input = readInput("Day${day}")
+fun main() = Day17().run {
     println(part1(input))
     println(part2(input))
 }

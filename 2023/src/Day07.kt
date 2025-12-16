@@ -1,24 +1,23 @@
 
-internal enum class HandType(val cardDistribution: List<Int>) {
-    FiveOfAKind(listOf(5)),
-    FourOfAKind(listOf(1, 4)),
-    FullHouse(listOf(2, 3)),
-    ThreeOfAKind(listOf(1, 1, 3)),
-    TwoPair(listOf(1, 2, 2)),
-    OnePair(listOf(1, 1, 1, 2)),
-    HighCard(listOf(1, 1, 1, 1, 1));
-}
-
-internal fun List<Int>.toHandType() = HandType.entries.firstOrNull { this == it.cardDistribution }
-
-fun main() {
-
-    val day = "07"
+class Day07 : Day<Int, Int>(year = 2023, day = 7) {
 
     data class Hand(val cards: String, val bid: Int)
 
-    fun part1(input: List<String>): Int {
+    internal enum class HandType(val cardDistribution: List<Int>) {
+        FiveOfAKind(listOf(5)),
+        FourOfAKind(listOf(1, 4)),
+        FullHouse(listOf(2, 3)),
+        ThreeOfAKind(listOf(1, 1, 3)),
+        TwoPair(listOf(1, 2, 2)),
+        OnePair(listOf(1, 1, 1, 2)),
+        HighCard(listOf(1, 1, 1, 1, 1));
+    }
+
+    internal fun List<Int>.toHandType() = HandType.entries.firstOrNull { this == it.cardDistribution }
+
+    override fun part1(input: String): Int {
         val parsed = input
+            .lines()
             .map { it.split(" ") }
             .map { (a, b) -> Hand(a, b.toInt()) }
 
@@ -44,8 +43,9 @@ fun main() {
         return sorted.withIndex().sumOf { (idx, pair) -> (idx+1) * pair.first.bid }
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val parsed = input
+            .lines()
             .map { it.split(" ") }
             .map { (a, b) -> Hand(a, b.toInt()) }
 
@@ -78,13 +78,9 @@ fun main() {
 
         return sorted.withIndex().sumOf { (idx, pair) -> (idx+1) * pair.first.bid }
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 6440)
-    check(part2(testInput) == 5905)
-
-    val input = readInput("Day${day}")
+fun main() = Day07().run {
     println(part1(input))
     println(part2(input))
 }

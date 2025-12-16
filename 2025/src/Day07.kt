@@ -1,11 +1,11 @@
+class Day07 : Day<Int, Long>(year = 2025, day = 7) {
 
-fun main() {
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
+        val inputLines = input.lines()
         val beams = HashSet<Int>()
-        beams.add(input[0].indexOf('S'))
+        beams.add(inputLines[0].indexOf('S'))
         var numSplit = 0
-        for (row in input.drop(1)) {
+        for (row in inputLines.drop(1)) {
             val splitters = row.withIndex().filter { (_, c) -> c == '^' }.map { it.index }
             for (s in splitters) {
                 if (s in beams) {
@@ -19,11 +19,12 @@ fun main() {
         return numSplit
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
+        val inputLines = input.lines()
         val beamCounts = HashMap<Int, Long>()
-        val startIndex = input[0].indexOf('S')
+        val startIndex = inputLines[0].indexOf('S')
         beamCounts[startIndex] = 1
-        for (row in input.drop(1)) {
+        for (row in inputLines.drop(1)) {
             val newCounts = HashMap<Int, Long>()
             for ((col, count) in beamCounts) {
                 if (row[col] == '^') {
@@ -38,12 +39,9 @@ fun main() {
         }
         return beamCounts.values.sum()
     }
+}
 
-    val testInput = readInput("Day07_test")
-    check(part1(testInput) == 21)
-    check(part2(testInput) == 40L)
-
-    val input = readInput("Day07")
+fun main() = Day07().run {
     println(part1(input))
     println(part2(input))
 }

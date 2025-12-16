@@ -1,8 +1,9 @@
-fun main() {
-    fun part1(input: List<String>): Int {
+class Day01 : Day<Int, Int>(year = 2022, day = 1) {
+
+    override fun part1(input: String): Int {
         val calories = mutableListOf<Int>()
         var count = 0
-        for (s in input) {
+        for (s in input.lines()) {
             if (s.isEmpty()) {
                 calories.add(count)
                 count = 0
@@ -13,10 +14,10 @@ fun main() {
         return calories.max()
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val calories = mutableListOf<Int>()
         var count = 0
-        for (s in input) {
+        for (s in input.lines()) {
             if (s.isEmpty()) {
                 calories.add(count)
                 count = 0
@@ -33,13 +34,9 @@ fun main() {
         total += calories.max()
         return total
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 24000)
-    check(part2(testInput) == 45000)
-
-    val input = readInput("Day01")
+fun main() = Day01().run {
     println(part1(input))
     println(part2(input))
 }

@@ -1,13 +1,12 @@
-fun main() {
-
-    val day = "04"
+class Day04 : Day<Int, Int>(year = 2023, day = 4) {
 
     val numberRegex = Regex("\\d+")
 
     fun String.numbers() = numberRegex.findAll(this).map { it.value.toInt() }.toList()
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         return input
+            .lines()
             .map { it.split("|") }
             .map { (a, b) -> a.substringAfter(":").numbers() to b.numbers() }
             .sumOf { (winning, numbers) ->
@@ -15,8 +14,9 @@ fun main() {
             }
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val parsed = input
+            .lines()
             .map { it.split("|") }
             .map { (a, b) -> a.substringAfter(":").numbers() to b.numbers() }
 
@@ -32,13 +32,9 @@ fun main() {
         }
         return cardCount.sum()
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 13)
-    check(part2(testInput) == 30)
-
-    val input = readInput("Day${day}")
+fun main() = Day04().run {
     println(part1(input))
     println(part2(input))
 }

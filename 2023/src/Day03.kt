@@ -1,13 +1,11 @@
-fun main() {
-
-    val day = "03"
+class Day03 : Day<Int, Int>(year = 2023, day = 3) {
 
     fun Char.isSymbol(): Boolean {
         return !this.isDigit() && this != '.'
     }
 
-    fun part1(input: List<String>): Int {
-        val schematic = input.toCharMatrix()
+    override fun part1(input: String): Int {
+        val schematic = input.lines().toCharMatrix()
         val partNumbers = ArrayList<Int>()
 
         var number = ""
@@ -37,8 +35,8 @@ fun main() {
         return partNumbers.sum()
     }
 
-    fun part2(input: List<String>): Int {
-        val schematic = input.toCharMatrix()
+    override fun part2(input: String): Int {
+        val schematic = input.lines().toCharMatrix()
         val gearPositions = HashSet<CharCell>()
         val gearCandidates = HashMap<CharCell, MutableList<Int>>()
 
@@ -76,13 +74,9 @@ fun main() {
             .filter { it.size == 2 }
             .sumOf { it.product() }
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 4361)
-    check(part2(testInput) == 467835)
-
-    val input = readInput("Day${day}")
+fun main() = Day03().run {
     println(part1(input))
     println(part2(input))
 }

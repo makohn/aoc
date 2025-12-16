@@ -1,17 +1,15 @@
 import kotlin.math.abs
 
-fun main() {
+class Day07 : Day<Int, Int>(year = 2021, day = 7) {
 
-    val day = "07"
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val positions = parse(input)
         return minimizeCost(positions) { goal ->
             positions.sumOf { pos -> abs(pos - goal) }
         }
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val positions = parse(input)
         return minimizeCost(positions) { goal ->
             positions.sumOf { pos ->
@@ -22,21 +20,18 @@ fun main() {
         }
     }
 
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 37)
-    check(part2(testInput) == 168)
+    private fun parse(input: String) = input.lines().first().split(",").map { it.toInt() }
 
-    val input = readInput("Day${day}")
-    println(part1(input))
-    println(part2(input))
+    private fun minimizeCost(positions: List<Int>, costFunction: (Int) -> Int): Int {
+        val costs = mutableListOf<Int>()
+        for (goal in (1..positions.maxOf { it })) {
+            costs.add(costFunction.invoke(goal))
+        }
+        return costs.minOf { it }
+    }
 }
 
-private fun parse(input: List<String>) = input.first().split(",").map { it.toInt() }
-
-private fun minimizeCost(positions: List<Int>, costFunction: (Int) -> Int): Int {
-    val costs = mutableListOf<Int>()
-    for (goal in (1..positions.maxOf { it })) {
-        costs.add(costFunction.invoke(goal))
-    }
-    return costs.minOf { it }
+fun main() = Day07().run {
+    println(part1(input))
+    println(part2(input))
 }

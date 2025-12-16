@@ -1,15 +1,12 @@
+class Day05 : Day<Int, Int>(year = 2024, day = 5) {
 
-fun main() {
-
-    val day = "05"
-
-    fun List<Int>.hasElementsInThisOrder(pair: Pair<Int, Int>): Boolean {
+    private fun List<Int>.hasElementsInThisOrder(pair: Pair<Int, Int>): Boolean {
         val i = indexOf(pair.first)
         val j = indexOf(pair.second)
         return i <= j || i == -1 || j == -1
     }
 
-    fun part1(input: String): Int {
+    override fun part1(input: String): Int {
         val (rules, updates) = input.split("\n\n").map { it.split("\n").toList().filter { it != "" } }
         val rulePairs = rules.map {  it.split("|") }.map { (a, b) -> a.toInt() to b.toInt()  }
         var acc = 0
@@ -27,7 +24,7 @@ fun main() {
         return acc
     }
 
-    fun sort(list: MutableList<Int>, rules: List<Pair<Int, Int>>) {
+    private fun sort(list: MutableList<Int>, rules: List<Pair<Int, Int>>) {
         val filteredRules = rules.filter { it.first in list || it.second in list }
         val rulesToApply = ArrayDeque(filteredRules)
         while (rulesToApply.isNotEmpty()) {
@@ -43,7 +40,7 @@ fun main() {
         }
     }
 
-    fun part2(input: String): Int {
+    override fun part2(input: String): Int {
         val (rules, updates) = input.split("\n\n").map { it.split("\n").toList().filter { it != "" } }
         val rulePairs = rules.map {  it.split("|") }.map { (a, b) -> a.toInt() to b.toInt()  }
         var acc = 0
@@ -62,13 +59,9 @@ fun main() {
         }
         return acc
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInputString("Day${day}_test")
-    check(part1(testInput) == 143)
-    check(part2(testInput) == 123)
-
-    val input = readInputString("Day${day}")
+fun main() = Day05().run {
     println(part1(input))
     println(part2(input))
 }

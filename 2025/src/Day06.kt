@@ -1,9 +1,9 @@
+class Day06 : Day<Long, Long>(year = 2025, day = 6) {
 
-fun main() {
-
-    fun part1(input: List<String>): Long {
-        val ops = input.takeLast(1).map { it.trim().split(Regex("\\s+")) }[0]
-        val nums = input.dropLast(1).map { it.trim().split(Regex("\\s+")).map { n -> n.toLong() } }
+    override fun part1(input: String): Long {
+        val lines = input.lines()
+        val ops = lines.takeLast(1).map { it.trim().split(Regex("\\s+")) }[0]
+        val nums = lines.dropLast(1).map { it.trim().split(Regex("\\s+")).map { n -> n.toLong() } }
         var sum = 0L
         for (i in 0..<ops.size) {
             sum += nums.map { it[i] }.reduce { a, b -> when(ops[i]) {
@@ -15,9 +15,10 @@ fun main() {
         return sum
     }
 
-    fun part2(input: List<String>): Long {
-        val (n, m) = input.size to input.maxOf { it.length }
-        val grid = Array(input.size) { idx -> input[idx].toCharArray(CharArray(m)) }
+    override fun part2(input: String): Long {
+        val lines = input.lines()
+        val (n, m) = lines.size to lines.maxOf { it.length }
+        val grid = Array(lines.size) { idx -> lines[idx].toCharArray(CharArray(m)) }
         var sum = 0L
         var curVec = Array(m) { "" }
         var curOp = ""
@@ -45,12 +46,9 @@ fun main() {
         }
         return sum
     }
+}
 
-    val testInput = readInput("Day06_test")
-    check(part1(testInput) == 4277556L)
-    check(part2(testInput) == 3263827L)
-
-    val input = readInput("Day06")
+fun main() = Day06().run {
     println(part1(input))
     println(part2(input))
 }

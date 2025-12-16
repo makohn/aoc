@@ -1,12 +1,12 @@
-
-fun main() {
-
-    val day = "21"
+class Day21(
+    val s1: Int = 64,
+    val s2: Int = 26501365
+) : Day<Int, Long>(year = 2023, day = 21) {
 
     val directions = arrayOf(Direction.North, Direction.East, Direction.South, Direction.West)
 
     fun countReachableCells(map: CharMatrix, vararg steps: Int, adjacentTo: (CharCell) -> List<CharCell>) = sequence {
-        val charCells = map.flatMapIndexed { i, row -> row.mapIndexed{ j, char -> CharCell(i, j, char) }}
+        val charCells = map.flatMapIndexed { i, row -> row.mapIndexed { j, char -> CharCell(i, j, char) } }
         val startCell = charCells.first { it.data == 'S' }
 
         val newCells = mutableSetOf<CharCell>()
@@ -22,32 +22,29 @@ fun main() {
         }
     }
 
-    fun part1(input: List<String>, steps: Int = 64): Int {
-        val map = input.toCharMatrix()
-        return countReachableCells(map, steps) {
+    override fun part1(input: String): Int {
+        val map = input.lines().toCharMatrix()
+        return countReachableCells(map, s1) {
             map.adjacentTo(it, *directions)
         }.take(1).first()
     }
 
-    fun part2(input: List<String>, steps: Int): Long {
-        val map = input.toCharMatrix()
+    override fun part2(input: String): Long {
+        val map = input.lines().toCharMatrix()
         val (n, _) = map.dimension
-        val x0 = steps % n
-        val (a, b, c) = countReachableCells(map, x0, x0+1*n, x0+2*n) {
+        val x0 = s2 % n
+        val (a, b, c) = countReachableCells(map, x0, x0 + 1 * n, x0 + 2 * n) {
             map.adjacentToUnbound(it, *directions)
         }.take(3).map { it.toLong() }.toList()
 
-        fun f(x: Long) = a + (b-a)*x + (x*(x-1)/2L) * ((c-b)-(b-a))
+        fun f(x: Long) = a + (b - a) * x + (x * (x - 1) / 2L) * ((c - b) - (b - a))
 
-        val x = ((steps-x0)/n).toLong()
+        val x = ((this.s2 - x0) / n).toLong()
         return f(x)
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput, steps = 6) == 16)
-
-    val input = readInput("Day${day}")
+fun main() = Day21().run {
     println(part1(input))
-    println(part2(input, steps = 26501365))
+    println(part2(input))
 }

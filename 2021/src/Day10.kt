@@ -1,12 +1,10 @@
-fun main() {
-
-    val day = "10"
+class Day10 : Day<Int, Long>(year = 2021, day = 10) {
 
     val open = listOf('(','[','{','<')
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         var sum = 0
-        for (line in input) {
+        for (line in input.lines()) {
             val stack = mutableListOf<Char>()
             for (ch in line) {
                 val ret = when(ch) {
@@ -30,9 +28,9 @@ fun main() {
         return sum
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         val scores = mutableListOf<Long>()
-        score@for (line in input) {
+        score@for (line in input.lines()) {
             var sum = 0L
             val stack = mutableListOf<Char>()
             for (ch in line) {
@@ -51,12 +49,9 @@ fun main() {
         }
         return scores.sorted()[scores.size/2]
     }
+}
 
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 26397)
-    check(part2(testInput) == 288957L)
-
-    val input = readInput("Day${day}")
+fun main() = Day10().run {
     println(part1(input))
     println(part2(input))
 }

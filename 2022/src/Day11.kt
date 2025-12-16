@@ -1,7 +1,4 @@
-
-fun main() {
-
-    val day = "11"
+class Day11 : Day<Long, Long>(year = 2022, day = 11) {
 
     fun toOperation(input: String): (Long) -> Long {
         val (x, op, y) = input.split(" ")
@@ -55,8 +52,9 @@ fun main() {
         }
     }
 
-    fun simulateGame(input: List<String>, rounds: Int, decreaseWorry: Boolean): Long {
+    fun simulateGame(input: String, rounds: Int, decreaseWorry: Boolean): Long {
         val monkeys = input
+            .lines()
             .filter { it.isNotEmpty() }
             .chunked(6)
             .map { parts ->
@@ -77,20 +75,16 @@ fun main() {
         return monkeys.map { it.inspectionCount }.sortedDescending().take(2).fold(1) { acc, i -> acc * i}
     }
 
-    fun part1(input: List<String>): Long {
+    override fun part1(input: String): Long {
         return simulateGame(input, 20, true)
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         return simulateGame(input, 10_000, false)
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 10605L)
-    check(part2(testInput) == 2713310158)
-
-    val input = readInput("Day${day}")
+fun main() = Day11().run {
     println(part1(input))
     println(part2(input))
 }

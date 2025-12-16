@@ -1,9 +1,9 @@
 import kotlin.math.pow
 
-fun main() {
+class Day02 : Day<Long, Long>(year = 2025, day = 2) {
 
-    fun part1(input: List<String>): Long {
-        val ranges = input.joinToString("").split(",")
+    override fun part1(input: String): Long {
+        val ranges = input.split(",")
         var sum = 0L
         for (range in ranges) {
             val (a, b) = range.split("-")
@@ -17,8 +17,8 @@ fun main() {
         return sum
     }
 
-    fun part2(input: List<String>): Long {
-        val ranges = input.joinToString("").split(",")
+    override fun part2(input: String): Long {
+        val ranges = input.split(",")
         var sum = 0L
         for (range in ranges) {
             val (a, b) = range.split("-")
@@ -35,12 +35,9 @@ fun main() {
         }
         return sum
     }
+}
 
-    val testInput = readInput("Day02_test")
-    check(part1(testInput) == 1227775554L)
-    check(part2(testInput) == 4174379265L)
-
-    val input = readInput("Day02")
-    part1(input).println()
-    part2(input).println()
+fun main() = Day02().run {
+    println(part1(input))
+    println(part2(input))
 }

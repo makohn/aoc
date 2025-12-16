@@ -1,10 +1,7 @@
+class Day10 : Day<Int, Int>(year = 2023, day = 10) {
 
-fun main() {
-
-    val day = "10"
-
-    fun getNeighbours(input: List<String>): Pair<CharCell, Map<CharCell, List<CharCell>>> {
-        val map = input.toCharMatrix()
+    fun getNeighbours(input: String): Pair<CharCell, Map<CharCell, List<CharCell>>> {
+        val map = input.lines().toCharMatrix()
         val (n, m) = map.dimension
 
         lateinit var startCell: CharCell
@@ -30,15 +27,15 @@ fun main() {
         return bfs(startCell) { neighbours[it]!! }
     }
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val (startCell, neighbours) = getNeighbours(input)
         return getMainLoopWithDistance(startCell, neighbours).maxBy { it.value }.value
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val (startCell, neighbours) = getNeighbours(input)
         val mainLoop = getMainLoopWithDistance(startCell, neighbours)
-        val map = input.toCharMatrix()
+        val map = input.lines().toCharMatrix()
         val cleanMap = map
             .mapIndexed { i, row ->
                 row.mapIndexed { j, c -> CharCell(i, j, c) }.map {
@@ -73,20 +70,9 @@ fun main() {
         }
         return insideCount
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    val testInput2 = readInput("Day${day}_test2")
-    val testInput3 = readInput("Day${day}_test3")
-    val testInput4 = readInput("Day${day}_test4")
-    val testInput5 = readInput("Day${day}_test5")
-    check(part1(testInput) == 4)
-    check(part1(testInput2) == 8)
-    check(part2(testInput3) == 4)
-    check(part2(testInput4) == 8)
-    check(part2(testInput5) == 10)
-
-    val input = readInput("Day${day}")
+fun main() = Day10().run {
     println(part1(input))
     println(part2(input))
 }

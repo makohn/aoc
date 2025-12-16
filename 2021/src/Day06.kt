@@ -1,40 +1,25 @@
-import Day06.count
-import Day06.iterate
-import Day06.parse
+class Day06(
+    private val n: Int = 80
+) : Day<Int, Long>(year = 2021, day = 6) {
 
-fun main() {
-
-    val day = "06"
-
-    fun part1(input: List<String>, n: Int): Int {
+    override fun part1(input: String): Int {
         var fish = parse(input)
         repeat(n) { fish = iterate(fish) }
         return fish.count()
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         val fish = parse(input)
         val counts = MutableList(9) { 0L }
         fish.forEach { counts[it]++ }
         return count(counts, 256)
     }
 
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput, 18) == 26)
-    check(part2(testInput) == 26984457539L)
-
-    val input = readInput("Day${day}")
-    println(part1(input, 80))
-    println(part2(input))
-}
-
-object Day06 {
-
-    fun parse(input: List<String>): MutableList<Int> {
-        return input.first().split(',').map { it.toInt() }.toMutableList()
+    private fun parse(input: String): MutableList<Int> {
+        return input.lines().first().split(',').map { it.toInt() }.toMutableList()
     }
 
-    fun iterate(fish: MutableList<Int>): MutableList<Int> {
+    private fun iterate(fish: MutableList<Int>): MutableList<Int> {
         var newFish = fish
             .map { it - 1 }
             .toMutableList()
@@ -43,7 +28,7 @@ object Day06 {
         return newFish
     }
 
-    fun count(counts: MutableList<Long>, n: Int): Long {
+    private fun count(counts: MutableList<Long>, n: Int): Long {
         repeat(n) {
             val nextGen = counts.removeFirst()
             counts[6] += nextGen
@@ -51,4 +36,9 @@ object Day06 {
         }
         return counts.fold(0L) { acc, e -> acc + e}
     }
+}
+
+fun main() = Day06().run {
+    println(part1(input))
+    println(part2(input))
 }

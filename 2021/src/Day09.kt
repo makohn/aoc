@@ -1,9 +1,7 @@
-fun main() {
+class Day09 : Day<Int, Int>(year = 2021, day = 9) {
 
-    val day = "09"
-
-    fun part1(input: List<String>): Int {
-        val grid = input.map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
+    override fun part1(input: String): Int {
+        val grid = input.lines().map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
         var sum = 0
         for (i in grid.indices) for (j in grid[0].indices) {
             val up = if (i > 0) grid[i-1][j] else Int.MAX_VALUE
@@ -15,8 +13,8 @@ fun main() {
         return sum
     }
 
-    fun part2(input: List<String>): Int {
-        val grid = input.map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
+    override fun part2(input: String): Int {
+        val grid = input.lines().map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
         val sum = mutableListOf<Int>()
         for (i in grid.indices) for (j in grid[0].indices) {
             val up = if (i > 0) grid[i-1][j] else Int.MAX_VALUE
@@ -28,27 +26,24 @@ fun main() {
         return sum.sorted().takeLast(3).reduce { a, b -> a * b }
     }
 
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 15)
-    check(part2(testInput) == 1134)
-
-    val input = readInput("Day${day}")
-    println(part1(input))
-    println(part2(input))
-}
-
-private fun getBasin(i: Int, j: Int, grid: Array<IntArray>,
-                     visited: MutableSet<Pair<Int, Int>> = mutableSetOf())
-: MutableSet<Pair<Int, Int>> {
-    if (i !in (0 .. grid.lastIndex) ||
-        j !in (0 .. grid[0].lastIndex) ||
-        grid[i][j] == 9 || (i to j) in visited) {
+    private fun getBasin(i: Int, j: Int, grid: Array<IntArray>,
+                         visited: MutableSet<Pair<Int, Int>> = mutableSetOf())
+            : MutableSet<Pair<Int, Int>> {
+        if (i !in (0 .. grid.lastIndex) ||
+            j !in (0 .. grid[0].lastIndex) ||
+            grid[i][j] == 9 || (i to j) in visited) {
+            return visited
+        }
+        visited.add((i to j))
+        getBasin(i-1, j, grid, visited)
+        getBasin(i+1, j, grid, visited)
+        getBasin(i, j-1, grid, visited)
+        getBasin(i, j+1, grid, visited)
         return visited
     }
-    visited.add((i to j))
-    getBasin(i-1, j, grid, visited)
-    getBasin(i+1, j, grid, visited)
-    getBasin(i, j-1, grid, visited)
-    getBasin(i, j+1, grid, visited)
-    return visited
+}
+
+fun main() = Day09().run {
+    println(part1(input))
+    println(part2(input))
 }

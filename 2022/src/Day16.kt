@@ -1,17 +1,14 @@
-import kotlin.math.max
-
-fun main() {
-
-    val day = "16"
+class Day16 : Day<Int, Int>(year = 2022, day = 16) {
 
     data class Valve(val idx: Int, val flowRate: Int, val tunnels: List<String>)
 
-    fun parseInput(input: List<String>) = input
+    fun parseInput(input: String) = input
+        .lines()
         .map { Regex("([A-Z]{2}|\\d+)").findAll(it).map { res -> res.value }.toList() }
         .mapIndexed { idx, res -> res[0] to Valve(idx, res[1].toInt(), res.drop(2)) }
         .toMap()
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val valves = parseInput(input)
         println(valves)
 
@@ -59,16 +56,12 @@ fun main() {
         return dp[maxTime].maxOf { (_, pressure) -> pressure }
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         return 0
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 1651)
-//    check(part2(testInput) == 0)
-
-    val input = readInput("Day${day}")
+fun main() = Day16().run {
     println(part1(input))
-//    println(part2(input))
+    println(part2(input))
 }

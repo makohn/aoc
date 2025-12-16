@@ -1,7 +1,4 @@
-
-fun main() {
-
-    val day = "15"
+class Day15 : Day<Int, Int>(year = 2023, day = 15) {
 
     fun hash(str: String): Int {
         var curVal = 0
@@ -13,8 +10,8 @@ fun main() {
         return curVal
     }
 
-    fun part1(input: List<String>): Int {
-        val sequence = input.first().split(",")
+    override fun part1(input: String): Int {
+        val sequence = input.lines().first().split(",")
         val ans = sequence.sumOf { hash(it) }
         return ans
     }
@@ -25,8 +22,8 @@ fun main() {
         }
     }
 
-    fun part2(input: List<String>): Int {
-        val sequence = input.first().split(",")
+    override fun part2(input: String): Int {
+        val sequence = input.lines().first().split(",")
         val boxes = Array(256) { mutableListOf<Lens>() }
         for (str in sequence) {
             val (label, opChar, focal) = Regex("([a-z]+)([-=])(\\d?)")
@@ -55,13 +52,9 @@ fun main() {
         }
         return ans
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 1320)
-    check(part2(testInput) == 145)
-
-    val input = readInput("Day${day}")
+fun main() = Day15().run {
     println(part1(input))
     println(part2(input))
 }

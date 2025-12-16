@@ -1,7 +1,4 @@
-
-fun main() {
-
-    val day = "01"
+class Day01 : Day<Int, Int>(year = 2023, day = 1) {
 
     val digits = mapOf(
         "one" to "1",
@@ -21,22 +18,19 @@ fun main() {
         return str
     }
 
-    fun part1(input: List<String>) = input
+    override fun part1(input: String) = input
+        .lines()
         .map { Regex("\\d").findAll(it).map { it.value } }
         .sumOf { (it.first() + it.last()).toInt() }
 
-    fun part2(input: List<String>) = input
+    override fun part2(input: String) = input
+        .lines()
         .map { it.replace(digits) }
         .map { Regex("\\d").findAll(it).map { it.value } }
         .sumOf { (it.first() + it.last()).toInt() }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    val testInput2 = readInput("Day${day}_test2")
-    check(part1(testInput) == 142)
-    check(part2(testInput2) == 281)
-
-    val input = readInput("Day${day}")
+fun main() = Day01().run {
     println(part1(input))
     println(part2(input))
 }

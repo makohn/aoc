@@ -1,8 +1,8 @@
 import java.util.Stack
 
-fun main() {
+class Day05 : Day<String, String>(year = 2022, day = 5) {
 
-    fun part1(input: String): String {
+    override fun part1(input: String): String {
         val stacks = mutableListOf<Stack<Char>>()
         val (vis, moves) = input.split("\n\n")
         vis.lines()
@@ -29,7 +29,7 @@ fun main() {
         return stacks.map { it.last() }.joinToString("")
     }
 
-    fun part2(input: String): String {
+    override fun part2(input: String): String {
         val stacks = mutableListOf<Stack<Char>>()
         val (vis, moves) = input.split("\n\n")
         vis.lines()
@@ -59,13 +59,9 @@ fun main() {
 
         return stacks.map { it.last() }.joinToString("")
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInputFull("Day05_test")
-    check(part1(testInput) == "CMZ")
-    check(part2(testInput) == "MCD")
-
-    val input = readInputFull("Day05")
+fun main() = Day05().run {
     println(part1(input))
     println(part2(input))
 }

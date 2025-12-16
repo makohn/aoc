@@ -1,7 +1,8 @@
-fun main() {
+class Day04 : Day<Int, Int>(year = 2025, day = 4) {
 
-    fun part1(input: List<String>): Int {
-        val grid = Array(input.size) { idx -> input[idx].toCharArray() }
+    override fun part1(input: String): Int {
+        val inputLines = input.lines()
+        val grid = Array(inputLines.size) { idx -> inputLines[idx].toCharArray() }
         val (n, m) = grid.size to grid[0].size
         var sum = 0
         for (i in 0..<n) {
@@ -22,8 +23,9 @@ fun main() {
         return sum
     }
 
-    fun part2(input: List<String>): Int {
-        val grid = Array(input.size) { idx -> input[idx].toCharArray() }
+    override fun part2(input: String): Int {
+        val inputLines = input.lines()
+        val grid = Array(inputLines.size) { idx -> inputLines[idx].toCharArray() }
         val (n, m) = grid.size to grid[0].size
         var prevSum = 0
         var sum = 0
@@ -52,12 +54,9 @@ fun main() {
 
         return sum
     }
+}
 
-    val testInput = readInput("Day04_test")
-    check(part1(testInput) == 13)
-    check(part2(testInput) == 43)
-
-    val input = readInput("Day04")
-    part1(input).println()
-    part2(input).println()
+fun main() = Day04().run {
+    println(part1(input))
+    println(part2(input))
 }

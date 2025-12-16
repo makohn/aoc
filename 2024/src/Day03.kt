@@ -1,22 +1,19 @@
 
-fun main() {
+class Day03() : Day<Int, Int>(year = 2024, day = 3) {
 
-    val day = "03"
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         return Regex("mul\\((\\d+),(\\d+)\\)")
-            .findAll(input.joinToString())
+            .findAll(input)
             .map { it.groupValues }
             .sumOf { it[1].toInt() * it[2].toInt() }
     }
 
-    fun part2(input: List<String>): Int {
-        val str = input.joinToString()
-        var inp = str
+    override fun part2(input: String): Int {
         var acc = 0
         var enabled = true
-        for (i in str.indices) {
-            inp = str.substring(i, str.length)
+        var inp: String
+        for (i in input.indices) {
+            inp = input.substring(i, input.length)
             if (inp.startsWith("do()")) {
                 enabled = true
             }
@@ -32,14 +29,9 @@ fun main() {
         }
         return acc
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    val testInput2 = readInput("Day${day}_test2")
-    check(part1(testInput) == 161)
-    check(part2(testInput2) == 48)
-
-    val input = readInput("Day${day}")
+fun main() = Day03().run {
     println(part1(input))
     println(part2(input))
 }

@@ -1,11 +1,10 @@
 
-fun main() {
+class Day08 : Day<Int, Long>(year = 2023, day = 8) {
 
-    val day = "08"
-
-    fun part1(input: List<String>): Int {
-        val instructions = input.first()
-        val paths = input
+    override fun part1(input: String): Int {
+        val inputLines = input.lines()
+        val instructions = inputLines.first()
+        val paths = inputLines
             .drop(2)
             .map { Regex("[A-Z][A-Z][A-Z]").findAll(it).map { it.value } }
             .associate { seq ->
@@ -26,9 +25,10 @@ fun main() {
         return steps
     }
 
-    fun part2(input: List<String>): Long {
-        val instructions = input.first()
-        val paths = input
+    override fun part2(input: String): Long {
+        val inputLines = input.lines()
+        val instructions = inputLines.first()
+        val paths = inputLines
             .drop(2)
             .map { Regex("[A-Z0-9][A-Z0-9][A-Z0-9]").findAll(it).map { it.value } }
             .associate { seq ->
@@ -59,16 +59,9 @@ fun main() {
             steps++
         }
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    val testInput2 = readInput("Day${day}_test2")
-    val testInput3 = readInput("Day${day}_test3")
-    check(part1(testInput) == 2)
-    check(part1(testInput2) == 6)
-    check(part2(testInput3) == 6L)
-
-    val input = readInput("Day${day}")
+fun main() = Day08().run {
     println(part1(input))
     println(part2(input))
 }

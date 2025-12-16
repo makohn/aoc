@@ -1,7 +1,7 @@
-fun main() {
+class Day11 : Day<Int, Long>(year = 2025, day = 11) {
 
-    fun part1(input: List<String>): Int {
-        val connections = input.map { it.split(":") }.associate { (m, t) -> m to t.trim().split(" ") }
+    override fun part1(input: String): Int {
+        val connections = input.lines().map { it.split(":") }.associate { (m, t) -> m to t.trim().split(" ") }
         val start = connections["you"]!!
 
         var count = 0
@@ -18,8 +18,8 @@ fun main() {
         return count
     }
 
-    fun part2(input: List<String>): Long {
-        val connections = input.map { it.split(":") }.associate { (m, t) -> m to t.trim().split(" ") }
+    override fun part2(input: String): Long {
+        val connections = input.lines().map { it.split(":") }.associate { (m, t) -> m to t.trim().split(" ") }
         data class Node(val value: String, val dac: Boolean, val fft: Boolean)
 
         val cache = HashMap<Node, Long>()
@@ -37,13 +37,9 @@ fun main() {
 
         return findPath(Node("svr", dac = false, fft = false))
     }
+}
 
-    val testInput = readInput("Day11_test")
-    check(part1(testInput) == 5)
-    val testInput2 = readInput("Day11_test2")
-    check(part2(testInput2) == 2L)
-
-    val input = readInput("Day11")
-    part1(input).println()
-    part2(input).println()
+fun main() = Day11().run {
+    println(part1(input))
+    println(part2(input))
 }

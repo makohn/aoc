@@ -1,11 +1,6 @@
-import Day05.parse
-import Day05.visualize
+class Day05 : Day<Int, Int>(year = 2021, day = 5) {
 
-fun main() {
-
-    val day = "05"
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val instructions = parse(input)
         return instructions
             .filter { it.first.first == it.second.first || it.first.second == it.second.second }
@@ -15,7 +10,7 @@ fun main() {
             .filter { it.value >= 2 }.count()
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val instructions = parse(input)
         return instructions
             .flatMap { (it.first .. it.second) }
@@ -24,53 +19,43 @@ fun main() {
             .filter { it.value >= 2 }.count()
     }
 
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 5)
-    check(part2(testInput) == 12)
+    /**
+     * x1 < x2 && y1 < y2
+     * x1 < x2 && y1 > y2
+     * x1 < x2 && y1 = y2
+     *
+     * x1 > x2 && y1 < y2
+     * x1 > x2 && y1 > y2
+     * x1 > x2 && y1 = y2
+     *
+     * x1 = x2 && y1 < y2
+     * x1 = x2 && y1 > y2
+     * x1 = x2 && y1 = y2
+     *
+     */
+    private infix operator fun Pair<Int, Int>.rangeTo(other: Pair<Int, Int>) = generateSequence(this) {
+        if (it.first < other.first && it.second < other.second) it.first + 1 to it.second + 1
+        else if (it.first < other.first && it.second > other.second) it.first + 1 to it.second - 1
+        else if (it.first < other.first) it.first + 1 to it.second
 
-    val input = readInput("Day${day}")
-    println(part1(input))
-    println(part2(input))
-}
+        else if (it.first > other.first && it.second < other.second) it.first -1 to it.second + 1
+        else if (it.first > other.first && it.second > other.second) it.first - 1 to it.second - 1
+        else if (it.first > other.first) it.first - 1 to it.second
 
-/**
- * x1 < x2 && y1 < y2
- * x1 < x2 && y1 > y2
- * x1 < x2 && y1 = y2
- *
- * x1 > x2 && y1 < y2
- * x1 > x2 && y1 > y2
- * x1 > x2 && y1 = y2
- *
- * x1 = x2 && y1 < y2
- * x1 = x2 && y1 > y2
- * x1 = x2 && y1 = y2
- *
- */
-infix operator fun Pair<Int, Int>.rangeTo(other: Pair<Int, Int>) = generateSequence(this) {
-    if (it.first < other.first && it.second < other.second) it.first + 1 to it.second + 1
-    else if (it.first < other.first && it.second > other.second) it.first + 1 to it.second - 1
-    else if (it.first < other.first) it.first + 1 to it.second
+        else if (it.second < other.second) it.first to it.second + 1
+        else if (it.second > other.second) it.first to it.second - 1
+        else null
+    }
 
-    else if (it.first > other.first && it.second < other.second) it.first -1 to it.second + 1
-    else if (it.first > other.first && it.second > other.second) it.first - 1 to it.second - 1
-    else if (it.first > other.first) it.first - 1 to it.second
-
-    else if (it.second < other.second) it.first to it.second + 1
-    else if (it.second > other.second) it.first to it.second - 1
-    else null
-}
-
-object Day05 {
-
-    fun parse(input: List<String>) = input
+    private fun parse(input: String) = input
+        .lines()
         .flatMap { it.split(" -> ").flatMap { p -> p.split(",") } }
         .asSequence().map { it.toInt() }
         .chunked(2).map { it.first() to it.last() }
         .chunked(2).map { it.first() to it.last() }
         .toList()
 
-    fun visualize(map: Map<Pair<Int, Int>, Int>) {
+    private fun visualize(map: Map<Pair<Int, Int>, Int>) {
         val minX = map.minOf { it.key.first }
         val maxX = map.maxOf { it.key.first }
         val minY = map.minOf { it.key.second }
@@ -84,4 +69,9 @@ object Day05 {
             println()
         }
     }
+}
+
+fun main() = Day05().run {
+    println(part1(input))
+    println(part2(input))
 }

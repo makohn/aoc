@@ -1,12 +1,10 @@
 import kotlin.math.abs
 
-fun main() {
+class Day02 : Day<Int, Int>(year = 2024, day = 2) {
 
-    val day = "02"
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         var acc = 0
-        for (line in input) {
+        for (line in input.lines()) {
             val nums = line.split(" ").map { it.toInt() }
             val decreasing = nums[0] > nums[1]
             val res = nums
@@ -18,7 +16,7 @@ fun main() {
         return acc
     }
 
-    fun check(nums: List<Int>): Boolean {
+    private fun check(nums: List<Int>): Boolean {
         val decreasing = nums.sortedDescending() == nums
         return nums
             .zipWithNext()
@@ -26,9 +24,9 @@ fun main() {
             .all { it }
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         var acc = 0
-        for (line in input) {
+        for (line in input.lines()) {
             val nums = line.split(" ").map { it.toInt() }
             val res = check(nums) || nums.mapIndexed { i, _ ->
                 check(nums.subList(0, i) + nums.subList(i+1, nums.size))
@@ -37,13 +35,9 @@ fun main() {
         }
         return acc
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 2)
-    check(part2(testInput) == 4)
-
-    val input = readInput("Day${day}")
+fun main() = Day02().run {
     println(part1(input))
     println(part2(input))
 }

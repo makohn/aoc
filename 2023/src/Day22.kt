@@ -1,9 +1,7 @@
 import kotlin.math.max
 import kotlin.math.min
 
-fun main() {
-
-    val day = "22"
+class Day22 : Day<Int, Int>(year = 2023, day = 22) {
 
     data class Brick(val x0: Int, val y0: Int, var z0: Int, val x1: Int, val y1: Int, var z1: Int) {
         val supportedBricks = mutableSetOf<Brick>()
@@ -26,7 +24,8 @@ fun main() {
         }
     }
 
-    fun parseInput(input: List<String>) = input
+    fun parseInput(input: String) = input
+        .lines()
         .filter { it.isNotBlank() }
         .map { it.numbers() }
         .map { (x0, y0, z0, x1, y1, z1) -> Brick(x0, y0, z0, x1, y1, z1) }
@@ -49,7 +48,7 @@ fun main() {
         return droppedBricks
     }
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val bricks = parseInput(input)
         return dropBricks(bricks)
             .count { brick ->
@@ -58,7 +57,7 @@ fun main() {
             }
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val bricks = parseInput(input)
         val droppedBricks = dropBricks(bricks)
 
@@ -85,13 +84,9 @@ fun main() {
         }
         return ans - droppedBricks.size
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 5)
-    check(part2(testInput) == 7)
-
-    val input = readInput("Day${day}")
+fun main() = Day22().run {
     println(part1(input))
     println(part2(input))
 }

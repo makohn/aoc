@@ -1,11 +1,7 @@
-import Day21.playGame
+class Day21 : Day<Int, Long>(year = 2021, day = 21) {
 
-fun main() {
-
-    val day = "21"
-
-    fun part1(input: List<String>): Int {
-        var playerPositions = input.map { it.last().digitToInt() }
+    override fun part1(input: String): Int {
+        var playerPositions = input.lines().map { it.last().digitToInt() }
         val die = Die()
         var scores = listOf(0, 0)
         var newScores = scores
@@ -22,27 +18,16 @@ fun main() {
         return i * scores.minOf { it }
     }
 
-    fun part2(input: List<String>): Long {
-        val (p1, p2) = input.map { it.last().digitToInt() }
+    override fun part2(input: String): Long {
+        val (p1, p2) = input.lines().map { it.last().digitToInt() }
         val res = playGame(p1, p2)
         return maxOf(res.first, res.second)
     }
 
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 739785)
-    check(part2(testInput) == 444356092776315L)
-
-    val input = readInput("Day${day}")
-    println(part1(input))
-    println(part2(input))
-}
-
-class Die {
-    private var pos = 1
-    fun roll(n: Int) = sequence { while (true) { yield(((pos++ -1) % 100) + 1) } }.take(n)
-}
-
-object Day21 {
+    class Die {
+        private var pos = 1
+        fun roll(n: Int) = sequence { while (true) { yield(((pos++ -1) % 100) + 1) } }.take(n)
+    }
 
     fun playGame(p1: Int, p2: Int): Pair<Long, Long> {
         val cache = mutableMapOf<Quadruple<Int>, Pair<Long, Long>>()
@@ -76,4 +61,9 @@ object Day21 {
         }
         return rollDice(Quadruple(p1, p2, 0, 0))
     }
+}
+
+fun main() = Day21().run {
+    println(part1(input))
+    println(part2(input))
 }

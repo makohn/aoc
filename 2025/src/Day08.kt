@@ -1,10 +1,10 @@
 import kotlin.math.sqrt
 
-fun main() {
+class Day08(val amount: Int = 1000) : Day<Int, Long>(year = 2025, day = 8) {
 
-    fun part1(input: List<String>, amount: Int = 10): Int {
+    override fun part1(input: String): Int {
         data class Vec3(val x: Int, val y: Int, val z: Int)
-        val positions = input.map { it.split(",").map { it.toInt() } }.map { (x,y,z) -> Vec3(x,y,z) }
+        val positions = input.lines().map { it.split(",").map { it.toInt() } }.map { (x,y,z) -> Vec3(x,y,z) }
         data class Connection(val i: Int, val j: Int, val d: Double)
         val connections = ArrayList<Connection>()
         for ((i, v) in positions.withIndex()) for (j in i+1..positions.lastIndex) {
@@ -41,9 +41,9 @@ fun main() {
         return res
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         data class Vec3(val x: Int, val y: Int, val z: Int)
-        val positions = input.map { it.split(",").map { it.toInt() } }.map { (x,y,z) -> Vec3(x,y,z) }
+        val positions = input.lines().map { it.split(",").map { it.toInt() } }.map { (x,y,z) -> Vec3(x,y,z) }
         data class Connection(val i: Int, val j: Int, val d: Double)
         val connections = ArrayList<Connection>()
         for ((i, v) in positions.withIndex()) for (j in i+1..positions.lastIndex) {
@@ -85,12 +85,9 @@ fun main() {
         }
         return 0
     }
+}
 
-    val testInput = readInput("Day08_test")
-    check(part1(testInput) == 40)
-    check(part2(testInput) == 25272L)
-
-    val input = readInput("Day08")
-    println(part1(input, 1000))
+fun main() = Day08().run {
+    println(part1(input))
     println(part2(input))
 }

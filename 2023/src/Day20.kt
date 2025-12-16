@@ -1,7 +1,4 @@
-
-fun main() {
-
-    val day = "20"
+ class Day20 : Day<Int, Long>(year = 2023, day = 20) {
 
     abstract class Module(open val id: String, open val targets: List<String>)
 
@@ -29,8 +26,9 @@ fun main() {
         }
     }
 
-    fun parseInput(input: List<String>): Map<String, Module> {
+    fun parseInput(input: String): Map<String, Module> {
         val modules = input
+            .lines()
             .map { it.split(" -> ") }
             .map { (module, targets) -> getModule(module, targets.split(",").map { it.trim() }) }
             .associateBy { it.id }
@@ -102,7 +100,7 @@ fun main() {
         return highCount to lowCount
     }
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val modules = parseInput(input)
 
         var highCount = 0
@@ -149,19 +147,14 @@ fun main() {
         return cycles
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         val modules = parseInput(input)
         val endModule = modules.filterValues { "rx" in it.targets }.keys.first()
         return findCycles(false, modules, endModule).map { it.value }.lcm()
     }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    val testInput2 = readInput("Day${day}_test2")
-    check(part1(testInput) == 32000000)
-    check(part1(testInput2) == 11687500)
-
-    val input = readInput("Day${day}")
-    println(part1(input))
-    println(part2(input))
 }
+
+ fun main() = Day20().run {
+     println(part1(input))
+     println(part2(input))
+ }

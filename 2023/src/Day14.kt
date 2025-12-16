@@ -1,10 +1,7 @@
+class Day14 : Day<Int, Int>(year = 2023, day = 14) {
 
-fun main() {
-
-    val day = "14"
-
-    fun part1(input: List<String>): Int {
-        val map = input.toCharMatrix()
+    override fun part1(input: String): Int {
+        val map = input.lines().toCharMatrix()
         val (n, m) = map.dimension
 
         var ans = 0
@@ -55,8 +52,8 @@ fun main() {
         return ans
     }
 
-    fun part2(input: List<String>): Int {
-        var map = input.toCharMatrix()
+    override fun part2(input: String): Int {
+        var map = input.lines().toCharMatrix()
 
         var pos: Pair<Int, Int>? = null
         val seen = mutableMapOf<String, Int>()
@@ -83,13 +80,9 @@ fun main() {
         val e = d.split("\n").toCharMatrix()
         return calculateLoad(e)
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 136)
-    check(part2(testInput) == 64)
-
-    val input = readInput("Day${day}")
+fun main() = Day14().run {
     println(part1(input))
     println(part2(input))
 }

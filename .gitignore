@@ -4,3 +4,4 @@
 build
 **/*.txt
 local.properties
+data/

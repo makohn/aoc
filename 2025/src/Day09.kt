@@ -1,9 +1,9 @@
 import kotlin.math.abs
 
-fun main() {
+class Day09 : Day<Long, Long>(year = 2025, day = 9) {
 
-    fun part1(input: List<String>): Long {
-        val tiles = input.map { it.split(",") }.map { (a,b) -> a.toInt() to b.toInt() }
+    override fun part1(input: String): Long {
+        val tiles = input.lines().map { it.split(",") }.map { (a,b) -> a.toInt() to b.toInt() }
         val areas = ArrayList<Long>()
         for (t in tiles.indices) for (u in t+1..tiles.lastIndex) {
             areas.add(abs((1L + tiles[t].first - tiles[u].first) * (1L + tiles[t].second - tiles[u].second)))
@@ -11,11 +11,11 @@ fun main() {
         return areas.max()
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         data class Point(val x: Int, val y: Int) {
             override fun toString() = "[$x, $y]"
         }
-        val points = input.map { it.split(",") }.map { (a,b) -> Point(a.toInt(), b.toInt()) }
+        val points = input.lines().map { it.split(",") }.map { (a,b) -> Point(a.toInt(), b.toInt()) }
 
         val xs = points.map { it.x }.distinct().sorted().toIntArray()
         val ys = points.map { it.y }.distinct().sorted().toIntArray()
@@ -81,12 +81,9 @@ fun main() {
 
         return max
     }
+}
 
-    val testInput = readInput("Day09_test")
-    check(part1(testInput) == 50L)
-    check(part2(testInput) == 24L)
-
-    val input = readInput("Day09")
+fun main() = Day09().run {
     println(part1(input))
     println(part2(input))
 }

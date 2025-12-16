@@ -1,10 +1,10 @@
+class Day04 : Day<Int, Int>(year = 2024, day = 4) {
 
-fun main() {
+    private fun List<String>.toCharMatrix() = Array(size) { idx -> get(idx).toCharArray() }
+    private val Array<CharArray>.dimension get() = size to get(0).size
 
-    val day = "04"
-
-    fun part1(input: List<String>): Int {
-        val grid = input.toCharMatrix()
+    override fun part1(input: String): Int {
+        val grid = input.lines().toCharMatrix()
         val (n, m) = grid.dimension
         var acc = 0
         for (i in 0..< n) {
@@ -23,8 +23,8 @@ fun main() {
         return acc
     }
 
-    fun part2(input: List<String>): Int {
-        val grid = input.toCharMatrix()
+    override fun part2(input: String): Int {
+        val grid = input.lines().toCharMatrix()
         val (n, m) = grid.dimension
         var acc = 0
         for (i in 0..< n) {
@@ -37,13 +37,9 @@ fun main() {
         }
         return acc
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 18)
-    check(part2(testInput) == 9)
-
-    val input = readInput("Day${day}")
+fun main() = Day04().run {
     println(part1(input))
     println(part2(input))
 }

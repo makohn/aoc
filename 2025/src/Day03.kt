@@ -1,10 +1,10 @@
 import kotlin.math.pow
 
-fun main() {
+class Day03 : Day<Int, Long>(year = 2025, day = 3) {
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         var sum = 0
-        for (line in input) {
+        for (line in input.lines()) {
             var max = -1
             var maxPos = -1
             for ((i, d) in line.withIndex()) {
@@ -28,10 +28,10 @@ fun main() {
         return sum
     }
 
-    fun part2(input: List<String>): Long {
+    override fun part2(input: String): Long {
         val m = 11
         var sum = 0L
-        for (line in input) {
+        for (line in input.lines()) {
             val maximums = Array(12) { -1 to -1 }
             for (n in 0..m) {
                 val startIndex = if (n > 0) maximums[n-1].second + 1 else 0
@@ -48,12 +48,9 @@ fun main() {
         }
         return sum
     }
+}
 
-    val testInput = readInput("Day03_test")
-    check(part1(testInput) == 357)
-    check(part2(testInput) == 3121910778619)
-
-    val input = readInput("Day03")
-    part1(input).println()
-    part2(input).println()
+fun main() = Day03().run {
+    println(part1(input))
+    println(part2(input))
 }

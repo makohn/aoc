@@ -2,9 +2,7 @@ import java.util.HashMap
 import kotlin.math.max
 import kotlin.math.min
 
-fun main() {
-
-    val day = "05"
+class Day05 : Day<Long, Long>(year = 2023, day = 5) {
 
     fun LongRange.mapBy(sourceRange: LongRange, destRange: LongRange): Pair<LongRange, List<LongRange>> {
         // `this intersect sourceRange` is slow
@@ -19,8 +17,9 @@ fun main() {
         return mapped to listOf(start, end).filter { !it.isEmpty() }
     }
 
-    fun part1(input: List<String>): Long {
-        val seeds = input
+    override fun part1(input: String): Long {
+        val inputLines = input.lines()
+        val seeds = inputLines
             .first()
             .substringAfter(":")
             .split(" ")
@@ -30,7 +29,7 @@ fun main() {
 
         val maps = mutableMapOf<String, List<Pair<LongRange, LongRange>>>()
         var listOfMap = mutableListOf<Pair<LongRange, LongRange>>()
-        for (line in input.drop(1).filter { it.isNotEmpty() }) {
+        for (line in inputLines.drop(1).filter { it.isNotEmpty() }) {
             if (line.contains("map")) {
                 listOfMap = ArrayList()
                 maps[line] = listOfMap
@@ -60,8 +59,9 @@ fun main() {
         return numbers.values.min()
     }
 
-    fun part2(input: List<String>): Long {
-        val seedRanges = input
+    override fun part2(input: String): Long {
+        val inputLines = input.lines()
+        val seedRanges = inputLines
             .first()
             .substringAfter(":")
             .split(" ")
@@ -73,7 +73,7 @@ fun main() {
 
         val maps = mutableMapOf<String, List<Pair<LongRange, LongRange>>>()
         var listOfMap = mutableListOf<Pair<LongRange, LongRange>>()
-        for (line in input.drop(1).filter { it.isNotEmpty() }) {
+        for (line in inputLines.drop(1).filter { it.isNotEmpty() }) {
             if (line.contains("map")) {
                 listOfMap = ArrayList()
                 maps[line] = listOfMap
@@ -106,13 +106,9 @@ fun main() {
 
         return ranges.map { it.first }.min()
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 35L)
-    check(part2(testInput) == 46L)
-
-    val input = readInput("Day${day}")
+fun main() = Day05().run {
     println(part1(input))
     println(part2(input))
 }

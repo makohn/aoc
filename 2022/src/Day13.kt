@@ -1,6 +1,4 @@
-fun main() {
-
-    val day = "13"
+class Day13 : Day<Int, Int>(year = 2022, day = 13) {
 
     fun eval(str: MutableList<Char>): List<Any> {
         val list = mutableListOf<Any>()
@@ -39,9 +37,9 @@ fun main() {
         return l.size.compareTo(r.size)
     }
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val numRightOrder = input
-            .asSequence()
+            .lineSequence()
             .filter { it.isNotEmpty() }
             .chunked(2)
             .map {
@@ -54,8 +52,9 @@ fun main() {
         return numRightOrder
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val list = input
+            .lineSequence()
             .filter { it.isNotEmpty() }
             .map { eval(it.toMutableList())[0] as List<*> }
             .toMutableList()
@@ -75,13 +74,9 @@ fun main() {
 
         return a * b
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 13)
-    check(part2(testInput) == 140)
-
-    val input = readInput("Day${day}")
+fun main() = Day13().run {
     println(part1(input))
     println(part2(input))
 }

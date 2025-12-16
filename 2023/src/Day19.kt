@@ -1,9 +1,7 @@
 import kotlin.math.min
 import kotlin.math.max
 
-fun main() {
-
-    val day = "19"
+class Day19 : Day<Int, Long>(year = 2023, day = 19) {
 
     data class Part(val x: Int, val m: Int, val a: Int, val s: Int)
 
@@ -90,7 +88,7 @@ fun main() {
         return workflows to parts
     }
 
-    fun part1(input: String): Int {
+    override fun part1(input: String): Int {
         val (workflows, parts) = parse(input)
 
         var ans = 0
@@ -134,20 +132,16 @@ fun main() {
         return acceptedRanges
     }
 
-    fun part2(input: String): Long {
+    override fun part2(input: String): Long {
         val (workflows, _) = parse(input)
 
         val startRange = PartRange(1..4000, 1..4000, 1..4000, 1..4000)
         val ranges = findRange(workflows, "in", startRange)
         return ranges.sumOf { it.countPossibilities() }
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInputString("Day${day}_test")
-    check(part1(testInput) == 19114)
-    check(part2(testInput) == 167409079868000L)
-
-    val input = readInputString("Day${day}")
+fun main() = Day19().run {
     println(part1(input))
     println(part2(input))
 }

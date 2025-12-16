@@ -1,8 +1,8 @@
 import java.lang.IllegalArgumentException
 
-fun main() {
+class Day02 : Day<Int, Int>(year = 2022, day = 2) {
 
-    fun toScore(c:  Char) = when(c) {
+    private fun toScore(c:  Char) = when(c) {
         'X',
         'A' -> 1
         'Y',
@@ -12,7 +12,7 @@ fun main() {
         else -> throw IllegalArgumentException()
     }
 
-    fun calcScore(o: Char, m: Char): Int {
+    private fun calcScore(o: Char, m: Char): Int {
         val sm = toScore(m)
         val so = toScore(o)
         when (m) {
@@ -35,7 +35,7 @@ fun main() {
         return -1
     }
 
-    fun calcScore2(o: Char, m: Char): Int {
+    private fun calcScore2(o: Char, m: Char): Int {
         when (m) {
             'X' -> when (o) {
                 'A' -> return toScore('Z')
@@ -56,18 +56,14 @@ fun main() {
         return -1
     }
 
-    fun part1(input: List<String>) = input
+    override fun part1(input: String) = input.lines()
         .map { it.split(" ") }.sumOf { calcScore(it.first()[0], it.last()[0]) }
 
-    fun part2(input: List<String>) = input
+    override fun part2(input: String) = input.lines()
         .map { it.split(" ") }.sumOf { calcScore2(it.first()[0], it.last()[0]) }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day02_test")
-    check(part1(testInput) == 15)
-    check(part2(testInput) == 12)
-
-    val input = readInput("Day02")
+fun main() = Day02().run {
     println(part1(input))
     println(part2(input))
 }

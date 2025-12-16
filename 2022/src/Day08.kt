@@ -1,7 +1,8 @@
-fun main() {
+class Day08 : Day<Int, Int>(year = 2022, day = 8) {
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val grid = input
+            .lines()
             .map { it.chars().map { c -> c - 48 }.toArray() }.toTypedArray()
 
         val width = grid[0].size
@@ -44,8 +45,9 @@ fun main() {
         return visibleTrees
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val grid = input
+            .lines()
             .map { it.chars().map { c -> c - 48 }.toArray() }.toTypedArray()
 
         val width = grid[0].size
@@ -85,13 +87,9 @@ fun main() {
         }
         return scenicScore.maxOf { it.max() }
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day08_test")
-    check(part1(testInput) == 21)
-    check(part2(testInput) == 8)
-
-    val input = readInput("Day08")
+fun main() = Day08().run {
     println(part1(input))
     println(part2(input))
 }

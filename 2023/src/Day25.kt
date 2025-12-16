@@ -1,7 +1,4 @@
-
-fun main() {
-
-    val day = "25"
+class Day25 : Day<Int, Int>(year = 2023, day = 25){
 
     fun globalMinCut(mat: Array<IntArray>): Pair<Int, List<Int>> {
         var best = Int.MAX_VALUE to listOf<Int>()
@@ -27,8 +24,9 @@ fun main() {
         return best
     }
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val edges = input
+            .lines()
             .map { it.split(":").toList() }
             .flatMap { (k, v) -> v.trim().split(" ").map { setOf(k, it) } }
             .toSet()
@@ -46,10 +44,9 @@ fun main() {
         return b.size * (n - b.size)
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 54)
+    override fun part2(input: String) = 0
+}
 
-    val input = readInput("Day${day}")
+fun main() = Day25().run {
     println(part1(input))
 }

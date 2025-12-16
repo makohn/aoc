@@ -1,4 +1,4 @@
-fun main() {
+class Day04 : Day<Int, Int>(year = 2022, day = 4) {
 
     operator fun IntRange.contains(other: IntRange) = other.first >= this.first && other.last <= this.last
     infix fun IntRange.overlapsWith(other: IntRange) = (
@@ -6,10 +6,10 @@ fun main() {
             (other.first >= this.first && other.first <= this.last) ||
             (other.last >= this.first && other.last <= this.last))
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         var count = 0
         val pairs = mutableListOf<Pair<IntRange, IntRange>>()
-        for (l in input) {
+        for (l in input.lines()) {
             val p = l.split(",")
             val p1 = p[0].split("-")
             val p2 = p[1].split("-")
@@ -27,10 +27,10 @@ fun main() {
         return count
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         var count = 0
         val pairs = mutableListOf<Pair<IntRange, IntRange>>()
-        for (l in input) {
+        for (l in input.lines()) {
             val p = l.split(",")
             val p1 = p[0].split("-")
             val p2 = p[1].split("-")
@@ -47,13 +47,9 @@ fun main() {
         }
         return count
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day04_test")
-    check(part1(testInput) == 2)
-    check(part2(testInput) == 4)
-
-    val input = readInput("Day04")
+fun main() = Day04().run {
     println(part1(input))
     println(part2(input))
 }

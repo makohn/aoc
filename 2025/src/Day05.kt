@@ -1,13 +1,14 @@
-fun main() {
+class Day05 : Day<Int, Long>(year = 2025, day = 5) {
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
+        val lines = input.lines()
         var fresh = 0
-        val sep = input.indexOfFirst { it.isBlank() }
-        val ranges = input.subList(0, sep).map {
+        val sep = lines.indexOfFirst { it.isBlank() }
+        val ranges = lines.subList(0, sep).map {
             val (a, b) = it.split("-")
             a.toLong()..b.toLong()
         }
-        val ingredients = input.subList(sep + 1, input.size).map { it.toLong() }
+        val ingredients = lines.subList(sep + 1, lines.size).map { it.toLong() }
         nextIng@for (ingredient in ingredients) {
             for (range in ranges) {
                 if (ingredient in range) {
@@ -19,9 +20,10 @@ fun main() {
         return fresh
     }
 
-    fun part2(input: List<String>): Long {
-        val sep = input.indexOfFirst { it.isBlank() }
-        val ranges = input.subList(0, sep).map {
+    override fun part2(input: String): Long {
+        val lines = input.lines()
+        val sep = lines.indexOfFirst { it.isBlank() }
+        val ranges = lines.subList(0, sep).map {
             val (a, b) = it.split("-")
             a.toLong()..b.toLong()
         }
@@ -48,12 +50,9 @@ fun main() {
         val res = dr.fold(0L) { acc, r -> acc + (1 + r.last - r.first) }
         return res
     }
+}
 
-    val testInput = readInput("Day05_test")
-    check(part1(testInput) == 3)
-    check(part2(testInput) == 14L)
-
-    val input = readInput("Day05")
+fun main() = Day05().run {
     println(part1(input))
     println(part2(input))
 }

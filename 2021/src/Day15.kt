@@ -1,15 +1,17 @@
 import java.util.*
 
-fun main() {
+typealias Pos = Pair<Int, Int>
 
-    fun part1(input: List<String>): Int {
+class Day15 : Day<Int, Int>(year = 2021, day = 15) {
+
+    override fun part1(input: String): Int {
         val board = parse(input)
         val n = board.size
         val m = board[0].size
         return solve(board, n, m)
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val board = parse(input)
         val n = board.size
         val m = board[0].size
@@ -28,52 +30,48 @@ fun main() {
         return solve(map, n*5, m*5)
     }
 
-    val testInput = readInput("Day15_test")
-    check(part1(testInput) == 40)
-    check(part2(testInput) == 315)
+    private data class Tuple(val cost: Int, val pos: Pos)
 
-    val input = readInput("Day15")
-    println(part1(input))
-    println(part2(input))
-}
+    private fun parse(input: String) =
+        input.lines().map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
 
-data class Tuple(val cost: Int, val pos: Pos)
-typealias Pos = Pair<Int, Int>
+    private fun solve(board: Array<IntArray>, n: Int, m: Int): Int {
 
-private fun parse(input: List<String>) =
-    input.map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
-
-private fun solve(board: Array<IntArray>, n: Int, m: Int): Int {
-
-    fun adjacent(u: Pos) = sequence {
-        val (i, j) = u
-        for ((ii, jj) in listOf(Pos(i-1, j), Pos(i+1, j), Pos(i, j-1), Pos(i, j+1))) {
-            if ((0 <= ii) && (ii < m) && (0 <= jj) && (jj < n)) {
-                yield(Pos(ii, jj) to board[ii][jj])
+        fun adjacent(u: Pos) = sequence {
+            val (i, j) = u
+            for ((ii, jj) in listOf(Pos(i-1, j), Pos(i+1, j), Pos(i, j-1), Pos(i, j+1))) {
+                if ((0 <= ii) && (ii < m) && (0 <= jj) && (jj < n)) {
+                    yield(Pos(ii, jj) to board[ii][jj])
+                }
             }
         }
+
+        return dijkstra(::adjacent, Pos(0, 0), Pos(m-1, n-1))
     }
 
-    return dijkstra(::adjacent, Pos(0, 0), Pos(m-1, n-1))
+    private fun dijkstra(adjacent: (Pos) -> Sequence<Pair<Pos, Int>>, start: Pos, end: Pos): Int {
+        val distances = mutableMapOf(start to 0)
+
+        val queue = PriorityQueue(compareBy(Tuple::cost))
+        queue.add(Tuple(0, start))
+
+        while (queue.isNotEmpty()) {
+            val (cost, u) = queue.remove()
+            if (cost <= distances[u]!!) {
+                for ((v, weight) in adjacent(u)) {
+                    val alt = cost + weight
+                    if (!distances.contains(v) || (alt < distances[v]!!)) {
+                        distances[v] = alt
+                        queue.add(Tuple(alt, v))
+                    }
+                }
+            }
+        }
+        return distances[end]!!
+    }
 }
 
-private fun dijkstra(adjacent: (Pos) -> Sequence<Pair<Pos, Int>>, start: Pos, end: Pos): Int {
-    val distances = mutableMapOf(start to 0)
-
-    val queue = PriorityQueue(compareBy(Tuple::cost))
-    queue.add(Tuple(0, start))
-
-    while (queue.isNotEmpty()) {
-        val (cost, u) = queue.remove()
-        if (cost <= distances[u]!!) {
-           for ((v, weight) in adjacent(u)) {
-              val alt = cost + weight
-               if (!distances.contains(v) || (alt < distances[v]!!)) {
-                   distances[v] = alt
-                   queue.add(Tuple(alt, v))
-               }
-           }
-        }
-    }
-    return distances[end]!!
+fun main() = Day15().run {
+    println(part1(input))
+    println(part2(input))
 }

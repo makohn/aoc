@@ -1,9 +1,6 @@
+class Day13 : Day<Int, Int>(year = 2023, day = 13) {
 
-fun main() {
-
-    val day = "13"
-
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         fun verticalMirrorPosition(pattern: CharMatrix): Int {
             val (n, m) = pattern.dimension
             moveMirror@for (mirror in 1..<m) {
@@ -39,13 +36,12 @@ fun main() {
         }
 
         return input
-            .joinToString("\n")
             .split("\n\n")
             .map { it.split("\n").toCharMatrix() }
             .sumOf { verticalMirrorPosition(it) + 100*horizontalMirrorPosition(it) }
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         fun verticalMirrorPosition(pattern: CharMatrix): Int {
             val (n, m) = pattern.dimension
             for (mirror in 1..<m) {
@@ -83,18 +79,13 @@ fun main() {
         }
 
         return input
-            .joinToString("\n")
             .split("\n\n")
             .map { it.split("\n").toCharMatrix() }
             .sumOf { verticalMirrorPosition(it) + 100*horizontalMirrorPosition(it) }
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 405)
-    check(part2(testInput) == 400)
-
-    val input = readInput("Day${day}")
+fun main() = Day13().run {
     println(part1(input))
     println(part2(input))
 }

@@ -1,7 +1,4 @@
-
-fun main() {
-
-    val day = "14"
+class Day14 : Day<Int, Int>(year = 2022, day = 14) {
 
     data class Pos(val x: Int, val y: Int)
 
@@ -43,8 +40,9 @@ fun main() {
         return sandPos
     }
 
-    fun parseInput(input: List<String>): Pair<MutableMap<Pos, Char>, Pos> {
+    fun parseInput(input: String): Pair<MutableMap<Pos, Char>, Pos> {
         val rockCoordinates = input
+            .lines()
             .map { line ->
                 line.split(" -> ")
                     .map { coord -> coord.split(",") }
@@ -69,7 +67,7 @@ fun main() {
         }.toMutableMap() to Pos(500 - xMin, 0)
     }
 
-    fun part1(input: List<String>): Int {
+    override fun part1(input: String): Int {
         val (map, source) = parseInput(input)
         val (_, y) = map.bounds()
         var sandPos = simulateSand(map, source, y)
@@ -84,7 +82,7 @@ fun main() {
         return c
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): Int {
         val (map, source) = parseInput(input)
         val (_, y) = map.bounds()
         var sandPos = Pos(0, 0)
@@ -98,13 +96,9 @@ fun main() {
         }
         return c
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput).also { println(it) } == 24)
-    check(part2(testInput).also { println(it) } == 93)
-
-    val input = readInput("Day${day}")
+fun main() = Day14().run {
     println(part1(input))
     println(part2(input))
 }

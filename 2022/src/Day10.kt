@@ -1,6 +1,8 @@
-fun main() {
+import aoc.fromAsciiArt
 
-    fun part1(input: List<String>): Int {
+class Day10 : Day<Int, String>(year = 2022, day = 10) {
+
+    override fun part1(input: String): Int {
         var acc = 0
         var x = 1
         var cycle = 0
@@ -12,7 +14,7 @@ fun main() {
             }
         }
 
-        for (parts in input.map { it.split(" ") }) {
+        for (parts in input.lines().map { it.split(" ") }) {
             tick()
             val op = parts[0]
             when (op) {
@@ -26,23 +28,24 @@ fun main() {
         return acc
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(input: String): String {
         var x = 1
         var cycle = 0
         var cursor = 0
+        val sb = StringBuilder()
 
         fun tick() {
             cycle++
             val crt = if (cursor in x-1..x+1) "#" else "."
-            print(crt)
+            sb.append(crt)
             cursor++
             if (cursor == 40) {
-                println()
+                sb.appendLine()
                 cursor = 0
             }
         }
 
-        for (parts in input.map { it.split(" ") }) {
+        for (parts in input.lines().map { it.split(" ") }) {
             tick()
             val op = parts[0]
             if (op == "addx") {
@@ -50,15 +53,11 @@ fun main() {
                 x += parts[1].toInt()
             }
         }
-        return 0
+        return sb.toString().trim().fromAsciiArt()
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day10_test")
-    check(part1(testInput) == 13140)
-    check(part2(testInput) == 0)
-
-    val input = readInput("Day10")
+fun main() = Day10().run {
     println(part1(input))
     println(part2(input))
 }

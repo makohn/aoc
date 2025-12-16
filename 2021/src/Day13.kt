@@ -1,33 +1,28 @@
-fun main() {
+import aoc.fromAsciiArt
 
-    fun part1(input: List<String>): Int {
-        val (dotInstructions, foldInstructions) = Day13Helper.parse(input)
-        return Day13Helper.fold(dotInstructions, foldInstructions, times = 1, visualize = false)
+class Day13 : Day<Int, String>(year = 2021, day = 13) {
+
+    companion object {
+        private const val prefix = "fold along "
+        private const val neutral = 0
     }
 
-    fun part2(input: List<String>): Int {
-        val (dotInstructions, foldInstructions) = Day13Helper.parse(input)
-        return Day13Helper.fold(dotInstructions, foldInstructions, visualize = true)
+    override fun part1(input: String): Int {
+        val (dotInstructions, foldInstructions) = parse(input)
+        return fold(dotInstructions, foldInstructions, times = 1).first
     }
 
-    val testInput = readInput("Day13_test")
-    check(part1(testInput) == 17)
-    check(part2(testInput) == 16)
+    override fun part2(input: String): String {
+        val (dotInstructions, foldInstructions) = parse(input)
+        return fold(dotInstructions, foldInstructions).second
+    }
 
-    val input = readInput("Day13")
-    println(part1(input))
-    println(part2(input))
-}
-
-object Day13Helper {
-    private const val prefix = "fold along "
-    private const val neutral = 0
-
-    fun parse(input: List<String>): Pair<List<MutableList<Int>>, List<Pair<Int, Int>>> {
-        val splitIndex = input.indexOf("")
-        val dotInstructions = input.subList(0, splitIndex)
+    private fun parse(input: String): Pair<List<MutableList<Int>>, List<Pair<Int, Int>>> {
+        val inputLines = input.lines()
+        val splitIndex = inputLines.indexOf("")
+        val dotInstructions = inputLines.subList(0, splitIndex)
             .map { it.split(",").map(String::toInt).toMutableList() }
-        val foldInstructions = input.subList(splitIndex+1, input.size)
+        val foldInstructions = inputLines.subList(splitIndex+1, inputLines.size)
             .map { it.removePrefix(prefix).split("=") }
             .map {
                 if (it.first() == "y") neutral to it.last().toInt()
@@ -36,12 +31,11 @@ object Day13Helper {
         return dotInstructions to foldInstructions
     }
 
-    fun fold(dotInstructions: List<MutableList<Int>>, foldInstructions: List<Pair<Int, Int>>,
-             times: Int = foldInstructions.size, visualize: Boolean = true): Int {
+    private fun fold(dotInstructions: List<MutableList<Int>>, foldInstructions: List<Pair<Int, Int>>,
+             times: Int = foldInstructions.size): Pair<Int, String> {
         var transparent = dotInstructions.toMutableSet()
         var width = transparent.maxOf { it.first() }
         var height = transparent.maxOf { it.last() }
-        if (visualize) visualize(transparent, width, height)
         foldInstructions.forEachIndexed { i, fold ->
             transparent = transparent.map { dot ->
                 dot[0] = if ((fold.first != 0) and (dot.first() > fold.first)) width - dot[0] - (fold.first - width/2) else dot[0]
@@ -52,19 +46,21 @@ object Day13Helper {
             }.toMutableSet()
             width -= if (fold.first != 0) (width - fold.first + 1) else 0
             height -= if (fold.second != 0) (height - fold.second + 1) else 0
-            if (visualize) visualize(transparent, width, height)
-            if (i >= times-1) return@fold transparent.count()
+            val patterns = visualize(transparent, width, height)
+            if (i >= times-1) return@fold transparent.count() to patterns.fromAsciiArt()
         }
-        return -1
+        return -1 to ""
     }
 
-    private fun visualize(dots: Set<MutableList<Int>>, width: Int, height: Int) {
+    private fun visualize(dots: Set<MutableList<Int>>, width: Int, height: Int): String {
         val transparent = mutableListOf<MutableList<Char>>()
         (0 .. height).forEach { _ -> transparent.add(".".repeat(width+1).toMutableList()) }
         dots.forEach { dot -> transparent[dot.last()][dot.first()] = '#' }
-        println("_".repeat(width+1))
-        transparent.forEach{ println(it.joinToString("") ) }
-        println("_".repeat(width+1))
-        println()
+        return transparent.joinToString("\n") { it.joinToString("") }
     }
+}
+
+fun main() = Day13().run {
+    println(part1(input))
+    println(part2(input))
 }

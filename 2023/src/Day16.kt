@@ -1,49 +1,46 @@
+class Day16 : Day<Int, Int>(year = 2023, day = 16) {
 
-private data class Pos(val i: Int, val j: Int, val d: Dir)
+    private data class Pos(val i: Int, val j: Int, val d: Dir)
 
-private enum class Dir {
-    Up,
-    Right,
-    Down,
-    Left;
+    private enum class Dir {
+        Up,
+        Right,
+        Down,
+        Left;
 
-    fun apply(p: Pos) = when(this) {
-        Up -> Pos(p.i-1, p.j, this)
-        Right -> Pos(p.i, p.j+1, this)
-        Left -> Pos(p.i, p.j-1, this)
-        Down -> Pos(p.i+1, p.j, this)
+        fun apply(p: Pos) = when(this) {
+            Up -> Pos(p.i-1, p.j, this)
+            Right -> Pos(p.i, p.j+1, this)
+            Left -> Pos(p.i, p.j-1, this)
+            Down -> Pos(p.i+1, p.j, this)
+        }
+
+        // /
+        // ^ -> >  U  R
+        // > -> ^  R  U
+        // v -> <  D  L
+        // < -> v  L  D
+        fun mirror90() = when(this) {
+            Up -> Right
+            Right -> Up
+            Down -> Left
+            Left -> Down
+        }
+
+        // \
+        // ^ -> <  U  L
+        // > -> v  R  D
+        // v -> >  D  R
+        // < -> ^  L  U
+        fun mirrorMinus90() = when(this) {
+            Up -> Left
+            Right -> Down
+            Down -> Right
+            Left -> Up
+        }
     }
 
-    // /
-    // ^ -> >  U  R
-    // > -> ^  R  U
-    // v -> <  D  L
-    // < -> v  L  D
-    fun mirror90() = when(this) {
-        Up -> Right
-        Right -> Up
-        Down -> Left
-        Left -> Down
-    }
-
-    // \
-    // ^ -> <  U  L
-    // > -> v  R  D
-    // v -> >  D  R
-    // < -> ^  L  U
-    fun mirrorMinus90() = when(this) {
-        Up -> Left
-        Right -> Down
-        Down -> Right
-        Left -> Up
-    }
-}
-
-fun main() {
-
-    val day = "16"
-
-    fun findEnergizedTiles(map: CharMatrix, startPos: Pos): Int {
+    private fun findEnergizedTiles(map: CharMatrix, startPos: Pos): Int {
         val (n, m) = map.dimension
         val seen = HashSet<Pos>()
         val nextSteps = ArrayDeque<Pos>()
@@ -92,13 +89,13 @@ fun main() {
             .count()
     }
 
-    fun part1(input: List<String>): Int {
-        val map = input.toCharMatrix()
+    override fun part1(input: String): Int {
+        val map = input.lines().toCharMatrix()
         return findEnergizedTiles(map, Pos(0, 0, Dir.Right))
     }
 
-    fun part2(input: List<String>): Int {
-        val map = input.toCharMatrix()
+    override fun part2(input: String): Int {
+        val map = input.lines().toCharMatrix()
         val (n, m) = map.dimension
         val startPositions = mutableListOf<Pos>()
         for (y in 0..<m) {
@@ -112,13 +109,9 @@ fun main() {
 
         return startPositions.maxOf { findEnergizedTiles(map, it) }
     }
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day${day}_test")
-    check(part1(testInput) == 46)
-    check(part2(testInput) == 51)
-
-    val input = readInput("Day${day}")
+fun main() = Day16().run {
     println(part1(input))
     println(part2(input))
 }
