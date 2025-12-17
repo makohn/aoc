@@ -1,3 +1,5 @@
+import aoc.list.transpose
+
 class Day04 : Day<Int, Int>(year = 2021, day = 4) {
 
     companion object {

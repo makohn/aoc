@@ -1,3 +1,7 @@
+import aoc.list.combineElements
+import aoc.math.Matrix
+import aoc.math.Matrix4x4
+import aoc.string.extractDoubles
 import kotlin.math.roundToLong
 
 class Day24(
@@ -24,12 +28,10 @@ class Day24(
 
     fun Hailstone.inFuture(p: Vec2) = if (vx > 0) p.x > x else p.x < x
 
-    // TODO: min: Double = 7.0, max: Double = 27.0
-
     override fun part1(input: String): Int {
         val hailstones = input
             .lines()
-            .map { it.numbersAsDouble() }
+            .map { it.extractDoubles() }
             .map { (a, b, c, d, e, f) -> Hailstone(a, b, c, d, e, f) }
 
         val intersections = mutableListOf<Vec2>()
@@ -53,11 +55,11 @@ class Day24(
     override fun part2(input: String): Long {
         val hailstones = input
             .lines()
-            .map { it.numbersAsDouble() }
+            .map { it.extractDoubles() }
             .map { (a, b, c, d, e, f) -> Hailstone(a, b, c, d, e, f) }
 
         val res = hailstones
-            .combinations()
+            .combineElements(2)
             .take(4)
             .map { (h1, h2) ->
                 listOf(h2.vy - h1.vy, h1.vx - h2.vx, h1.y - h2.y, h2.x - h1.x) to

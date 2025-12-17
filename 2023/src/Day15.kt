@@ -1,3 +1,5 @@
+import aoc.list.replaceFirst
+
 class Day15 : Day<Int, Int>(year = 2023, day = 15) {
 
     fun hash(str: String): Int {
@@ -37,7 +39,7 @@ class Day15 : Day<Int, Int>(year = 2023, day = 15) {
                 "-" -> boxes[hash].removeIf { it.label == label }
                 "=" -> {
                     if (boxes[hash].any { it.label == label }) {
-                        boxes[hash].replaceIf(Lens(label, focalLen)) { it.label == label }
+                        boxes[hash].replaceFirst(Lens(label, focalLen)) { it.label == label }
                     } else {
                         boxes[hash].add(Lens(label, focalLen))
                     }

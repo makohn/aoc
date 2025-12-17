@@ -1,3 +1,4 @@
+import aoc.math.lcm
 
 class Day08 : Day<Int, Long>(year = 2023, day = 8) {
 

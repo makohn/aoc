@@ -1,7 +1,9 @@
+import aoc.algorithm.bfs
+
 class Day12 : Day<Int, Int>(year = 2022, day = 12) {
 
     fun solve(input: String, predicate: (Int) -> Boolean, startWith: Char, vararg endWith: Char): Int {
-        val inputMatrix = input.lines().toCharMatrix()
+        val inputMatrix = input.lines().toCharArray2()
         val dataPoints = inputMatrix.dataPoints()
         val startNode = dataPoints.single { it.data == startWith }
 
@@ -11,8 +13,9 @@ class Day12 : Day<Int, Int>(year = 2022, day = 12) {
             else -> this - 'a'
         }
 
+        val directions = arrayOf(Direction.North, Direction.East, Direction.South, Direction.West)
         val visited = bfs(startNode) { p ->
-            inputMatrix.adjacentPoints(p).filter { predicate(it.data.height() - p.data.height()) }
+            inputMatrix.neighborsOf(p, *directions).filter { predicate(it.data.height() - p.data.height()) }
         }
 
         return visited.filter { it.key.data in endWith }.minBy { it.value }.value

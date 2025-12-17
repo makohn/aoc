@@ -1,11 +1,8 @@
 class Day04 : Day<Int, Int>(year = 2024, day = 4) {
 
-    private fun List<String>.toCharMatrix() = Array(size) { idx -> get(idx).toCharArray() }
-    private val Array<CharArray>.dimension get() = size to get(0).size
-
     override fun part1(input: String): Int {
-        val grid = input.lines().toCharMatrix()
-        val (n, m) = grid.dimension
+        val grid = input.lines().toCharArray2()
+        val (n, m) = grid.size2
         var acc = 0
         for (i in 0..< n) {
             for (j in 0..< m) {
@@ -24,8 +21,8 @@ class Day04 : Day<Int, Int>(year = 2024, day = 4) {
     }
 
     override fun part2(input: String): Int {
-        val grid = input.lines().toCharMatrix()
-        val (n, m) = grid.dimension
+        val grid = input.lines().toCharArray2()
+        val (n, m) = grid.size2
         var acc = 0
         for (i in 0..< n) {
             for (j in 0..< m) {

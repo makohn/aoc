@@ -1,3 +1,4 @@
+import aoc.string.extractInts
 import kotlin.math.abs
 
 class Day15(
@@ -5,9 +6,9 @@ class Day15(
     private val range: IntRange = 0..4000000
 ) : Day<Int, Long>(year = 2022, day = 15) {
 
-    fun List<List<Vec2>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
+    fun List<List<Int2>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
         val yDistance = abs(scanner.y - row)
-        val distance = manhattanDistance(scanner, beacon)
+        val distance = scanner distanceTo beacon
         if (yDistance <= distance) {
             (scanner.x - distance) + yDistance..(scanner.x + distance) - yDistance
         } else IntRange.EMPTY
@@ -15,8 +16,8 @@ class Day15(
 
     fun parseInput(input: String) = input
         .lines()
-        .map { it.findInts() }
-        .flatMap { (x1, y1, x2, y2) -> listOf( Vec2(x1, y1), Vec2(x2, y2)) }
+        .map { it.extractInts() }
+        .flatMap { (x1, y1, x2, y2) -> listOf( Int2(x1, y1), Int2(x2, y2)) }
         .chunked(2)
 
     fun List<IntRange>.merge() = this

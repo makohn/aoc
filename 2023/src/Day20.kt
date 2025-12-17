@@ -1,4 +1,6 @@
- class Day20 : Day<Int, Long>(year = 2023, day = 20) {
+import aoc.math.lcm
+
+class Day20 : Day<Int, Long>(year = 2023, day = 20) {
 
     abstract class Module(open val id: String, open val targets: List<String>)
 

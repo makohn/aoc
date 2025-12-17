@@ -1,3 +1,4 @@
+import aoc.math.product
 
 class Day06 : Day<Int, Int>(year = 2023, day = 6) {
 

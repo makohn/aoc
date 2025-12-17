@@ -1,3 +1,4 @@
+import aoc.string.extractInts
 import kotlin.math.max
 import kotlin.math.min
 
@@ -27,7 +28,7 @@ class Day22 : Day<Int, Int>(year = 2023, day = 22) {
     fun parseInput(input: String) = input
         .lines()
         .filter { it.isNotBlank() }
-        .map { it.numbers() }
+        .map { it.extractInts() }
         .map { (x0, y0, z0, x1, y1, z1) -> Brick(x0, y0, z0, x1, y1, z1) }
         .sortedBy { it.z0 }
 

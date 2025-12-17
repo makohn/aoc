@@ -6,7 +6,7 @@ import org.junit.jupiter.api.TestFactory
 
 class AsciiArtUtilsTest {
 
-    private val tests = mapOf(
+    private val testData = mapOf(
         """
         .##..###...##..
         #..#.#..#.#..#.
@@ -18,7 +18,7 @@ class AsciiArtUtilsTest {
     )
 
     @TestFactory
-    fun testConversion() = tests.map { (k, v) ->
+    fun testConversion() = testData.map { (k, v) ->
         DynamicTest.dynamicTest(v) { Assertions.assertEquals(v, k.fromAsciiArt()) }
     }
 }

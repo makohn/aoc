@@ -30,9 +30,9 @@ class Day21 : Day<Int, Long>(year = 2021, day = 21) {
     }
 
     fun playGame(p1: Int, p2: Int): Pair<Long, Long> {
-        val cache = mutableMapOf<Quadruple<Int>, Pair<Long, Long>>()
+        val cache = mutableMapOf<Int4, Pair<Long, Long>>()
 
-        fun rollDice(state: Quadruple<Int>): Pair<Long, Long> {
+        fun rollDice(state: Int4): Pair<Long, Long> {
             val (pos1, pos2, score1, score2) = state
             if (cache.contains(state)) return cache[state]!!
             if (score1 >= 21) return (1L to 0L)
@@ -50,7 +50,7 @@ class Day21 : Day<Int, Long>(year = 2021, day = 21) {
                         val newPos1 = ((pos1 + i + j + k - 1) % 10) + 1
                         val newScore1 = score1 + newPos1
                         // Now roll the dice for player 2 (recursively rolls again for player 1 and so on)
-                        val newScore = rollDice(Quadruple(pos2, newPos1, score2, newScore1))
+                        val newScore = rollDice(Int4(pos2, newPos1, score2, newScore1))
                         // Add the final score for this branch to overall score
                         score = score.first + newScore.second to score.second + newScore.first
                     }
@@ -59,7 +59,7 @@ class Day21 : Day<Int, Long>(year = 2021, day = 21) {
             cache[state] = score
             return score
         }
-        return rollDice(Quadruple(p1, p2, 0, 0))
+        return rollDice(Int4(p1, p2, 0, 0))
     }
 }
 

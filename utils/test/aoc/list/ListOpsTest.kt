@@ -1,10 +1,14 @@
-package aoc
+package aoc.list
 
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.DynamicContainer
+import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.TestFactory
 
-class ListUtilsTest {
+class ListOpsTest {
 
-    private val tests = mapOf(
+    private val combineElementsTestData = mapOf(
         listOf("a", "b", "c", "d") to arrayOf(
             listOf(emptyList<String>()),
             listOf(
@@ -77,9 +81,13 @@ class ListUtilsTest {
         )
     )
 
+    private val transposeTestsData = mapOf(
+        listOf(listOf("a", "b", "c"), listOf(1, 2, 3)) to listOf(listOf("a", 1), listOf("b", 2), listOf("c", 3))
+    )
+
     @TestFactory
     @DisplayName("List.combineElements")
-    fun testCombineElements() = tests.map { (k, v) ->
+    fun testCombineElements() = combineElementsTestData.map { (k, v) ->
         DynamicContainer.dynamicContainer(
             k.joinToString(),
             (0..k.size).map { i ->
@@ -91,5 +99,13 @@ class ListUtilsTest {
                 }
             }
         )
+    }
+
+    @TestFactory
+    @DisplayName("List<List>.transpose")
+    fun testTranspose() = transposeTestsData.map { (k, v) ->
+        DynamicTest.dynamicTest(k.joinToString { it.joinToString("") }) {
+            Assertions.assertEquals(v, k.transpose())
+        }
     }
 }

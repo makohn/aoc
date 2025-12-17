@@ -1,3 +1,5 @@
+import aoc.math.product
+
 class Day03 : Day<Int, Int>(year = 2023, day = 3) {
 
     fun Char.isSymbol(): Boolean {
@@ -5,7 +7,7 @@ class Day03 : Day<Int, Int>(year = 2023, day = 3) {
     }
 
     override fun part1(input: String): Int {
-        val schematic = input.lines().toCharMatrix()
+        val schematic = input.lines().toCharArray2()
         val partNumbers = ArrayList<Int>()
 
         var number = ""
@@ -24,7 +26,7 @@ class Day03 : Day<Int, Int>(year = 2023, day = 3) {
                 when (char) {
                     in '0'..'9' -> {
                         number += char
-                        if (schematic.adjacentTo(i, j).any { it.data.isSymbol() }) isPartNumber = true
+                        if (schematic.neighborsOf(i, j).any { it.data.isSymbol() }) isPartNumber = true
                     }
                     else -> reset()
                 }
@@ -36,9 +38,9 @@ class Day03 : Day<Int, Int>(year = 2023, day = 3) {
     }
 
     override fun part2(input: String): Int {
-        val schematic = input.lines().toCharMatrix()
-        val gearPositions = HashSet<CharCell>()
-        val gearCandidates = HashMap<CharCell, MutableList<Int>>()
+        val schematic = input.lines().toCharArray2()
+        val gearPositions = HashSet<CharPoint>()
+        val gearCandidates = HashMap<CharPoint, MutableList<Int>>()
 
         var number = ""
 
@@ -59,7 +61,7 @@ class Day03 : Day<Int, Int>(year = 2023, day = 3) {
                     in '0'..'9' -> {
                         number += char
                         gearPositions.addAll(schematic
-                            .adjacentTo(i, j)
+                            .neighborsOf(i, j)
                             .filter { it.data == '*' }
                             .toList())
                     }

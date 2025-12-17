@@ -1,6 +1,4 @@
-import java.util.*
-
-typealias Pos = Pair<Int, Int>
+import aoc.algorithm.dijkstra
 
 class Day15 : Day<Int, Int>(year = 2021, day = 15) {
 
@@ -30,44 +28,24 @@ class Day15 : Day<Int, Int>(year = 2021, day = 15) {
         return solve(map, n*5, m*5)
     }
 
-    private data class Tuple(val cost: Int, val pos: Pos)
-
     private fun parse(input: String) =
         input.lines().map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
 
     private fun solve(board: Array<IntArray>, n: Int, m: Int): Int {
 
-        fun adjacent(u: Pos) = sequence {
+        fun adjacent(u: Int2) = buildList {
             val (i, j) = u
-            for ((ii, jj) in listOf(Pos(i-1, j), Pos(i+1, j), Pos(i, j-1), Pos(i, j+1))) {
+            for ((ii, jj) in listOf(Int2(i-1, j), Int2(i+1, j), Int2(i, j-1), Int2(i, j+1))) {
                 if ((0 <= ii) && (ii < m) && (0 <= jj) && (jj < n)) {
-                    yield(Pos(ii, jj) to board[ii][jj])
+                    add(Int2(ii, jj) to board[ii][jj])
                 }
             }
         }
 
-        return dijkstra(::adjacent, Pos(0, 0), Pos(m-1, n-1))
-    }
+        val start = Int2(0, 0)
+        val end = Int2(m-1, n-1)
 
-    private fun dijkstra(adjacent: (Pos) -> Sequence<Pair<Pos, Int>>, start: Pos, end: Pos): Int {
-        val distances = mutableMapOf(start to 0)
-
-        val queue = PriorityQueue(compareBy(Tuple::cost))
-        queue.add(Tuple(0, start))
-
-        while (queue.isNotEmpty()) {
-            val (cost, u) = queue.remove()
-            if (cost <= distances[u]!!) {
-                for ((v, weight) in adjacent(u)) {
-                    val alt = cost + weight
-                    if (!distances.contains(v) || (alt < distances[v]!!)) {
-                        distances[v] = alt
-                        queue.add(Tuple(alt, v))
-                    }
-                }
-            }
-        }
-        return distances[end]!!
+        return dijkstra(start, ::adjacent)[end]!!
     }
 }
 

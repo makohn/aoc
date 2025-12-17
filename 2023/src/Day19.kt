@@ -1,3 +1,4 @@
+import aoc.string.extractInts
 import kotlin.math.min
 import kotlin.math.max
 
@@ -81,7 +82,7 @@ class Day19 : Day<Int, Long>(year = 2023, day = 19) {
             .split("\n")
             .asSequence()
             .filter { it.isNotBlank() }
-            .map { it.numbers() }
+            .map { it.extractInts() }
             .map { (x, m, a, s) -> Part(x, m, a, s) }
             .toList()
 

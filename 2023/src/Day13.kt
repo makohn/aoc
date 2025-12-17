@@ -1,8 +1,8 @@
 class Day13 : Day<Int, Int>(year = 2023, day = 13) {
 
     override fun part1(input: String): Int {
-        fun verticalMirrorPosition(pattern: CharMatrix): Int {
-            val (n, m) = pattern.dimension
+        fun verticalMirrorPosition(pattern: CharArray2): Int {
+            val (n, m) = pattern.size2
             moveMirror@for (mirror in 1..<m) {
                 for (margin in 0..m) {
                     val left = mirror - 1 - margin
@@ -18,8 +18,8 @@ class Day13 : Day<Int, Int>(year = 2023, day = 13) {
             return 0
         }
 
-        fun horizontalMirrorPosition(pattern: CharMatrix): Int {
-            val (n, m) = pattern.dimension
+        fun horizontalMirrorPosition(pattern: CharArray2): Int {
+            val (n, m) = pattern.size2
             moveMirror@for (mirror in 1..<n) {
                 for (margin in 0..n) {
                     val above = mirror - 1 - margin
@@ -37,13 +37,13 @@ class Day13 : Day<Int, Int>(year = 2023, day = 13) {
 
         return input
             .split("\n\n")
-            .map { it.split("\n").toCharMatrix() }
+            .map { it.split("\n").toCharArray2() }
             .sumOf { verticalMirrorPosition(it) + 100*horizontalMirrorPosition(it) }
     }
 
     override fun part2(input: String): Int {
-        fun verticalMirrorPosition(pattern: CharMatrix): Int {
-            val (n, m) = pattern.dimension
+        fun verticalMirrorPosition(pattern: CharArray2): Int {
+            val (n, m) = pattern.size2
             for (mirror in 1..<m) {
                 var error = 0
                 for (margin in 0..m) {
@@ -60,8 +60,8 @@ class Day13 : Day<Int, Int>(year = 2023, day = 13) {
             return 0
         }
 
-        fun horizontalMirrorPosition(pattern: CharMatrix): Int {
-            val (n, m) = pattern.dimension
+        fun horizontalMirrorPosition(pattern: CharArray2): Int {
+            val (n, m) = pattern.size2
             for (mirror in 1..<n) {
                 var error = 0
                 for (margin in 0..n) {
@@ -80,7 +80,7 @@ class Day13 : Day<Int, Int>(year = 2023, day = 13) {
 
         return input
             .split("\n\n")
-            .map { it.split("\n").toCharMatrix() }
+            .map { it.split("\n").toCharArray2() }
             .sumOf { verticalMirrorPosition(it) + 100*horizontalMirrorPosition(it) }
     }
 }

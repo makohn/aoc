@@ -5,11 +5,11 @@ class Day21(
 
     val directions = arrayOf(Direction.North, Direction.East, Direction.South, Direction.West)
 
-    fun countReachableCells(map: CharMatrix, vararg steps: Int, adjacentTo: (CharCell) -> List<CharCell>) = sequence {
-        val charCells = map.flatMapIndexed { i, row -> row.mapIndexed { j, char -> CharCell(i, j, char) } }
+    fun countReachableCells(map: CharArray2, vararg steps: Int, adjacentTo: (CharPoint) -> List<CharPoint>) = sequence {
+        val charCells = map.flatMapIndexed { i, row -> row.mapIndexed { j, char -> CharPoint(i, j, char) } }
         val startCell = charCells.first { it.data == 'S' }
 
-        val newCells = mutableSetOf<CharCell>()
+        val newCells = mutableSetOf<CharPoint>()
         newCells.add(startCell)
 
         for (x in generateSequence(1) { it + 1 }) {
@@ -23,18 +23,18 @@ class Day21(
     }
 
     override fun part1(input: String): Int {
-        val map = input.lines().toCharMatrix()
+        val map = input.lines().toCharArray2()
         return countReachableCells(map, s1) {
-            map.adjacentTo(it, *directions)
+            map.neighborsOf(it, *directions)
         }.take(1).first()
     }
 
     override fun part2(input: String): Long {
-        val map = input.lines().toCharMatrix()
-        val (n, _) = map.dimension
+        val map = input.lines().toCharArray2()
+        val (n, _) = map.size2
         val x0 = s2 % n
         val (a, b, c) = countReachableCells(map, x0, x0 + 1 * n, x0 + 2 * n) {
-            map.adjacentToUnbound(it, *directions)
+            map.neighborsOfUnbound(it, *directions)
         }.take(3).map { it.toLong() }.toList()
 
         fun f(x: Long) = a + (b - a) * x + (x * (x - 1) / 2L) * ((c - b) - (b - a))

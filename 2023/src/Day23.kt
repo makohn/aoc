@@ -11,18 +11,18 @@ class Day23 : Day<Int, Int>(year = 2023, day = 23) {
     )
 
     override fun part1(input: String): Int {
-        val map = input.lines().toCharMatrix()
-        val (n, _) = map.dimension
-        val startCell = map[0].mapIndexed { i, d -> CharCell(0, i, d) }.first { it.data != '#' }
-        val endCell = map[n-1].mapIndexed { i, d -> CharCell(n-1, i, d) }.last { it.data != '#' }
-        val visited = HashSet<CharCell>()
+        val map = input.lines().toCharArray2()
+        val (n, _) = map.size2
+        val startCell = map[0].mapIndexed { i, d -> CharPoint(0, i, d) }.first { it.data != '#' }
+        val endCell = map[n-1].mapIndexed { i, d -> CharPoint(n-1, i, d) }.last { it.data != '#' }
+        val visited = HashSet<CharPoint>()
 
-        fun dfs(node: CharCell): Int {
+        fun dfs(node: CharPoint): Int {
             if (node == endCell) return 0
             var ans = 0
             visited += node
             val neighbours = map
-                .adjacentTo(node, *directions[node.data]!!)
+                .neighborsOf(node, *directions[node.data]!!)
                 .filter { it.data != '#' }
 
             for (otherNode in neighbours) {
@@ -40,27 +40,27 @@ class Day23 : Day<Int, Int>(year = 2023, day = 23) {
     }
 
     override fun part2(input: String): Int {
-        val map = input.lines().toCharMatrix()
-        val (n, _) = map.dimension
-        val charCells = map.toCharCells()
-        val startCell = map[0].mapIndexed { i, d -> CharCell(0, i, d) }.first { it.data != '#' }
-        val endCell = map[n-1].mapIndexed { i, d -> CharCell(n-1, i, d) }.last { it.data != '#' }
+        val map = input.lines().toCharArray2()
+        val (n, _) = map.size2
+        val charCells = map.dataPoints()
+        val startCell = map[0].mapIndexed { i, d -> CharPoint(0, i, d) }.first { it.data != '#' }
+        val endCell = map[n-1].mapIndexed { i, d -> CharPoint(n-1, i, d) }.last { it.data != '#' }
 
         val forks = charCells
             .filter { it.data != '#' }
-            .map { it to map.adjacentTo(it, *directions['.']!!) }
+            .map { it to map.neighborsOf(it, *directions['.']!!) }
             .filter { (_, neighbours) -> neighbours.count { it.data != '#' } >= 3 }
             .map { (fork, _) -> fork }
             .toTypedArray()
 
         val nodes = listOf(startCell, endCell, *forks)
 
-        data class WeightedNode(val cell: CharCell, val weight: Int)
+        data class WeightedNode(val cell: CharPoint, val weight: Int)
 
-        val graph = HashMap<CharCell, HashSet<WeightedNode>>()
+        val graph = HashMap<CharPoint, HashSet<WeightedNode>>()
         for (node in nodes) {
             val stack = ArrayDeque<WeightedNode>()
-            val visited = HashSet<CharCell>()
+            val visited = HashSet<CharPoint>()
             val current = WeightedNode(node, 0)
             stack += current
             visited += current.cell
@@ -72,7 +72,7 @@ class Day23 : Day<Int, Int>(year = 2023, day = 23) {
                     graph[node]!! += otherNode
                 } else {
                     for (neighbour in map
-                        .adjacentTo(otherNode.cell, *directions['.']!!)
+                        .neighborsOf(otherNode.cell, *directions['.']!!)
                         .filter { it.data != '#' && it !in visited }) {
                         stack += WeightedNode(neighbour, otherNode.weight + 1)
                         visited += neighbour
@@ -81,9 +81,9 @@ class Day23 : Day<Int, Int>(year = 2023, day = 23) {
             }
         }
 
-        val visited = HashSet<CharCell>()
+        val visited = HashSet<CharPoint>()
 
-        fun dfs(node: CharCell): Int {
+        fun dfs(node: CharPoint): Int {
             if (node == endCell) return 0
             var ans = -1
             visited += node

@@ -1,4 +1,4 @@
-import aoc.extractInts
+import aoc.string.extractInts
 
 class Day12 : Day<Int, Int>(year = 2025, day = 12) {
 

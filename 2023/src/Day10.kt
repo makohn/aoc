@@ -1,21 +1,23 @@
+import aoc.algorithm.bfs
+
 class Day10 : Day<Int, Int>(year = 2023, day = 10) {
 
-    fun getNeighbours(input: String): Pair<CharCell, Map<CharCell, List<CharCell>>> {
-        val map = input.lines().toCharMatrix()
-        val (n, m) = map.dimension
+    fun getNeighbours(input: String): Pair<CharPoint, Map<CharPoint, List<CharPoint>>> {
+        val map = input.lines().toCharArray2()
+        val (n, m) = map.size2
 
-        lateinit var startCell: CharCell
-        val neighbours = mutableMapOf<CharCell, List<CharCell>>()
+        lateinit var startCell: CharPoint
+        val neighbours = mutableMapOf<CharPoint, List<CharPoint>>()
 
         for (i in 0..<n) for (j in 0..<m) {
-            val currentCell = CharCell(i, j, map[i][j])
+            val currentCell = CharPoint(i, j, map[i][j])
             when (currentCell.data) {
-                '|' -> neighbours[currentCell] = map.adjacentTo(currentCell, Direction.North, Direction.South)
-                '-' -> neighbours[currentCell] = map.adjacentTo(currentCell, Direction.East, Direction.West)
-                'L' -> neighbours[currentCell] = map.adjacentTo(currentCell, Direction.North, Direction.East)
-                'J' -> neighbours[currentCell] = map.adjacentTo(currentCell, Direction.North, Direction.West)
-                '7' -> neighbours[currentCell] = map.adjacentTo(currentCell, Direction.South, Direction.West)
-                'F' -> neighbours[currentCell] = map.adjacentTo(currentCell, Direction.South, Direction.East)
+                '|' -> neighbours[currentCell] = map.neighborsOf(currentCell, Direction.North, Direction.South)
+                '-' -> neighbours[currentCell] = map.neighborsOf(currentCell, Direction.East, Direction.West)
+                'L' -> neighbours[currentCell] = map.neighborsOf(currentCell, Direction.North, Direction.East)
+                'J' -> neighbours[currentCell] = map.neighborsOf(currentCell, Direction.North, Direction.West)
+                '7' -> neighbours[currentCell] = map.neighborsOf(currentCell, Direction.South, Direction.West)
+                'F' -> neighbours[currentCell] = map.neighborsOf(currentCell, Direction.South, Direction.East)
                 'S' -> startCell = currentCell
             }
         }
@@ -23,7 +25,7 @@ class Day10 : Day<Int, Int>(year = 2023, day = 10) {
         return startCell to neighbours
     }
 
-    fun getMainLoopWithDistance(startCell: CharCell, neighbours: Map<CharCell, List<CharCell>>): HashMap<CharCell, Int> {
+    fun getMainLoopWithDistance(startCell: CharPoint, neighbours: Map<CharPoint, List<CharPoint>>): HashMap<CharPoint, Int> {
         return bfs(startCell) { neighbours[it]!! }
     }
 
@@ -35,10 +37,10 @@ class Day10 : Day<Int, Int>(year = 2023, day = 10) {
     override fun part2(input: String): Int {
         val (startCell, neighbours) = getNeighbours(input)
         val mainLoop = getMainLoopWithDistance(startCell, neighbours)
-        val map = input.lines().toCharMatrix()
+        val map = input.lines().toCharArray2()
         val cleanMap = map
             .mapIndexed { i, row ->
-                row.mapIndexed { j, c -> CharCell(i, j, c) }.map {
+                row.mapIndexed { j, c -> CharPoint(i, j, c) }.map {
                     if (it.data == 'S') {
                         val n = neighbours[it]!!.map { it.data }.toSet()
                         when {

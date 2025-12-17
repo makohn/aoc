@@ -14,12 +14,12 @@ class Day17 : Day<Int, Int>(year = 2021, day = 17) {
         return count
     }
 
-    private fun parse(input: String): Quadruple<Int> {
+    private fun parse(input: String): Int4 {
         val (minX, maxX, minY, maxY) = "(-?\\d+)".toRegex().findAll(input).map { it.value.toInt() }.toList()
-        return Quadruple(minX, maxX, minY, maxY)
+        return Int4(minX, maxX, minY, maxY)
     }
 
-    private fun simulate(area: Quadruple<Int>): Pair<Int, Int> {
+    private fun simulate(area: Int4): Pair<Int, Int> {
         var yMax = 0
         var count = 0
         val (_, maxX, minY, maxY) = area
@@ -34,9 +34,9 @@ class Day17 : Day<Int, Int>(year = 2021, day = 17) {
         return yMax to count
     }
 
-    private fun shot(vx: Int, vy: Int, area: Quadruple<Int>): Int {
+    private fun shot(vx: Int, vy: Int, area: Int4): Int {
         val (minX, maxX, minY, maxY) = area
-        var state = Quadruple(0, 0, vx, vy)
+        var state = Int4(0, 0, vx, vy)
         var yMax = 0
         while (true) {
             state = step(state)
@@ -49,13 +49,13 @@ class Day17 : Day<Int, Int>(year = 2021, day = 17) {
         }
     }
 
-    private fun step(state: Quadruple<Int>): Quadruple<Int> {
+    private fun step(state: Int4): Int4 {
         var (x, y, vx, vy) = state
         x += vx
         y += vy
         if (vx > 0) vx-- else if (vx < 0) vx++
         vy--
-        return Quadruple(x, y, vx, vy)
+        return Int4(x, y, vx, vy)
     }
 }
 

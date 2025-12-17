@@ -1,4 +1,4 @@
-package aoc
+package aoc.list
 
 /**
  * Returns a sequence of all possible combinations of elements from this list with length `r`.
@@ -37,4 +37,32 @@ fun <E> List<E>.combineElements(r: Int): Sequence<List<E>> {
             yield(List(r) { pool[indices[it]] })
         }
     }
+}
+
+/**
+ * Transposes a list of equal-sized lists by swapping its rows with its columns.
+ *
+ * For example, a 2x3 list
+ * ```
+ * [a, b, c],
+ * [1, 2, 3]
+ * ```
+ * will be transposed into the 3x2 list
+ * ```
+ * [a, 1],
+ * [b, 2],
+ * [c, 3]
+ * ```
+ *
+ * @param E the type of elements contained in the list.
+ * @return a list of the original list's columns
+ */
+fun <E> List<List<E>>.transpose() = List(this[0].size) { j -> List(size) { i -> this[i][j] } }
+
+/**
+ * Replaces the first element of this list matching the given [predicate].
+ */
+fun <E> MutableList<E>.replaceFirst(element: E, predicate: (E) -> Boolean) {
+    val index = indexOfFirst(predicate)
+    if (index != -1) this[index] = element
 }

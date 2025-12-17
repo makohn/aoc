@@ -1,3 +1,5 @@
+import aoc.list.transpose
+
 class Day03 : Day<Int, Int>(year = 2021, day = 3) {
 
     override fun part1(input: String): Int = input
