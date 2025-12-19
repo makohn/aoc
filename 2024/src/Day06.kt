@@ -23,34 +23,36 @@ class Day06 : Day<Int, Int>(year = 2024, day = 6) {
     override fun part2(input: String): Int {
         val startGrid = input.lines().toCharArray2()
         val (n, m) = startGrid.size2
-        val sp = startGrid.positionOf('^')
-        val sd = Int2(-1, 0)
+        val (si, sj) = startGrid.positionOf('^')
+        val sd = 0
+        val dirs = arrayOf(Int2(-1, 0), Int2(0, 1), Int2(1, 0), Int2(0, -1))
+        val seen = Array(4) { Array(n) { BooleanArray(m) } }
 
-        fun solve(grid: CharArray2, start: Int2, dir: Int2, first: Boolean): Int {
-            val seen = HashSet<Int4>()
-            var p = start
+        fun solve(grid: CharArray2, i: Int, j: Int, dir: Int, first: Boolean): Int {
+            seen.forEach { arr -> arr.forEach { it.fill(false) } }
+            var ii = i
+            var jj = j
             var d = dir
             var c = 0
             while (true) {
-                val (i, j) = p
-                val (di, dj) = p + d
-                val v = Int4(i, j, d.x, d.y)
-                if (v in seen) return 1 else seen.add(v)
+                val di = ii + dirs[d].x
+                val dj = jj + dirs[d].y
+                if (seen[d][ii][jj]) return 1 else seen[d][ii][jj] = true
                 if (di in 0..<n && dj in 0..<m) {
-                    if (grid[di][dj] == '#') {
-                        d = Int2(d.y, -d.x)
-                    } else {
+                    if (grid[di][dj] == '#') d = (d + 1) % 4
+                    else {
                         if (first && grid[di][dj] == '.') {
                             grid[di][dj] = '#'
-                            c += solve(grid, p, d, false)
+                            c += solve(grid, ii, jj, d, false)
                             grid[di][dj] = 'X'
                         }
-                        p += d
+                        ii = di
+                        jj = dj
                     }
                 } else return c
             }
         }
-        return solve(startGrid, sp, sd, true)
+        return solve(startGrid, si, sj, sd, true)
     }
 }
 
