@@ -14,6 +14,12 @@ operator fun <T> List<T>.component6() = get(5)
  * Represents a 2D vector of 32-bit signed integers.
  */
 data class Int2(val x: Int, val y: Int) {
+
+    /**
+     * Adds the other vector to this vector.
+     */
+    operator fun plus(other: Int2) = Int2(this.x + other.x, this.y + other.y)
+
     /**
      * Returns the Manhattan distance to the other vector.
      */
@@ -45,7 +51,8 @@ fun List<String>.toCharArray2(): CharArray2 = Array(size) { get(it).toCharArray(
 /**
  * Returns a string representation of the rows of the specified 2D char array.
  */
-fun CharArray2.rowsToString() = joinToString("\n") { it.contentToString() }
+fun CharArray2.rowsToString(rowSeparator: String = "\n", columnSeparator: String = "") =
+    joinToString(rowSeparator) { it.joinToString(columnSeparator) }
 
 /**
  * Returns a 2D char array of all elements rotated in clockwise direction by 90 degrees.
@@ -69,6 +76,16 @@ fun CharArray2.rotated(): CharArray2 {
     for (i in 0..<n) for (j in 0..<m)
         ret[j][i] = get(n - i - 1)[j]
     return ret
+}
+
+/**
+ * Returns the position of the first occurrence of the specified element in the grid, or `-1, -1` if the specified
+ * element is not contained in the grid.
+ */
+fun CharArray2.positionOf(c: Char): Int2 {
+    val (n, m) = size2
+    for (i in 0..<n) for (j in 0..<m) if (this[i][j] == c) return Int2(i, j)
+    return Int2(-1, -1)
 }
 //endregion
 
