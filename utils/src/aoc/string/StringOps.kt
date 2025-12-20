@@ -17,6 +17,22 @@ package aoc.string
 fun String.extractInts() = Regex("[+-]?\\d+").findAll(this).map { it.value.toInt() }.toList()
 
 /**
+ * Extracts all [Long]s from this [String], respecting their sign.
+ *
+ * For example
+ * ```
+ * "t=2147483648 reports x=2147483701 y=-2147483650".extractLongs()
+ * ```
+ * provides the following list:
+ * ```
+ * [2147483648, 2147483701, -2147483650]
+ * ```
+ *
+ * @return a list of [Long]s found in this [String]
+ */
+fun String.extractLongs() = Regex("[+-]?\\d+").findAll(this).map { it.value.toLong() }.toList()
+
+/**
  * Extracts all [Double]s from this [String], respecting their sign.
  *
  * For example
