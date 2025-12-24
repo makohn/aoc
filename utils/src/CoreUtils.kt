@@ -89,6 +89,23 @@ fun CharArray2.positionOf(c: Char): Int2 {
 }
 //endregion
 
+//region IntArray2
+/**
+ * A 2D array of integers.
+ */
+typealias IntArray2 = Array<IntArray>
+
+/**
+ * Returns the number of rows and columns of this 2D array.
+ */
+val IntArray2.size2 get() = Int2(size, get(0).size)
+
+/**
+ * Returns a 2D [IntArray2] containing the digits of this list's rows.
+ */
+fun List<String>.toIntArray2(): IntArray2 = Array(size) { row -> get(row).map { it.digitToInt() }.toIntArray() }
+//endregion
+
 //region DataPoint
 /**
  * Represents a datum in a 2D grid with its x and y coordinates.
