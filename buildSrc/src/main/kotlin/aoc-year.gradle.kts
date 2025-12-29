@@ -13,6 +13,7 @@ sourceSets {
 
 tasks.withType<JavaExec> {
     isIgnoreExitValue = true
+    workingDir = rootProject.projectDir
 }
 
 tasks.withType<Test> {

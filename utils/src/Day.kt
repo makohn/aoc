@@ -5,7 +5,7 @@
  * @param U the return type of the part 2 solution
  */
 abstract class Day<T, U>(val year: Int, val day: Int) {
-    val input by lazy { readInput(year, day) }
+    val input = readInput(year, day)
     val testInput by lazy { readTestInput(year, day) }
 
     abstract fun part1(input: String): T

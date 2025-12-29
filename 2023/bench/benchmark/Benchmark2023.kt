@@ -1,0 +1,113 @@
+package benchmark
+
+import Day01
+import Day02
+import Day03
+import Day04
+import Day05
+import Day06
+import Day07
+import Day08
+import Day09
+import Day10
+import Day11
+import Day12
+import Day13
+import Day14
+import Day15
+import Day16
+import Day17
+import Day18
+import Day19
+import Day20
+import Day21
+import Day22
+import Day23
+import Day24
+import Day25
+import kotlinx.benchmark.Benchmark
+import kotlinx.benchmark.Scope
+import kotlinx.benchmark.State
+
+@Suppress("Unused")
+@State(Scope.Benchmark)
+open class Benchmark2023 {
+
+    private val day01 = Day01()
+    private val day02 = Day02()
+    private val day03 = Day03()
+    private val day04 = Day04()
+    private val day05 = Day05()
+    private val day06 = Day06()
+    private val day07 = Day07()
+    private val day08 = Day08()
+    private val day09 = Day09()
+    private val day10 = Day10()
+    private val day11 = Day11()
+    private val day12 = Day12()
+    private val day13 = Day13()
+    private val day14 = Day14()
+    private val day15 = Day15()
+    private val day16 = Day16()
+    private val day17 = Day17()
+    private val day18 = Day18()
+    private val day19 = Day19()
+    private val day20 = Day20()
+    private val day21 = Day21()
+    private val day22 = Day22()
+    private val day23 = Day23()
+    private val day24 = Day24()
+    private val day25 = Day25()
+
+    // @formatter:off
+    @Benchmark open fun day01Part1() = day01.part1(day01.input)
+    @Benchmark open fun day01Part2() = day01.part2(day01.input)
+    @Benchmark open fun day02Part1() = day02.part1(day02.input)
+    @Benchmark open fun day02Part2() = day02.part2(day02.input)
+    @Benchmark open fun day03Part1() = day03.part1(day03.input)
+    @Benchmark open fun day03Part2() = day03.part2(day03.input)
+    @Benchmark open fun day04Part1() = day04.part1(day04.input)
+    @Benchmark open fun day04Part2() = day04.part2(day04.input)
+    @Benchmark open fun day05Part1() = day05.part1(day05.input)
+    @Benchmark open fun day05Part2() = day05.part2(day05.input)
+    @Benchmark open fun day06Part1() = day06.part1(day06.input)
+    @Benchmark open fun day06Part2() = day06.part2(day06.input)
+    @Benchmark open fun day07Part1() = day07.part1(day07.input)
+    @Benchmark open fun day07Part2() = day07.part2(day07.input)
+    @Benchmark open fun day08Part1() = day08.part1(day08.input)
+    @Benchmark open fun day08Part2() = day08.part2(day08.input)
+    @Benchmark open fun day09Part1() = day09.part1(day09.input)
+    @Benchmark open fun day09Part2() = day09.part2(day09.input)
+    @Benchmark open fun day10Part1() = day10.part1(day10.input)
+    @Benchmark open fun day10Part2() = day10.part2(day10.input)
+    @Benchmark open fun day11Part1() = day11.part1(day11.input)
+    @Benchmark open fun day11Part2() = day11.part2(day11.input)
+    @Benchmark open fun day12Part1() = day12.part1(day12.input)
+    @Benchmark open fun day12Part2() = day12.part2(day12.input)
+    @Benchmark open fun day13Part1() = day13.part1(day13.input)
+    @Benchmark open fun day13Part2() = day13.part2(day13.input)
+    @Benchmark open fun day14Part1() = day14.part1(day14.input)
+    @Benchmark open fun day14Part2() = day14.part2(day14.input)
+    @Benchmark open fun day15Part1() = day15.part1(day15.input)
+    @Benchmark open fun day15Part2() = day15.part2(day15.input)
+    @Benchmark open fun day16Part1() = day16.part1(day16.input)
+    @Benchmark open fun day16Part2() = day16.part2(day16.input)
+    @Benchmark open fun day17Part1() = day17.part1(day17.input)
+    @Benchmark open fun day17Part2() = day17.part2(day17.input)
+    @Benchmark open fun day18Part1() = day18.part1(day18.input)
+    @Benchmark open fun day18Part2() = day18.part2(day18.input)
+    @Benchmark open fun day19Part1() = day19.part1(day19.input)
+    @Benchmark open fun day19Part2() = day19.part2(day19.input)
+    @Benchmark open fun day20Part1() = day20.part1(day20.input)
+    @Benchmark open fun day20Part2() = day20.part2(day20.input)
+    @Benchmark open fun day21Part1() = day21.part1(day21.input)
+    @Benchmark open fun day21Part2() = day21.part2(day21.input)
+    @Benchmark open fun day22Part1() = day22.part1(day22.input)
+    @Benchmark open fun day22Part2() = day22.part2(day22.input)
+    @Benchmark open fun day23Part1() = day23.part1(day23.input)
+    @Benchmark open fun day23Part2() = day23.part2(day23.input)
+    @Benchmark open fun day24Part1() = day24.part1(day24.input)
+    @Benchmark open fun day24Part2() = day24.part2(day24.input)
+    @Benchmark open fun day25Part1() = day25.part1(day25.input)
+    // @formatter:on
+}
