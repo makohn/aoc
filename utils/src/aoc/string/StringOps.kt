@@ -1,3 +1,5 @@
+@file:Suppress("DuplicatedCode")
+
 package aoc.string
 
 /**
@@ -14,7 +16,36 @@ package aoc.string
  *
  * @return a list of [Int]s found in this [String]
  */
-fun String.extractInts() = Regex("[+-]?\\d+").findAll(this).map { it.value.toInt() }.toList()
+fun String.extractInts(): List<Int> = buildList {
+    val n = this@extractInts.length
+    var i = 0
+
+    nextInt@ while (true) {
+        var value = 0
+        var sign = 1
+
+        while (true) {
+            if (i == n) break@nextInt
+            when (val c = this@extractInts[i++]) {
+                in '0'..'9' -> {
+                    value += c - '0'
+                    break
+                }
+
+                '-' -> sign = -1
+                else -> sign = 1
+            }
+        }
+
+        while (i < n) {
+            val c = this@extractInts[i++]
+            if (c !in '0'..'9') break
+            value = value * 10 + (c - '0')
+        }
+
+        add(value * sign)
+    }
+}
 
 /**
  * Extracts all [Long]s from this [String], respecting their sign.
@@ -30,7 +61,36 @@ fun String.extractInts() = Regex("[+-]?\\d+").findAll(this).map { it.value.toInt
  *
  * @return a list of [Long]s found in this [String]
  */
-fun String.extractLongs() = Regex("[+-]?\\d+").findAll(this).map { it.value.toLong() }.toList()
+fun String.extractLongs(): List<Long> = buildList {
+    val n = this@extractLongs.length
+    var i = 0
+
+    nextLong@ while (true) {
+        var value = 0L
+        var sign = 1
+
+        while (true) {
+            if (i == n) break@nextLong
+            when (val c = this@extractLongs[i++]) {
+                in '0'..'9' -> {
+                    value += c - '0'
+                    break
+                }
+
+                '-' -> sign = -1
+                else -> sign = 1
+            }
+        }
+
+        while (i < n) {
+            val c = this@extractLongs[i++]
+            if (c !in '0'..'9') break
+            value = value * 10 + (c - '0')
+        }
+
+        add(value * sign)
+    }
+}
 
 /**
  * Extracts all [Double]s from this [String], respecting their sign.
