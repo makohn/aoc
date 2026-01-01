@@ -1,4 +1,4 @@
-import aoc.list.transpose
+import util.iter.transpose
 
 class Day04 : Day<Int, Int>(year = 2021, day = 4) {
 

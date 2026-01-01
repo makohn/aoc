@@ -1,4 +1,4 @@
-import aoc.string.extractInts
+import util.parse.extractInts
 
 class Day14(
     private val w: Int = 101,

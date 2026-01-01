@@ -1,7 +1,7 @@
-import aoc.list.combineElements
-import aoc.math.Matrix
-import aoc.math.Matrix4x4
-import aoc.string.extractDoubles
+import util.iter.combineElements
+import util.math.Matrix
+import util.math.Matrix4x4
+import util.parse.extractDoubles
 import kotlin.math.roundToLong
 
 class Day24(

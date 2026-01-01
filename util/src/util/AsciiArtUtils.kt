@@ -1,4 +1,4 @@
-package aoc
+package util
 
 private val ASCII_ART_LETTERS = intArrayOf(
     0x699f99, 0xe9e99e, 0x698896, 0xe9999e, 0xf8e88f, 0xf8e888, 0x698b97, 0x99f999,

@@ -1,4 +1,4 @@
-import aoc.list.replaceFirst
+import util.iter.replaceFirst
 
 class Day15 : Day<Int, Int>(year = 2023, day = 15) {
 

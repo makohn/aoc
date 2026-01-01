@@ -1,4 +1,4 @@
-import aoc.fromAsciiArt
+import util.fromAsciiArt
 
 class Day13 : Day<Int, String>(year = 2021, day = 13) {
 

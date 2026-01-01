@@ -1,4 +1,4 @@
-import aoc.string.extractLongs
+import util.parse.extractLongs
 
 class Day11 : Day<Long, Long>(year = 2024, day = 11) {
 

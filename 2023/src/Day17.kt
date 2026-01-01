@@ -1,4 +1,4 @@
-import aoc.algorithm.dijkstra
+import util.algorithm.dijkstra
 
 class Day17 : Day<Int, Int>(year = 2023, day = 17){
 

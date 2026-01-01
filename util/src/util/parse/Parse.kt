@@ -1,6 +1,6 @@
 @file:Suppress("DuplicatedCode")
 
-package aoc.string
+package util.parse
 
 /**
  * Extracts all [Int]s from this [String], respecting their sign.

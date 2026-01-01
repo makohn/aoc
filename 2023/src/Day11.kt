@@ -1,4 +1,4 @@
-import aoc.list.transpose
+import util.iter.transpose
 import kotlin.math.abs
 
 class Day11(val addEmpty: Int = 1_000_000) : Day<Int, Long>(year = 2023, day = 11) {

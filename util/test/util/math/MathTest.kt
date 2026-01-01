@@ -1,11 +1,11 @@
-package aoc.math
+package util.math
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 
-class MathOpsTest {
+class MathTest {
 
     private val gcdTestData = mapOf(
         (8L to 12L) to 4L,

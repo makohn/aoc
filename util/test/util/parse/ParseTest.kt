@@ -1,11 +1,11 @@
-package aoc.string
+package util.parse
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 
-class StringOpsTest {
+class ParseTest {
 
     private val extractIntsTestData = mapOf(
         "1, 2 sub, 5.923 7.8 -8.7 add 205.1234 10.99999" to listOf(1, 2, 5, 923, 7, 8, -8, 7, 205, 1234, 10, 99999),

@@ -1,4 +1,4 @@
-import aoc.string.extractInts
+import util.parse.extractInts
 import kotlin.math.min
 import kotlin.math.max
 

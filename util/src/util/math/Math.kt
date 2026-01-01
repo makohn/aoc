@@ -1,4 +1,4 @@
-package aoc.math
+package util.math
 
 //region Number-theoretic algorithms
 /**

@@ -1,4 +1,4 @@
-package aoc.list
+package util.iter
 
 /**
  * Returns a sequence of all possible combinations of elements from this list with length `r`.

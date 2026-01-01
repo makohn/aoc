@@ -1,4 +1,4 @@
-import aoc.algorithm.bfs
+import util.algorithm.bfs
 
 class Day10 : Day<Int, Int>(year = 2023, day = 10) {
 

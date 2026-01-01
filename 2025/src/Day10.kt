@@ -1,4 +1,4 @@
-import aoc.list.combineElements
+import util.iter.combineElements
 import kotlin.math.min
 
 class Day10 : Day<Int, Int>(year = 2025, day = 10) {

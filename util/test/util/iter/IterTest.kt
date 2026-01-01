@@ -1,4 +1,4 @@
-package aoc.list
+package util.iter
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 
-class ListOpsTest {
+class IterTest {
 
     private val combineElementsTestData = mapOf(
         listOf("a", "b", "c", "d") to arrayOf(

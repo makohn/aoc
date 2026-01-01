@@ -1,4 +1,4 @@
-package aoc.math
+package util.math
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName

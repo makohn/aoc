@@ -22,6 +22,6 @@ tasks.withType<Test> {
 }
 
 dependencies {
-    implementation(project(":utils"))
-    testImplementation(project(":test-utils"))
+    implementation(project(":util"))
+    testImplementation(project(":tests"))
 }

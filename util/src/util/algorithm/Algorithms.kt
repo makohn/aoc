@@ -1,4 +1,4 @@
-package aoc.algorithm
+package util.algorithm
 
 import java.util.PriorityQueue
 import kotlin.collections.plusAssign

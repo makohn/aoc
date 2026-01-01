@@ -1,4 +1,4 @@
-import aoc.algorithm.bfs
+import util.algorithm.bfs
 
 class Day12 : Day<Int, Int>(year = 2022, day = 12) {
 
