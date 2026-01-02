@@ -1,5 +1,3 @@
-import kotlin.math.abs
-
 //region List Extensions
 /**
  * Returns 6th *element* from the list.
@@ -16,27 +14,6 @@ operator fun <T> List<T>.component6() = get(5)
 data class Int4(val x: Int, val y: Int, val z: Int, val w: Int)
 //endregion
 
-//region Point
-/**
- * Represents a coordinate in a 2D grid.
- *
- * @param i the row
- * @param j the column
- */
-data class Point(val i: Int, val j: Int) {
-
-    /**
-     * Adds the other point to this point.
-     */
-    operator fun plus(other: Point) = Point(this.i + other.i, this.j + other.j)
-
-    /**
-     * Returns the Manhattan distance to the other point.
-     */
-    infix fun distanceTo(other: Point) = abs(this.i - other.i) + abs(this.j - other.j)
-}
-//endregion
-
 //region CharGrid
 /**
  * A 2D grid of chars.
@@ -44,7 +21,7 @@ data class Point(val i: Int, val j: Int) {
 typealias CharGrid = Array<CharArray>
 
 /**
- * Returns the shape (rows, columns) of this 2D grid.
+ * Returns the shape `(m, n)` (rows, columns) of this 2D grid.
  */
 val CharGrid.shape get() = Point(size, get(0).size)
 
@@ -101,7 +78,7 @@ fun CharGrid.positionOf(c: Char): Point {
 typealias IntGrid = Array<IntArray>
 
 /**
- * Returns the shape (rows, columns) of this 2D grid.
+ * Returns the shape `(m, n)` (rows, columns) of this 2D grid.
  */
 val IntGrid.shape get() = Point(size, get(0).size)
 

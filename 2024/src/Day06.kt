@@ -3,7 +3,7 @@ class Day06 : Day<Int, Int>(year = 2024, day = 6) {
     override fun part1(input: String): Int {
         val grid = input.lines().toCharGrid()
         val (n, m) = grid.shape
-        var p = grid.positionOf('^')
+        val p = grid.positionOf('^')
         var d = Point(-1, 0)
         var c = 1
         while (true) {

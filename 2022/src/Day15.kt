@@ -8,7 +8,7 @@ class Day15(
 
     fun List<List<Point>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
         val yDistance = abs(scanner.j - row)
-        val distance = scanner distanceTo beacon
+        val distance = scanner.distanceTo(beacon)
         if (yDistance <= distance) {
             (scanner.i - distance) + yDistance..(scanner.i + distance) - yDistance
         } else IntRange.EMPTY
