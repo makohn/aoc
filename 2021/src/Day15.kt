@@ -33,17 +33,17 @@ class Day15 : Day<Int, Int>(year = 2021, day = 15) {
 
     private fun solve(board: Array<IntArray>, n: Int, m: Int): Int {
 
-        fun adjacent(u: Int2) = buildList {
+        fun adjacent(u: Point) = buildList {
             val (i, j) = u
-            for ((ii, jj) in listOf(Int2(i-1, j), Int2(i+1, j), Int2(i, j-1), Int2(i, j+1))) {
+            for ((ii, jj) in listOf(Point(i-1, j), Point(i+1, j), Point(i, j-1), Point(i, j+1))) {
                 if ((0 <= ii) && (ii < m) && (0 <= jj) && (jj < n)) {
-                    add(Int2(ii, jj) to board[ii][jj])
+                    add(Point(ii, jj) to board[ii][jj])
                 }
             }
         }
 
-        val start = Int2(0, 0)
-        val end = Int2(m-1, n-1)
+        val start = Point(0, 0)
+        val end = Point(m-1, n-1)
 
         return dijkstra(start, ::adjacent)[end]!!
     }

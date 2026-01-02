@@ -11,8 +11,8 @@ class Day23 : Day<Int, Int>(year = 2023, day = 23) {
     )
 
     override fun part1(input: String): Int {
-        val map = input.lines().toCharArray2()
-        val (n, _) = map.size2
+        val map = input.lines().toCharGrid()
+        val (n, _) = map.shape
         val startCell = map[0].mapIndexed { i, d -> CharPoint(0, i, d) }.first { it.data != '#' }
         val endCell = map[n-1].mapIndexed { i, d -> CharPoint(n-1, i, d) }.last { it.data != '#' }
         val visited = HashSet<CharPoint>()
@@ -40,8 +40,8 @@ class Day23 : Day<Int, Int>(year = 2023, day = 23) {
     }
 
     override fun part2(input: String): Int {
-        val map = input.lines().toCharArray2()
-        val (n, _) = map.size2
+        val map = input.lines().toCharGrid()
+        val (n, _) = map.shape
         val charCells = map.dataPoints()
         val startCell = map[0].mapIndexed { i, d -> CharPoint(0, i, d) }.first { it.data != '#' }
         val endCell = map[n-1].mapIndexed { i, d -> CharPoint(n-1, i, d) }.last { it.data != '#' }

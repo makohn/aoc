@@ -3,7 +3,7 @@ import util.algorithm.bfs
 class Day12 : Day<Int, Int>(year = 2022, day = 12) {
 
     fun solve(input: String, predicate: (Int) -> Boolean, startWith: Char, vararg endWith: Char): Int {
-        val inputMatrix = input.lines().toCharArray2()
+        val inputMatrix = input.lines().toCharGrid()
         val dataPoints = inputMatrix.dataPoints()
         val startNode = dataPoints.single { it.data == startWith }
 

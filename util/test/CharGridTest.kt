@@ -3,7 +3,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 
-class CharArray2Test {
+class CharGridTest {
 
     private val rotatedTestData = mapOf(
         arrayOf(
@@ -18,7 +18,7 @@ class CharArray2Test {
     )
 
     @TestFactory
-    @DisplayName("CharArray2.rotated")
+    @DisplayName("CharGrid.rotated")
     fun testRotated() = rotatedTestData.map { (k, v) ->
         DynamicTest.dynamicTest(k.rowsToString()) {
             Assertions.assertArrayEquals(v, k.rotated())

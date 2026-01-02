@@ -1,16 +1,16 @@
 class Day10 : Day<Int, Int>(year = 2024, day = 10) {
 
     override fun part1(input: String): Int {
-        val grid = input.lines().toIntArray2()
-        val (n, m) = grid.size2
+        val grid = input.lines().toIntGrid()
+        val (n, m) = grid.shape
 
         val di = intArrayOf(-1, 0, 1, 0)
         val dj = intArrayOf(0, 1, 0, -1)
 
-        fun findPath(i :Int, j: Int, found: HashSet<Int2>) {
+        fun findPath(i :Int, j: Int, found: HashSet<Point>) {
             val v = grid[i][j]
             if (v == 9) {
-                found.add(Int2(i, j))
+                found.add(Point(i, j))
                 return
             }
             for (x in 0..3) {
@@ -25,7 +25,7 @@ class Day10 : Day<Int, Int>(year = 2024, day = 10) {
         var sum = 0
         for (i in 0..<n) for (j in 0..<m) {
             if (grid[i][j] == 0) {
-                val found = HashSet<Int2>()
+                val found = HashSet<Point>()
                 findPath(i, j, found)
                 sum += found.size
             }
@@ -34,8 +34,8 @@ class Day10 : Day<Int, Int>(year = 2024, day = 10) {
     }
 
     override fun part2(input: String): Int {
-        val grid = input.lines().toIntArray2()
-        val (n, m) = grid.size2
+        val grid = input.lines().toIntGrid()
+        val (n, m) = grid.shape
 
         val di = intArrayOf(-1, 0, 1, 0)
         val dj = intArrayOf(0, 1, 0, -1)

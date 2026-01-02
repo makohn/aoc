@@ -3,8 +3,8 @@ import util.algorithm.dijkstra
 class Day17 : Day<Int, Int>(year = 2023, day = 17){
 
     override fun part1(input: String): Int {
-        val map = input.lines().toCharArray2()
-        val (n, m) = map.size2
+        val map = input.lines().toCharGrid()
+        val (n, m) = map.shape
 
         data class Node(val x: Int, val y: Int, val d: Direction, val s: Int)
 
@@ -26,8 +26,8 @@ class Day17 : Day<Int, Int>(year = 2023, day = 17){
     }
 
     override fun part2(input: String): Int {
-        val map = input.lines().toCharArray2()
-        val (n, m) = map.size2
+        val map = input.lines().toCharGrid()
+        val (n, m) = map.shape
 
         data class Node(val x: Int, val y: Int, val d: Direction, val s: Int)
 

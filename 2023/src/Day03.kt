@@ -7,7 +7,7 @@ class Day03 : Day<Int, Int>(year = 2023, day = 3) {
     }
 
     override fun part1(input: String): Int {
-        val schematic = input.lines().toCharArray2()
+        val schematic = input.lines().toCharGrid()
         val partNumbers = ArrayList<Int>()
 
         var number = ""
@@ -38,7 +38,7 @@ class Day03 : Day<Int, Int>(year = 2023, day = 3) {
     }
 
     override fun part2(input: String): Int {
-        val schematic = input.lines().toCharArray2()
+        val schematic = input.lines().toCharGrid()
         val gearPositions = HashSet<CharPoint>()
         val gearCandidates = HashMap<CharPoint, MutableList<Int>>()
 

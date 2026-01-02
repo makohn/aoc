@@ -5,7 +5,7 @@ class Day21(
 
     val directions = arrayOf(Direction.North, Direction.East, Direction.South, Direction.West)
 
-    fun countReachableCells(map: CharArray2, vararg steps: Int, adjacentTo: (CharPoint) -> List<CharPoint>) = sequence {
+    fun countReachableCells(map: CharGrid, vararg steps: Int, adjacentTo: (CharPoint) -> List<CharPoint>) = sequence {
         val charCells = map.flatMapIndexed { i, row -> row.mapIndexed { j, char -> CharPoint(i, j, char) } }
         val startCell = charCells.first { it.data == 'S' }
 
@@ -23,15 +23,15 @@ class Day21(
     }
 
     override fun part1(input: String): Int {
-        val map = input.lines().toCharArray2()
+        val map = input.lines().toCharGrid()
         return countReachableCells(map, s1) {
             map.neighborsOf(it, *directions)
         }.take(1).first()
     }
 
     override fun part2(input: String): Long {
-        val map = input.lines().toCharArray2()
-        val (n, _) = map.size2
+        val map = input.lines().toCharGrid()
+        val (n, _) = map.shape
         val x0 = s2 % n
         val (a, b, c) = countReachableCells(map, x0, x0 + 1 * n, x0 + 2 * n) {
             map.neighborsOfUnbound(it, *directions)

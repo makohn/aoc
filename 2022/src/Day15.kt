@@ -6,18 +6,18 @@ class Day15(
     private val range: IntRange = 0..4000000
 ) : Day<Int, Long>(year = 2022, day = 15) {
 
-    fun List<List<Int2>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
-        val yDistance = abs(scanner.y - row)
+    fun List<List<Point>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
+        val yDistance = abs(scanner.j - row)
         val distance = scanner distanceTo beacon
         if (yDistance <= distance) {
-            (scanner.x - distance) + yDistance..(scanner.x + distance) - yDistance
+            (scanner.i - distance) + yDistance..(scanner.i + distance) - yDistance
         } else IntRange.EMPTY
     }
 
     fun parseInput(input: String) = input
         .lines()
         .map { it.extractInts() }
-        .flatMap { (x1, y1, x2, y2) -> listOf( Int2(x1, y1), Int2(x2, y2)) }
+        .flatMap { (x1, y1, x2, y2) -> listOf( Point(x1, y1), Point(x2, y2)) }
         .chunked(2)
 
     fun List<IntRange>.merge() = this

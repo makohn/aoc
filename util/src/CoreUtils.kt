@@ -9,53 +9,58 @@ import kotlin.math.abs
 operator fun <T> List<T>.component6() = get(5)
 //endregion
 
-//region Vector Types
-/**
- * Represents a 2D vector of 32-bit signed integers.
- */
-data class Int2(val x: Int, val y: Int) {
-
-    /**
-     * Adds the other vector to this vector.
-     */
-    operator fun plus(other: Int2) = Int2(this.x + other.x, this.y + other.y)
-
-    /**
-     * Returns the Manhattan distance to the other vector.
-     */
-    infix fun distanceTo(other: Int2) = abs(this.x - other.x) + abs(this.y - other.y)
-}
-
+// region Vector Types
 /**
  * Represents a 4D vector of 32-bit signed integers.
  */
 data class Int4(val x: Int, val y: Int, val z: Int, val w: Int)
 //endregion
 
-//region CharArray2
+//region Point
 /**
- * A 2D array of chars.
+ * Represents a coordinate in a 2D grid.
+ *
+ * @param i the row
+ * @param j the column
  */
-typealias CharArray2 = Array<CharArray>
+data class Point(val i: Int, val j: Int) {
+
+    /**
+     * Adds the other point to this point.
+     */
+    operator fun plus(other: Point) = Point(this.i + other.i, this.j + other.j)
+
+    /**
+     * Returns the Manhattan distance to the other point.
+     */
+    infix fun distanceTo(other: Point) = abs(this.i - other.i) + abs(this.j - other.j)
+}
+//endregion
+
+//region CharGrid
+/**
+ * A 2D grid of chars.
+ */
+typealias CharGrid = Array<CharArray>
 
 /**
- * Returns the number of rows and columns of this 2D array.
+ * Returns the shape (rows, columns) of this 2D grid.
  */
-val CharArray2.size2 get() = Int2(size, get(0).size)
+val CharGrid.shape get() = Point(size, get(0).size)
 
 /**
- * Returns a 2D [CharArray2] containing the strings of this list.
+ * Returns a 2D [CharGrid] containing the strings of this list.
  */
-fun List<String>.toCharArray2(): CharArray2 = Array(size) { get(it).toCharArray() }
+fun List<String>.toCharGrid(): CharGrid = Array(size) { get(it).toCharArray() }
 
 /**
- * Returns a string representation of the rows of the specified 2D char array.
+ * Returns a string representation of the rows of the specified 2D char grid.
  */
-fun CharArray2.rowsToString(rowSeparator: String = "\n", columnSeparator: String = "") =
+fun CharGrid.rowsToString(rowSeparator: String = "\n", columnSeparator: String = "") =
     joinToString(rowSeparator) { it.joinToString(columnSeparator) }
 
 /**
- * Returns a 2D char array of all elements rotated in clockwise direction by 90 degrees.
+ * Returns a 2D char grid of all elements rotated in clockwise direction by 90 degrees.
  *
  * For example
  * ```
@@ -70,8 +75,8 @@ fun CharArray2.rowsToString(rowSeparator: String = "\n", columnSeparator: String
  * [I, F, C]
  * ```
  */
-fun CharArray2.rotated(): CharArray2 {
-    val (n, m) = size2
+fun CharGrid.rotated(): CharGrid {
+    val (n, m) = shape
     val ret = Array(m) { CharArray(n) }
     for (i in 0..<n) for (j in 0..<m)
         ret[j][i] = get(n - i - 1)[j]
@@ -82,28 +87,28 @@ fun CharArray2.rotated(): CharArray2 {
  * Returns the position of the first occurrence of the specified element in the grid, or `-1, -1` if the specified
  * element is not contained in the grid.
  */
-fun CharArray2.positionOf(c: Char): Int2 {
-    val (n, m) = size2
-    for (i in 0..<n) for (j in 0..<m) if (this[i][j] == c) return Int2(i, j)
-    return Int2(-1, -1)
+fun CharGrid.positionOf(c: Char): Point {
+    val (n, m) = shape
+    for (i in 0..<n) for (j in 0..<m) if (this[i][j] == c) return Point(i, j)
+    return Point(-1, -1)
 }
 //endregion
 
-//region IntArray2
+//region IntGrid
 /**
- * A 2D array of integers.
+ * A 2D grid of integers.
  */
-typealias IntArray2 = Array<IntArray>
+typealias IntGrid = Array<IntArray>
 
 /**
- * Returns the number of rows and columns of this 2D array.
+ * Returns the shape (rows, columns) of this 2D grid.
  */
-val IntArray2.size2 get() = Int2(size, get(0).size)
+val IntGrid.shape get() = Point(size, get(0).size)
 
 /**
- * Returns a 2D [IntArray2] containing the digits of this list's rows.
+ * Returns a 2D [IntGrid] containing the digits of this list's rows.
  */
-fun List<String>.toIntArray2(): IntArray2 = Array(size) { row -> get(row).map { it.digitToInt() }.toIntArray() }
+fun List<String>.toIntGrid(): IntGrid = Array(size) { row -> get(row).map { it.digitToInt() }.toIntArray() }
 //endregion
 
 //region DataPoint
@@ -120,14 +125,14 @@ typealias CharPoint = DataPoint<Char>
 /**
  * Returns the elements of this 2D char array as a list of [DataPoint]s.
  */
-fun CharArray2.dataPoints() = flatMapIndexed { i, r -> r.mapIndexed { j, d -> DataPoint(i, j, d) } }
+fun CharGrid.dataPoints() = flatMapIndexed { i, r -> r.mapIndexed { j, d -> DataPoint(i, j, d) } }
 
 /**
  * Returns a list of all points adjacent to the given x, y coordinates.
  */
-fun CharArray2.neighborsOf(x: Int, y: Int): List<DataPoint<Char>> {
+fun CharGrid.neighborsOf(x: Int, y: Int): List<DataPoint<Char>> {
     val arr = this
-    val (n, m) = size2
+    val (n, m) = shape
     return buildList {
         for (i in -1..1) for (j in -1..1) {
             val dx = x + i
@@ -153,10 +158,10 @@ enum class Direction(val xDir: Int, val yDir: Int) {
 /**
  * Returns a list of points adjacent to the given point in provided directions.
  */
-fun CharArray2.neighborsOf(point: DataPoint<Char>, vararg dirs: Direction): List<DataPoint<Char>> {
+fun CharGrid.neighborsOf(point: DataPoint<Char>, vararg dirs: Direction): List<DataPoint<Char>> {
     val arr = this
     val (x, y, _) = point
-    val (n, m) = size2
+    val (n, m) = shape
     return buildList {
         for ((j, i) in dirs) {
             val dx = x + i
@@ -171,10 +176,10 @@ fun CharArray2.neighborsOf(point: DataPoint<Char>, vararg dirs: Direction): List
  *
  * The grid is considered to be wrapped around.
  */
-fun CharArray2.neighborsOfUnbound(point: DataPoint<Char>, vararg dirs: Direction): List<DataPoint<Char>> {
+fun CharGrid.neighborsOfUnbound(point: DataPoint<Char>, vararg dirs: Direction): List<DataPoint<Char>> {
     val arr = this
     val (x, y, _) = point
-    val (n, m) = size2
+    val (n, m) = shape
     return buildList {
         for ((j, i) in dirs) {
             val dx = x + i

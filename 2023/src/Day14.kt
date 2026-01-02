@@ -1,14 +1,14 @@
 class Day14 : Day<Int, Int>(year = 2023, day = 14) {
 
     override fun part1(input: String): Int {
-        val map = input.lines().toCharArray2()
-        val (n, m) = map.size2
+        val grid = input.lines().toCharGrid()
+        val (n, m) = grid.shape
 
         var ans = 0
         for (j in 0..<m) {
             var rocksToRoll = 0
             for (i in n-1 downTo 0) {
-                when (map[i][j]) {
+                when (grid[i][j]) {
                     '#' -> {
                         for (x in 0..<rocksToRoll) {
                             ans += n - (i+x+1)
@@ -25,59 +25,59 @@ class Day14 : Day<Int, Int>(year = 2023, day = 14) {
         return ans
     }
 
-    fun simulateRolling(map: CharArray2): CharArray2 {
-        val (n, m) = map.size2
+    fun simulateRolling(grid: CharGrid): CharGrid {
+        val (n, m) = grid.shape
         for (j in 0..<m) {
             for (i in 0..<n) {
                 for (x in 0..<n) {
-                    if (map[x][j] == 'O' && x > 0 && map[x-1][j] == '.') {
-                        map[x][j] = '.'
-                        map[x-1][j] = 'O'
+                    if (grid[x][j] == 'O' && x > 0 && grid[x-1][j] == '.') {
+                        grid[x][j] = '.'
+                        grid[x-1][j] = 'O'
                     }
                 }
             }
         }
-        return map
+        return grid
     }
 
-    fun calculateLoad(map: CharArray2): Int {
-        val (n, m) = map.size2
+    fun calculateLoad(grid: CharGrid): Int {
+        val (n, m) = grid.shape
 
         var ans = 0
         for (i in 0..<n) {
             for (j in 0..<m) {
-                if (map[i][j] == 'O') ans += n-i
+                if (grid[i][j] == 'O') ans += n-i
             }
         }
         return ans
     }
 
     override fun part2(input: String): Int {
-        var map = input.lines().toCharArray2()
+        var grid = input.lines().toCharGrid()
 
         var pos: Pair<Int, Int>? = null
         val seen = mutableMapOf<String, Int>()
         val seenReversed = mutableMapOf<Int, String>()
-        seenReversed[0] = map.rowsToString()
-        seen[map.rowsToString()] = 0
+        seenReversed[0] = grid.rowsToString()
+        seen[grid.rowsToString()] = 0
         iterate@for(cycle in 0..1000000000) {
             repeat(4) {
-                map = simulateRolling(map)
-                map = map.rotated()
+                grid = simulateRolling(grid)
+                grid = grid.rotated()
             }
-            val strMap = map.rowsToString()
+            val strMap = grid.rowsToString()
             if (strMap in seen) {
                 pos = cycle+1 to seen[strMap]!!
                 break@iterate
             }
             seen[strMap] = cycle+1
-            seenReversed[cycle+1] = map.rowsToString()
+            seenReversed[cycle+1] = grid.rowsToString()
         }
         val a = (1000000000 - pos!!.second)
         val b = (pos.first - pos.second)
         val c = (a % b) + pos.second
         val d = seenReversed[c]!!
-        val e = d.split("\n").toCharArray2()
+        val e = d.split("\n").toCharGrid()
         return calculateLoad(e)
     }
 }

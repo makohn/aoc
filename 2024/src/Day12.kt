@@ -5,9 +5,9 @@ class Day12 : Day<Int, Int>(year = 2024, day = 12) {
 
     override fun part1(input: String): Int {
         val grid = input.lines().map { it.map { c -> c.code }.toIntArray() }.toTypedArray()
-        val (n, m) = grid.size2
+        val (n, m) = grid.shape
 
-        fun solve(i: Int, j: Int, c: Int, r: Int): Int2 {
+        fun solve(i: Int, j: Int, c: Int, r: Int): Point {
             grid[i][j] = r
             var a = 1
             var p = 0
@@ -22,7 +22,7 @@ class Day12 : Day<Int, Int>(year = 2024, day = 12) {
                 }
                 if (!inGrid || (grid[ii][jj] != c && grid[ii][jj] != r)) p++
             }
-            return Int2(a, p)
+            return Point(a, p)
         }
 
         val r = -1
@@ -40,12 +40,12 @@ class Day12 : Day<Int, Int>(year = 2024, day = 12) {
 
     override fun part2(input: String): Int {
         val grid = input.lines().map { it.map { c -> c.code }.toIntArray() }.toTypedArray()
-        val (n, m) = grid.size2
+        val (n, m) = grid.shape
 
         fun check(i: Int, j: Int, c: Int, r: Int) = (i in 0..<n && j in 0..<m && (grid[i][j] == c || grid[i][j] == r))
         fun check(i: Int, j: Int, c: Int) = (i in 0..<n && j in 0..<m && (grid[i][j] == c))
 
-        fun solve(i: Int, j: Int, c: Int, r: Int): Int2 {
+        fun solve(i: Int, j: Int, c: Int, r: Int): Point {
             grid[i][j] = r
             var a = 1
             var sides = 0
@@ -65,7 +65,7 @@ class Day12 : Day<Int, Int>(year = 2024, day = 12) {
                     if (!(check(i + di[lx], j + dj[lx], c ,r)) || check(ii + di[lx], jj + dj[lx], c, r)) sides++
                 }
             }
-            return Int2(a, sides)
+            return Point(a, sides)
         }
 
         val r = -1
