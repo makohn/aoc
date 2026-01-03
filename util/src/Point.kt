@@ -1,5 +1,10 @@
 import kotlin.math.abs
 
+val UP = Point(-1, 0)
+val RIGHT = Point(0, 1)
+val DOWN = Point(1, 0)
+val LEFT = Point(0, -1)
+
 /**
  * Represents a coordinate in a 2D grid.
  *
