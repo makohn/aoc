@@ -1,0 +1,74 @@
+package year2021
+
+import util.Int4
+import util.Solution
+
+class Day21 : Solution<Int, Long>(year = 2021, day = 21) {
+
+    override fun part1(input: String): Int {
+        var playerPositions = input.lines().map { it.last().digitToInt() }
+        val die = Die()
+        var scores = listOf(0, 0)
+        var newScores = scores
+        var i = 0
+        while (1000 !in newScores) {
+            val newPositions = playerPositions.map { (((it + die.roll(3).sum()) -1) % 10) + 1 }
+            newScores = scores.zip(newPositions).map { it.first + it.second }
+            playerPositions = newPositions
+            if (1000 !in newScores) {
+                scores = newScores
+                i += 6
+            } else { i += 3 }
+        }
+        return i * scores.minOf { it }
+    }
+
+    override fun part2(input: String): Long {
+        val (p1, p2) = input.lines().map { it.last().digitToInt() }
+        val res = playGame(p1, p2)
+        return maxOf(res.first, res.second)
+    }
+
+    class Die {
+        private var pos = 1
+        fun roll(n: Int) = sequence { while (true) { yield(((pos++ -1) % 100) + 1) } }.take(n)
+    }
+
+    fun playGame(p1: Int, p2: Int): Pair<Long, Long> {
+        val cache = mutableMapOf<Int4, Pair<Long, Long>>()
+
+        fun rollDice(state: Int4): Pair<Long, Long> {
+            val (pos1, pos2, score1, score2) = state
+            if (cache.contains(state)) return cache[state]!!
+            if (score1 >= 21) return (1L to 0L)
+            if (score2 >= 21) return (0L to 1L)
+
+            var score = 0L to 0L
+
+            // Dice 3 times -> Consider all result combinations (i, j, k) for i, j, k in (1, 2, 3)
+            // We basically iterate over a tree depth-first, starting with the 1 -> 1 -> 1 -> ... "universe"
+            // This is recursively repeated for each branch, alternating between player 1 and player 2 until either on reaches 21
+            for (i in (1 .. 3)) {
+                for (j in (1 .. 3)) {
+                    for (k in (1 .. 3)) {
+                        // Move position by sum of dice results (clockwise) (-1 / +1 to account for 10 % 10 being 0)
+                        val newPos1 = ((pos1 + i + j + k - 1) % 10) + 1
+                        val newScore1 = score1 + newPos1
+                        // Now roll the dice for player 2 (recursively rolls again for player 1 and so on)
+                        val newScore = rollDice(Int4(pos2, newPos1, score2, newScore1))
+                        // Add the final score for this branch to overall score
+                        score = score.first + newScore.second to score.second + newScore.first
+                    }
+                }
+            }
+            cache[state] = score
+            return score
+        }
+        return rollDice(Int4(p1, p2, 0, 0))
+    }
+}
+
+fun main() = Day21().run {
+    println(part1(input))
+    println(part2(input))
+}
