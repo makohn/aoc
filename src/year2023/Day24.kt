@@ -1,7 +1,6 @@
 package year2023
 
 import util.core.*
-import util.Solution
 import util.iter.combineElements
 import util.math.Matrix
 import util.math.Matrix4x4

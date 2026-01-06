@@ -1,7 +1,6 @@
 package year2024
 
-import util.Solution
-import util.core.component6
+import util.core.*
 import util.parse.extractLongs
 
 class Day13 : Solution<Long, Long>(year = 2024, day = 13) {

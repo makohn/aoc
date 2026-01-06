@@ -1,6 +1,6 @@
 package year2024
 
-import util.Solution
+import util.core.*
 import util.parse.extractInts
 
 class Day14(

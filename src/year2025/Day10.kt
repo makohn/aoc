@@ -1,6 +1,6 @@
 package year2025
 
-import util.Solution
+import util.core.*
 import util.iter.combineElements
 import kotlin.math.min
 

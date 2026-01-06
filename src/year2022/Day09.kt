@@ -1,6 +1,6 @@
 package year2022
 
-import util.Solution
+import util.core.*
 import kotlin.math.abs
 import kotlin.math.sign
 

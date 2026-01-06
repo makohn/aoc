@@ -1,9 +1,7 @@
 import kotlinx.serialization.json.Json
 import model.Answers
 import org.junit.jupiter.api.*
-import util.LOCAL_DATA_DIR
-import util.Solution
-import util.readTestInput
+import util.core.*
 import kotlin.io.path.Path
 import kotlin.io.path.readText
 
@@ -42,7 +40,14 @@ abstract class AocTest(year: Int) {
         DynamicContainer.dynamicContainer(
             "Day%02d - %s".format(day.day, answer.name), listOfNotNull(
                 answer.test1?.let { DynamicTest.dynamicTest("Part01") { assertEquals(it, day.part1(day.testInput)) } },
-                answer.test2?.let { DynamicTest.dynamicTest("Part02") { assertEquals(it, day.part2(readTestInput(day.year, day.day, "2"))) } }
+                answer.test2?.let {
+                    DynamicTest.dynamicTest("Part02") {
+                        assertEquals(
+                            it,
+                            day.part2(readTestInput(day.year, day.day, "2"))
+                        )
+                    }
+                }
             )
         )
     }

@@ -1,6 +1,6 @@
 package year2023
 
-import util.Solution
+import util.core.*
 import util.iter.transpose
 import kotlin.math.abs
 

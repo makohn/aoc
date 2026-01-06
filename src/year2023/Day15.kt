@@ -1,6 +1,6 @@
 package year2023
 
-import util.Solution
+import util.core.*
 import util.iter.replaceFirst
 
 class Day15 : Solution<Int, Int>(year = 2023, day = 15) {

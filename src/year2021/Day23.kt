@@ -1,6 +1,6 @@
 package year2021
 
-import util.Solution
+import util.core.*
 import java.util.*
 import kotlin.math.abs
 

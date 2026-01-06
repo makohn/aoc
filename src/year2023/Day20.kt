@@ -1,6 +1,6 @@
 package year2023
 
-import util.Solution
+import util.core.*
 import util.math.lcm
 
 class Day20 : Solution<Int, Long>(year = 2023, day = 20) {

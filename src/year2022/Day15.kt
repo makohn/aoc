@@ -1,8 +1,8 @@
 package year2022
 
-import util.point.Point
-import util.Solution
+import util.core.*
 import util.parse.extractInts
+import util.point.*
 import kotlin.math.abs
 
 class Day15(

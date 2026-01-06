@@ -1,6 +1,6 @@
 package year2024
 
-import util.Solution
+import util.core.*
 
 class Day03() : Solution<Int, Int>(year = 2024, day = 3) {
 

@@ -1,6 +1,6 @@
 package year2025
 
-import util.Solution
+import util.core.*
 import kotlin.math.abs
 
 class Day09 : Solution<Long, Long>(year = 2025, day = 9) {

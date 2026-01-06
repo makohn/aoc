@@ -1,6 +1,6 @@
 package year2021
 
-import util.Solution
+import util.core.*
 
 typealias Image = Set<Pair<Int, Int>>
 typealias Bounds = List<Int>

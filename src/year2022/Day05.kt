@@ -1,7 +1,7 @@
 package year2022
 
-import util.Solution
-import java.util.Stack
+import util.core.*
+import java.util.*
 
 class Day05 : Solution<String, String>(year = 2022, day = 5) {
 

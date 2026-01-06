@@ -1,6 +1,6 @@
 package year2022
 
-import util.Solution
+import util.core.*
 import util.fromAsciiArt
 
 class Day10 : Solution<Int, String>(year = 2022, day = 10) {

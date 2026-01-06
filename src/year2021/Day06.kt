@@ -1,6 +1,6 @@
 package year2021
 
-import util.Solution
+import util.core.*
 
 class Day06(
     private val n: Int = 80

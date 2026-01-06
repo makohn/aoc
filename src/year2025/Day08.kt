@@ -1,6 +1,6 @@
 package year2025
 
-import util.Solution
+import util.core.*
 import kotlin.math.sqrt
 
 class Day08(val amount: Int = 1000) : Solution<Int, Long>(year = 2025, day = 8) {

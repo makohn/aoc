@@ -1,7 +1,6 @@
 package year2021
 
-import util.Solution
-import kotlin.collections.iterator
+import util.core.*
 import kotlin.math.abs
 
 typealias Translations = MutableMap<Pair<Int, Int>, Pair<Int, Day19.Vector3>>

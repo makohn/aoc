@@ -1,11 +1,8 @@
 package year2022
 
-import util.Solution
 import util.algorithm.bfs
-import util.grid.Direction
-import util.grid.dataPoints
-import util.grid.neighborsOf
-import util.grid.toCharGrid
+import util.core.*
+import util.grid.*
 
 class Day12 : Solution<Int, Int>(year = 2022, day = 12) {
 

@@ -1,8 +1,7 @@
 package year2024
 
-import util.Solution
+import util.core.*
 import util.parse.extractLongs
-import kotlin.collections.iterator
 
 class Day11 : Solution<Long, Long>(year = 2024, day = 11) {
 

@@ -1,8 +1,7 @@
 package year2024
 
-import util.Solution
-import util.grid.shape
-import util.grid.toCharGrid
+import util.core.*
+import util.grid.*
 
 class Day04 : Solution<Int, Int>(year = 2024, day = 4) {
 

@@ -1,9 +1,7 @@
 package year2023
 
-import util.Solution
-import util.grid.CharPoint
-import util.grid.neighborsOf
-import util.grid.toCharGrid
+import util.core.*
+import util.grid.*
 import util.math.product
 
 class Day03 : Solution<Int, Int>(year = 2023, day = 3) {

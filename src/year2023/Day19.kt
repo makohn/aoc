@@ -1,9 +1,9 @@
 package year2023
 
-import util.Solution
+import util.core.*
 import util.parse.extractInts
-import kotlin.math.min
 import kotlin.math.max
+import kotlin.math.min
 
 class Day19 : Solution<Int, Long>(year = 2023, day = 19) {
 

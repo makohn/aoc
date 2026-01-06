@@ -1,10 +1,8 @@
 package year2023
 
-import util.Solution
 import util.algorithm.dijkstra
-import util.grid.Direction
-import util.grid.shape
-import util.grid.toCharGrid
+import util.core.*
+import util.grid.*
 
 class Day17 : Solution<Int, Int>(year = 2023, day = 17){
 

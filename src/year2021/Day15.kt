@@ -1,8 +1,8 @@
 package year2021
 
-import util.point.Point
-import util.Solution
 import util.algorithm.dijkstra
+import util.core.*
+import util.point.*
 
 class Day15 : Solution<Int, Int>(year = 2021, day = 15) {
 
