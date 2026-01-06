@@ -1,8 +1,6 @@
 package year2023
 
 import util.Solution
-import kotlin.sequences.sumOf
-import kotlin.text.iterator
 
 class Day12 : Solution<Int, Long>(year = 2023, day = 12) {
 

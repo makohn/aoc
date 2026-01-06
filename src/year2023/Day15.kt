@@ -2,7 +2,6 @@ package year2023
 
 import util.Solution
 import util.iter.replaceFirst
-import kotlin.text.iterator
 
 class Day15 : Solution<Int, Int>(year = 2023, day = 15) {
 

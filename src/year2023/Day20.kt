@@ -2,7 +2,6 @@ package year2023
 
 import util.Solution
 import util.math.lcm
-import kotlin.collections.iterator
 
 class Day20 : Solution<Int, Long>(year = 2023, day = 20) {
 

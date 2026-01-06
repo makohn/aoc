@@ -2,7 +2,6 @@ package year2025
 
 import util.Solution
 import kotlin.math.pow
-import kotlin.text.iterator
 
 class Day03 : Solution<Int, Long>(year = 2025, day = 3) {
 

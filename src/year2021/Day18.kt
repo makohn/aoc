@@ -1,7 +1,6 @@
 package year2021
 
 import util.Solution
-import kotlin.text.split
 
 class Day18 : Solution<Int, Int>(year = 2021, day = 18) {
 

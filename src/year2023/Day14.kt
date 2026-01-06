@@ -1,12 +1,7 @@
 package year2023
 
 import util.Solution
-import util.grid.CharGrid
-import util.grid.rotated
-import util.grid.rowsToString
-import util.grid.shape
-import util.grid.toCharGrid
-import kotlin.collections.get
+import util.grid.*
 
 class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
 

@@ -1,7 +1,6 @@
 package year2021
 
 import util.Solution
-import kotlin.collections.get
 
 class Day14 : Solution<Long, Long>(year = 2021, day = 14) {
 

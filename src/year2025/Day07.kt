@@ -1,7 +1,6 @@
 package year2025
 
 import util.Solution
-import kotlin.collections.iterator
 
 class Day07 : Solution<Int, Long>(year = 2025, day = 7) {
 
