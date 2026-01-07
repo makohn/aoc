@@ -1,28 +1,6 @@
-import year2023.Day01
-import year2023.Day02
-import year2023.Day03
-import year2023.Day04
-import year2023.Day05
-import year2023.Day06
-import year2023.Day07
-import year2023.Day08
-import year2023.Day09
-import year2023.Day10
-import year2023.Day11
-import year2023.Day12
-import year2023.Day13
-import year2023.Day14
-import year2023.Day15
-import year2023.Day16
-import year2023.Day17
-import year2023.Day18
-import year2023.Day19
-import year2023.Day20
-import year2023.Day21
-import year2023.Day22
-import year2023.Day23
-import year2023.Day24
-import year2023.Day25
+package year2023
+
+import AocTest
 
 class Test2023 : AocTest(year = 2023) {
 
