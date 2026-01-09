@@ -26,7 +26,7 @@ class Test2021 : AocTest(year = 2021) {
         Day19(),
         Day20(),
         Day21(),
-//        Solution(Day22(), 543306, 1285501151402480), // TODO: Part 2 runs very slow (15min, 43sec, 196 ms)
+        Day22(),
         Day23(),
         Day24(),
         Day25()

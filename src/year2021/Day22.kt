@@ -1,80 +1,84 @@
 package year2021
 
 import util.core.*
+import util.parse.extractLongs
 
 class Day22 : Solution<Long, Long>(year = 2021, day = 22) {
 
     override fun part1(input: String): Long {
-        val steps = parse(input).filter { it.inRange(-50, 50) }
-        return rebootBetter(steps).sumOf { it.volume() }
+        val steps = parse(input)
+        val region = Cuboid(-50, 50, -50, 50, -50, 50)
+        val stepsInRegion = steps.mapNotNull { (on, cuboid) ->
+            region.intersect(cuboid)?.let { RebootStep(on, it) }
+        }
+        return solve(stepsInRegion)
     }
 
     override fun part2(input: String): Long {
         val steps = parse(input)
-        val cuboids = rebootBetter(steps)
-        return cuboids.sumOf { it.volume() }
+        return solve(steps)
     }
 
-    data class Cuboid(val x1: Long, val x2: Long, val y1: Long, val y2: Long, val z1: Long, val z2: Long, val on: Boolean)
-
-    operator fun Cuboid.contains(other: Cuboid) =
-        x1 <= other.x1 && x2 >= other.x2 &&
-                y1 <= other.y1 && y2 >= other.y2 &&
-                z1 <= other.z1 && z2 >= other.z2
-
-    fun Cuboid.inRange(min: Int, max: Int) = listOf(x1, x2, y1, y2, z1, z2).fold(true) { s, i -> s && i in (min .. max+1) }
-
-    fun Cuboid.volume(): Long = (x2 - x1) * (y2 - y1) * (z2 - z1)
-
-    fun Cuboid.split(at: Cuboid) = listOf (
-        if (at.x1 in (x1 .. x2)) listOf(this.copy(x1 = at.x1), this.copy(x2 = at.x1)) else listOf(this)).flatten()
-        .flatMap { if (at.x2 in (it.x1 .. it.x2)) listOf(it.copy(x1 = at.x2), it.copy(x2 = at.x2)) else listOf(it) }
-        .flatMap { if (at.y1 in (it.y1 .. it.y2)) listOf(it.copy(y1 = at.y1), it.copy(y2 = at.y1)) else listOf(it) }
-        .flatMap { if (at.y2 in (it.y1 .. it.y2)) listOf(it.copy(y1 = at.y2), it.copy(y2 = at.y2)) else listOf(it) }
-        .flatMap { if (at.z1 in (it.z1 .. it.z2)) listOf(it.copy(z1 = at.z1), it.copy(z2 = at.z1)) else listOf(it) }
-        .flatMap { if (at.z2 in (it.z1 .. it.z2)) listOf(it.copy(z1 = at.z2), it.copy(z2 = at.z2)) else listOf(it) }
-
-
-    operator fun <T> List<T>.component6(): T = this[5]
-
-    private fun parse(input: String): List<Cuboid> {
-        val inputLines = input.lines()
-        val coords = inputLines.map { "(-?\\d)+".toRegex().findAll(it).mapIndexed { i, s -> s.value.toLong() + (i % 2) }.toList() }
-        val states = inputLines.map { "(on|off)".toRegex().findAll(it).map { s -> s.value == "on" }.first() }
-        return states.zip(coords).map { (s, c) -> Cuboid(c[0], c[1], c[2], c[3], c[4], c[5], s) }
-    }
-
-    private fun rebootBetter(steps: List<Cuboid>): List<Cuboid> {
-        // assuming the first step is always "on"
-        var cuboids = listOf(steps.first())
-        for (step in steps.drop(1)) {
-            cuboids = cuboids
-                .flatMap { it.split(step) }
-                .filterTo(mutableListOf()) { it !in step }
-                .apply { if (step.on) add(step) }
-//        println(cuboids)
+    private fun solve(steps: List<RebootStep>): Long {
+        var sum = 0L
+        val candidates = ArrayList<Cuboid>()
+        for ((i, step) in steps.withIndex()) {
+            if (!step.on) continue
+            val cuboid = step.cuboid
+            candidates.addAll(
+                steps.drop(i + 1).mapNotNull { cuboid.intersect(it.cuboid) }
+            )
+            sum += cuboid.volume() + subsetSize(cuboid, -1, candidates)
+            candidates.clear()
         }
-        return cuboids
+        return sum
     }
 
-    // Naive brute-force solution
-    private fun reboot(steps: List<Cuboid>): Set<Triple<Long, Long, Long>> {
-        val cuboids = mutableSetOf<Triple<Long, Long, Long>>()
-        for (step in steps) {
-            val (x1, x2, y1, y2, z1, z2) = listOf(step.x1, step.x2, step.y1, step.y2, step.z1, step.z2)
-            for (x in (x1 .. x2)) {
-                for (y in (y1 .. y2)) {
-                    for (z in (z1 .. z2)) {
-                        if (step.on) {
-                            cuboids.add(Triple(x, y, z))
-                        } else {
-                            cuboids.remove(Triple(x, y, z))
-                        }
-                    }
-                }
+    private fun subsetSize(cuboid: Cuboid, sign: Int, candidates: List<Cuboid>): Long {
+        var sum = 0L
+        for ((i, candidate) in candidates.withIndex()) {
+            cuboid.intersect(candidate)?.let {
+                sum += sign * it.volume() + subsetSize(it, -sign, candidates.drop(i + 1))
             }
         }
+        return sum
+    }
+
+    private fun parse(input: String): List<RebootStep> {
+        val cuboids = ArrayList<RebootStep>()
+        for (line in input.lines()) {
+            val (state, ranges) = line.split(' ')
+            cuboids.add(RebootStep(state == "on", Cuboid(ranges.extractLongs())))
+        }
         return cuboids
+    }
+
+    private data class RebootStep(val on: Boolean, val cuboid: Cuboid)
+
+    private data class Cuboid(
+        val x1: Long,
+        val x2: Long,
+        val y1: Long,
+        val y2: Long,
+        val z1: Long,
+        val z2: Long,
+    ) {
+        fun intersect(other: Cuboid): Cuboid? {
+            val x1 = maxOf(this.x1, other.x1)
+            val x2 = minOf(this.x2, other.x2)
+            val y1 = maxOf(this.y1, other.y1)
+            val y2 = minOf(this.y2, other.y2)
+            val z1 = maxOf(this.z1, other.z1)
+            val z2 = minOf(this.z2, other.z2)
+            return if (x1 <= x2 && y1 <= y2 && z1 <= z2) Cuboid(x1, x2, y1, y2, z1, z2) else null
+        }
+
+        fun volume(): Long = (x2 - x1 + 1) * (y2 - y1 + 1) * (z2 - z1 + 1)
+    }
+
+    private fun Cuboid(longs: List<Long>): Cuboid {
+        val (x1, x2, y1, y2, z1, z2) = longs
+        return Cuboid(x1, x2, y1, y2, z1, z2)
     }
 }
 
