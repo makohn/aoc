@@ -7,6 +7,8 @@ val RIGHT = Point(0, 1)
 val DOWN = Point(1, 0)
 val LEFT = Point(0, -1)
 
+val ORTHOGONAL = arrayOf(UP, RIGHT, DOWN, LEFT)
+
 /**
  * Represents a coordinate in a 2D grid.
  *

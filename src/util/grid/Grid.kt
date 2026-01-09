@@ -1,6 +1,6 @@
 package util.grid
 
-import util.point.Point
+import util.point.*
 
 /**
  * A 2D grid of chars.
@@ -22,6 +22,16 @@ fun List<String>.toCharGrid(): CharGrid = Array(size) { get(it).toCharArray() }
  */
 fun CharGrid.rowsToString(rowSeparator: String = "\n", columnSeparator: String = "") =
     joinToString(rowSeparator) { it.joinToString(columnSeparator) }
+
+/**
+ * Shortcut for ```grid[point.i][point.j]```
+ */
+operator fun CharGrid.get(point: Point): Char = this[point.i][point.j]
+
+/**
+ * Checks whether the point is within the grid's bounds
+ */
+operator fun CharGrid.contains(point: Point): Boolean = point.i in 0..<size && point.j in 0..<get(0).size
 
 /**
  * Returns a 2D char grid of all elements rotated in clockwise direction by 90 degrees.
@@ -56,9 +66,29 @@ fun CharGrid.positionOf(c: Char): Point {
     for (i in 0..<n) for (j in 0..<m) if (this[i][j] == c) return Point(i, j)
     return Point(-1, -1)
 }
-//endregion
 
-//region IntGrid
+/**
+ * A 2D grid of booleans.
+ */
+typealias BooleanGrid = Array<BooleanArray>
+
+/**
+ * Constructs a boolean grid with the given shape (rows, columns)
+ */
+fun BooleanGrid(shape: Point): BooleanGrid = Array(shape.i) { BooleanArray(shape.j) }
+
+/**
+ * Shortcut for ```grid[point.i][point.j]```
+ */
+operator fun BooleanGrid.get(point: Point): Boolean = this[point.i][point.j]
+
+/**
+ * Shortcut for ```grid[point.i][point.j] = value```
+ */
+operator fun BooleanGrid.set(point: Point, value: Boolean) {
+    this[point.i][point.j] = value
+}
+
 /**
  * A 2D grid of integers.
  */
@@ -73,7 +103,6 @@ val IntGrid.shape get() = Point(size, get(0).size)
  * Returns a 2D [IntGrid] containing the digits of this list's rows.
  */
 fun List<String>.toIntGrid(): IntGrid = Array(size) { row -> get(row).map { it.digitToInt() }.toIntArray() }
-//endregion
 
 //region DataPoint
 /**
