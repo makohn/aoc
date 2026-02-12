@@ -104,6 +104,29 @@ val IntGrid.shape get() = Point(size, get(0).size)
  */
 fun List<String>.toIntGrid(): IntGrid = Array(size) { row -> get(row).map { it.digitToInt() }.toIntArray() }
 
+/**
+ * A generic 2D grid.
+ */
+typealias Grid<T> = Array<Array<T>>
+
+/**
+ * Constructs a generic grid with the given shape (rows, columns)
+ */
+inline fun <reified T> Grid(shape: Point, noinline init: (Int) -> T): Grid<T> =
+    Array(shape.i) { Array(shape.j, init) }
+
+/**
+ * Shortcut for ```grid[point.i][point.j]```
+ */
+operator fun <T> Grid<T>.get(point: Point): T = this[point.i][point.j]
+
+/**
+ * Shortcut for ```grid[point.i][point.j] = value```
+ */
+operator fun <T> Grid<T>.set(point: Point, value: T) {
+    this[point.i][point.j] = value
+}
+
 //region DataPoint
 /**
  * Represents a datum in a 2D grid with its x and y coordinates.
