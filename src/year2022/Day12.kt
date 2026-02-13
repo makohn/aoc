@@ -34,7 +34,7 @@ class Day12 : Solution<Int, Int>(year = 2022, day = 12) {
             val (point, cost) = queue.removeFirst()
             if (grid[point] == end) return cost
 
-            for (direction in ORTHOGONAL) {
+            for (direction in RDLU) {
                 val neighbor = point + direction
                 if (neighbor in grid && !visited[neighbor] && grid[point].height - grid[neighbor].height <= 1) {
                     queue.add(neighbor to cost + 1)
