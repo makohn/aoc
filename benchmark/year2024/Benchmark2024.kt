@@ -56,7 +56,7 @@ open class Benchmark2024 {
     @Benchmark open fun day14Part1() = day14.part1(day14.input)
     @Benchmark open fun day14Part2() = day14.part2(day14.input)
     @Benchmark open fun day15Part1() = day15.part1(day15.input)
-    // TODO: day15Part2
+    @Benchmark open fun day15Part2() = day15.part2(day15.input)
     @Benchmark open fun day16Part1() = day16.part1(day16.input)
     @Benchmark open fun day16Part2() = day16.part2(day16.input)
     // @formatter:on

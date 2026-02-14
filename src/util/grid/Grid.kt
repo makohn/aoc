@@ -29,6 +29,13 @@ fun CharGrid.rowsToString(rowSeparator: String = "\n", columnSeparator: String =
 operator fun CharGrid.get(point: Point): Char = this[point.i][point.j]
 
 /**
+ * Shortcut for ```grid[point.i][point.j] = value```
+ */
+operator fun CharGrid.set(point: Point, value: Char) {
+    this[point.i][point.j] = value
+}
+
+/**
  * Checks whether the point is within the grid's bounds
  */
 operator fun CharGrid.contains(point: Point): Boolean = point.i in 0..<size && point.j in 0..<get(0).size

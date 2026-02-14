@@ -2,6 +2,8 @@ package util.point
 
 import kotlin.math.abs
 
+val ORIGIN = Point(0, 0)
+
 val UP = Point(-1, 0)
 val RIGHT = Point(0, 1)
 val DOWN = Point(1, 0)
