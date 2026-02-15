@@ -1,67 +1,34 @@
 package year2024
 
 import util.core.*
+import util.parse.extractInts
 
 class Day05 : Solution<Int, Int>(year = 2024, day = 5) {
 
-    private fun List<Int>.hasElementsInThisOrder(pair: Pair<Int, Int>): Boolean {
-        val i = indexOf(pair.first)
-        val j = indexOf(pair.second)
-        return i <= j || i == -1 || j == -1
+    private fun solve(input: String): Pair<Int, Int> {
+        val (rules, updates) = input.split("\n\n")
+
+        val order = Array(100) { IntArray(100) { 1 } }
+        for ((start, end) in rules.extractInts().chunked(2)) {
+            order[start][end] = -1
+        }
+        var part1 = 0
+        var part2 = 0
+        for (line in updates.lines()) {
+            val update = line.extractInts()
+            val middle = update.size / 2
+            val sorted = update.sortedWith { start, end -> order[start][end] }
+            if (sorted == update) part1 += update[middle] else part2 += sorted[middle]
+        }
+        return part1 to part2
     }
 
     override fun part1(input: String): Int {
-        val (rules, updates) = input.split("\n\n").map { it.split("\n").toList().filter { it != "" } }
-        val rulePairs = rules.map {  it.split("|") }.map { (a, b) -> a.toInt() to b.toInt()  }
-        var acc = 0
-        for (update in updates) {
-            val updateSteps = update.split(",").toList().map { it.toInt() }
-            var middle = updateSteps.size / 2
-            var good = true
-            for (rule in rulePairs) {
-                good = good && updateSteps.hasElementsInThisOrder(rule)
-            }
-            if (good) {
-                acc += updateSteps[middle]
-            }
-        }
-        return acc
-    }
-
-    private fun sort(list: MutableList<Int>, rules: List<Pair<Int, Int>>) {
-        val filteredRules = rules.filter { it.first in list || it.second in list }
-        val rulesToApply = ArrayDeque(filteredRules)
-        while (rulesToApply.isNotEmpty()) {
-            val rule = rulesToApply.removeFirst()
-            val i = list.indexOf(rule.first)
-            val j = list.indexOf(rule.second)
-            if (i != -1 && j != -1 && i > j) {
-                rulesToApply.addAll(filteredRules)
-                val tmp = list[i]
-                list[i] = list[j]
-                list[j] = tmp
-            }
-        }
+        return solve(input).first
     }
 
     override fun part2(input: String): Int {
-        val (rules, updates) = input.split("\n\n").map { it.split("\n").toList().filter { it != "" } }
-        val rulePairs = rules.map {  it.split("|") }.map { (a, b) -> a.toInt() to b.toInt()  }
-        var acc = 0
-        for (update in updates) {
-            val updateSteps = update.split(",").toList().map { it.toInt() }
-            var middle = updateSteps.size / 2
-            var good = true
-            for (rule in rulePairs) {
-                good = good && updateSteps.hasElementsInThisOrder(rule)
-            }
-            if (!good) {
-                val mutableUpdateSteps = updateSteps.toMutableList()
-                sort(mutableUpdateSteps, rulePairs)
-                acc += mutableUpdateSteps[middle]
-            }
-        }
-        return acc
+        return solve(input).second
     }
 }
 
