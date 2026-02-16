@@ -21,7 +21,8 @@ class Test2024 : AocTest(year = 2024) {
         Day14(),
         Day15(),
         Day16(),
-        Day17()
+        Day17(),
+        Day18()
     )
 
     override val testDays = listOf(
@@ -41,6 +42,7 @@ class Test2024 : AocTest(year = 2024) {
         Day14(11, 7),
         Day15(),
         Day16(),
-        Day17()
+        Day17(),
+        Day18(7, 12)
     )
 }

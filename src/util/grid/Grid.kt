@@ -112,6 +112,36 @@ val IntGrid.shape get() = Point(size, get(0).size)
 fun List<String>.toIntGrid(): IntGrid = Array(size) { row -> get(row).map { it.digitToInt() }.toIntArray() }
 
 /**
+ * Constructs an [IntGrid] of size ([m], [n]) (rows, columns) and initializes with the [init] function.
+ */
+fun IntGrid(m: Int, n: Int, init: (Int) -> Int): IntGrid = Array(m) { IntArray(n, init) }
+
+/**
+ * Shortcut for ```grid[point.i][point.j]```
+ */
+operator fun IntGrid.get(point: Point): Int = this[point.i][point.j]
+
+/**
+ * Shortcut for ```grid[point.i][point.j] = value```
+ */
+operator fun IntGrid.set(point: Point, value: Int) {
+    this[point.i][point.j] = value
+}
+
+/**
+ * Checks whether the point is within the grid's bounds
+ */
+operator fun IntGrid.contains(point: Point): Boolean = point.i in 0..<size && point.j in 0..<get(0).size
+
+/**
+ * Returns the position of the first occurrence of the specified element in the grid.
+ */
+fun IntGrid.positionOf(element: Int): Point {
+    for (i in 0..<size) for (j in 0..<get(0).size) if (this[i][j] == element) return Point(i, j)
+    error(element)
+}
+
+/**
  * A generic 2D grid.
  */
 typealias Grid<T> = Array<Array<T>>
