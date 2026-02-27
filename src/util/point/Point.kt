@@ -43,7 +43,14 @@ class Point(i: Int, j: Int) {
      */
     fun distanceTo(other: Point) = abs(this.i - other.i) + abs(this.j - other.j)
 
+    /**
+     * Rotates in clockwise direction.
+     */
     fun clockwise() = Point(-this.j, this.i)
+
+    /**
+     * Rotates in counterclockwise direction.
+     */
     fun counterClockwise() = Point(this.j, -this.i)
 
     operator fun component1() = this.i

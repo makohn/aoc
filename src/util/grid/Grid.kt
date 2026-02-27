@@ -117,6 +117,11 @@ fun List<String>.toIntGrid(): IntGrid = Array(size) { row -> get(row).map { it.d
 fun IntGrid(m: Int, n: Int, init: (Int) -> Int): IntGrid = Array(m) { IntArray(n, init) }
 
 /**
+ * Constructs an [IntGrid] with the given shape (rows, columns) and initializes with the [init] function.
+ */
+fun IntGrid(shape: Point, init: (Int) -> Int): IntGrid = Array(shape.i) { IntArray(shape.j, init) }
+
+/**
  * Shortcut for ```grid[point.i][point.j]```
  */
 operator fun IntGrid.get(point: Point): Int = this[point.i][point.j]

@@ -3,7 +3,6 @@ package year2024
 import kotlinx.benchmark.Benchmark
 import kotlinx.benchmark.Scope
 import kotlinx.benchmark.State
-import year2023.Day15
 
 @Suppress("Unused")
 @State(Scope.Benchmark)
@@ -28,6 +27,7 @@ open class Benchmark2024 {
     private val day17 = Day17()
     private val day18 = Day18()
     private val day19 = Day19()
+    private val day20 = Day20()
 
     // @formatter:off
     @Benchmark open fun day01Part1() = day01.part1(day01.input)
@@ -68,5 +68,7 @@ open class Benchmark2024 {
     @Benchmark open fun day18Part2() = day18.part2(day18.input)
     @Benchmark open fun day19Part1() = day19.part1(day19.input)
     @Benchmark open fun day19Part2() = day19.part2(day19.input)
+    @Benchmark open fun day20Part1() = day20.part1(day20.input)
+    @Benchmark open fun day20Part2() = day20.part2(day20.input)
     // @formatter:on
 }
