@@ -8,6 +8,15 @@ tasks {
     wrapper {
         gradleVersion = "9.2.1"
     }
+
+    register<JavaExec>("run") {
+        group = "aoc"
+        description = "Run a solution for a specific day"
+        val day: String? by project
+        val year: String? by project
+        classpath = sourceSets["main"].runtimeClasspath
+        mainClass.set("year${year}.Day${day}Kt")
+    }
 }
 
 sourceSets {
@@ -45,6 +54,23 @@ tasks.withType<JavaExec> {
 tasks.withType<Test> {
     useJUnitPlatform()
     workingDir = rootProject.projectDir
+
+    reports {
+        html.required.set(false)
+        junitXml.required.set(false)
+    }
+
+    outputs.upToDateWhen { false }
+
+    afterTest(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
+        val res = when(val type = result.resultType) {
+            TestResult.ResultType.FAILURE -> "\u001B[31m${type}\u001B[0m"
+            TestResult.ResultType.SUCCESS -> "\u001B[32m${type}\u001B[0m"
+            TestResult.ResultType.SKIPPED -> "\u001B[33m${type}\u001B[0m"
+        }
+        val deltaTime = result.endTime - result.startTime
+        println(String.format("%-35s %6s %7s %sms", desc.parent?.displayName, desc.displayName, res, deltaTime))
+    }))
 }
 
 dependencies {
