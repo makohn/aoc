@@ -19,4 +19,9 @@ To test a specific year:
 ./gradlew test --tests year2024.Test2024
 ```
 
+To run a specific benchmark:
+```shell
+./gradlew benchmark -Pinclude=".*2024.*day22.*"
+```
+
 [aoc]: https://adventofcode.com

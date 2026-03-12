@@ -35,13 +35,14 @@ benchmark {
     }
     configurations {
         named("main") {
-            iterations = 2
-            warmups = 0
+            iterations = 10
+            warmups = 5
             iterationTime = 1
             iterationTimeUnit = "s"
             mode = "avgt"
             reportFormat = "text"
             outputTimeUnit = "ms"
+            include(project.findProperty("include") as String? ?: ".*")
         }
     }
 }
