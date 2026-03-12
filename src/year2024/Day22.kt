@@ -3,11 +3,13 @@ package year2024
 import util.core.*
 import util.parse.extractInts
 import util.parse.extractLongs
+import util.thread.*
 
 class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
 
     companion object {
         const val MASK = (1 shl 24) - 1
+        const val MAX_SEQUENCES = 19 * 19 * 19 * 19
     }
 
     private fun Int.hash(): Int {
@@ -60,39 +62,23 @@ class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
 
     private fun indexOf(previous: Int, current: Int) = 9 + current % 10 - previous % 10
 
-    override fun part1(input: String): Long {
-        val numbers = input.extractLongs()
-        val transform = buildTransform().pow(2000)
-        var sum = 0L
-        for (n in numbers) {
-            var res = 0
-            for (bit in 0..<24) {
-                val v = transform[bit] and n
-                if (v.countOneBits() % 2 == 1) res = res or (1 shl bit)
-            }
-            sum += res
-        }
-        return sum
-    }
+    private fun process(numbers: List<Int>): IntArray {
+        val seen = IntArray(MAX_SEQUENCES) { Int.MAX_VALUE }
+        val res = IntArray(MAX_SEQUENCES) { 0 }
 
-    override fun part2(input: String): Int {
-        val numbers = input.extractInts()
-        val seen = IntArray(130_321) { Int.MAX_VALUE }
-        val res = IntArray(130_321) { 0 }
-
-        numbers.withIndex().toList().forEach { (i, number) ->
-            val zero = number
-            val first = zero.hash()
-            val second = first.hash()
-            val third = second.hash()
+        for (i in numbers.indices) {
+            val n0 = numbers[i]
+            val h1 = n0.hash()
+            val n2 = h1.hash()
+            val n3 = n2.hash()
 
             var a: Int
-            var b = indexOf(zero, first)
-            var c = indexOf(first, second)
-            var d = indexOf(second, third)
+            var b = indexOf(n0, h1)
+            var c = indexOf(h1, n2)
+            var d = indexOf(n2, n3)
 
-            var number = third
-            var previous = third % 10
+            var number = n3
+            var previous = n3 % 10
 
             repeat(1997) {
                 number = number.hash()
@@ -111,7 +97,32 @@ class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
                 }
             }
         }
-        return res.max()
+        return res
+    }
+
+    override fun part1(input: String): Long {
+        val numbers = input.extractLongs()
+        val transform = buildTransform().pow(2000)
+        var sum = 0L
+        for (n in numbers) {
+            var res = 0
+            for (bit in 0..<24) {
+                val v = transform[bit] and n
+                if (v.countOneBits() % 2 == 1) res = res or (1 shl bit)
+            }
+            sum += res
+        }
+        return sum
+    }
+
+    override fun part2(input: String): Int {
+        return input
+            .extractInts()
+            .mapParallel { process(it) }
+            .fold(IntArray(MAX_SEQUENCES)) { acc, part ->
+                for (i in acc.indices) acc[i] += part[i]
+                acc
+            }.max()
     }
 }
 
