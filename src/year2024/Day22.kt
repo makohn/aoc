@@ -1,16 +1,17 @@
 package year2024
 
 import util.core.*
+import util.parse.extractInts
 import util.parse.extractLongs
 
-class Day22 : Solution<Long, Long>(year = 2024, day = 22) {
+class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
 
     companion object {
         const val MASK = (1 shl 24) - 1
     }
 
-    private fun step(n: Int): Int {
-        var s = n
+    private fun Int.hash(): Int {
+        var s = this
         s = (s xor (s shl 6)) and MASK
         s = (s xor (s ushr 5)) and MASK
         s = (s xor (s shl 11)) and MASK
@@ -21,7 +22,7 @@ class Day22 : Solution<Long, Long>(year = 2024, day = 22) {
         val transform = LongArray(24)
         for (i in 0..<24) {
             val basis = 1 shl i
-            val transformed = step(basis)
+            val transformed = basis.hash()
             for (bit in 0..<24) {
                 if ((transformed ushr bit) and 1 == 1) {
                     transform[bit] = transform[bit] xor (1L shl i)
@@ -57,11 +58,13 @@ class Day22 : Solution<Long, Long>(year = 2024, day = 22) {
         return res
     }
 
+    private fun indexOf(previous: Int, current: Int) = 9 + current % 10 - previous % 10
+
     override fun part1(input: String): Long {
-        val initialNumbers = input.extractLongs()
+        val numbers = input.extractLongs()
         val transform = buildTransform().pow(2000)
         var sum = 0L
-        for (n in initialNumbers) {
+        for (n in numbers) {
             var res = 0
             for (bit in 0..<24) {
                 val v = transform[bit] and n
@@ -72,8 +75,43 @@ class Day22 : Solution<Long, Long>(year = 2024, day = 22) {
         return sum
     }
 
-    override fun part2(input: String): Long {
-        return 0L
+    override fun part2(input: String): Int {
+        val numbers = input.extractInts()
+        val seen = IntArray(130_321) { Int.MAX_VALUE }
+        val res = IntArray(130_321) { 0 }
+
+        numbers.withIndex().toList().forEach { (i, number) ->
+            val zero = number
+            val first = zero.hash()
+            val second = first.hash()
+            val third = second.hash()
+
+            var a: Int
+            var b = indexOf(zero, first)
+            var c = indexOf(first, second)
+            var d = indexOf(second, third)
+
+            var number = third
+            var previous = third % 10
+
+            repeat(1997) {
+                number = number.hash()
+                val price = number % 10
+
+                a = b
+                b = c
+                c = d
+                d = indexOf(previous, price)
+                val index = 6859 * a + 361 * b + 19 * c + d
+                previous = price
+
+                if (seen[index] != i) {
+                    res[index] += price
+                    seen[index] = i
+                }
+            }
+        }
+        return res.max()
     }
 }
 
