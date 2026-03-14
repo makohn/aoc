@@ -68,13 +68,13 @@ class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
 
         for (i in numbers.indices) {
             val n0 = numbers[i]
-            val h1 = n0.hash()
-            val n2 = h1.hash()
+            val n1 = n0.hash()
+            val n2 = n1.hash()
             val n3 = n2.hash()
 
             var a: Int
-            var b = indexOf(n0, h1)
-            var c = indexOf(h1, n2)
+            var b = indexOf(n0, n1)
+            var c = indexOf(n1, n2)
             var d = indexOf(n2, n3)
 
             var number = n3
@@ -118,7 +118,7 @@ class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
     override fun part2(input: String): Int {
         return input
             .extractInts()
-            .mapParallel { process(it) }
+            .inParallel { process(it) }
             .fold(IntArray(MAX_SEQUENCES)) { acc, part ->
                 for (i in acc.indices) acc[i] += part[i]
                 acc
