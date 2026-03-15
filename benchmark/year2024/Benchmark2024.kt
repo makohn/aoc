@@ -31,6 +31,7 @@ open class Benchmark2024 {
     private val day21 = Day21()
     private val day22 = Day22()
     private val day23 = Day23()
+    private val day24 = Day24()
 
     // @formatter:off
     @Benchmark open fun day01Part1() = day01.part1(day01.input)
@@ -79,5 +80,7 @@ open class Benchmark2024 {
     @Benchmark open fun day22Part2() = day22.part2(day22.input)
     @Benchmark open fun day23Part1() = day23.part1(day23.input)
     @Benchmark open fun day23Part2() = day23.part2(day23.input)
+    @Benchmark open fun day24Part1() = day24.part1(day24.input)
+    @Benchmark open fun day24Part2() = day24.part2(day24.input)
     // @formatter:on
 }
