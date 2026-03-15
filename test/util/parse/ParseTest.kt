@@ -28,6 +28,13 @@ class ParseTest {
         "344051711837792, 354119482543737 @ -90, 10" to listOf(344051711837792.0, 354119482543737.0, -90.0, 10.0)
     )
 
+    private val splitAsciiWhitespaceTestData = mapOf(
+        "A few words" to listOf("A", "few", "words"),
+        " Mary   had\ta little  \n\t lamb" to listOf("Mary", "had", "a", "little", "lamb"),
+        "   " to emptyList(),
+        "" to emptyList()
+    )
+
     @TestFactory
     @DisplayName("String.extractInts")
     fun testExtractInts() = extractIntsTestData.map { (k, v) ->
@@ -49,6 +56,17 @@ class ParseTest {
     fun extractDoubles() = extractDoublesTestData.map { (k, v) ->
         DynamicTest.dynamicTest(k) {
             Assertions.assertEquals(v, k.extractDoubles())
+        }
+    }
+
+    @TestFactory
+    @DisplayName("CharSequence.splitAsciiWhitespace")
+    fun splitAsciiWhitespace(): List<DynamicTest> {
+        var i = 0
+        return splitAsciiWhitespaceTestData.map { (k, v) ->
+            DynamicTest.dynamicTest("${i++}: '$k'") {
+                Assertions.assertEquals(v, k.splitAsciiWhitespace())
+            }
         }
     }
 }

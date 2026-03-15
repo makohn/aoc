@@ -107,3 +107,29 @@ fun String.extractLongs(): List<Long> = buildList {
  * @return a list of [Double]s found in this [String]
  */
 fun String.extractDoubles() = Regex("[+-]?\\d+(\\.\\d+)*").findAll(this).map { it.value.toDouble() }.toList()
+
+/**
+ * Splits this char sequence to a list of strings around occurrences of ASCII whitespace characters.
+ *
+ * ASCII whitespace is U+0009 TAB, U+000A LF, U+000C FF, U+000D CR, or U+0020 SPACE.
+ */
+fun CharSequence.splitAsciiWhitespace(): List<String> = buildList {
+    var start = -1
+    for (i in this@splitAsciiWhitespace.indices) {
+        val c = this@splitAsciiWhitespace[i]
+        val asciiWhitespace = c == '\t' || c == '\n' || c == '\u000C' || c == '\r' || c == ' '
+
+        if (asciiWhitespace) {
+            if (start != -1) {
+                add(this@splitAsciiWhitespace.substring(start, i))
+                start = -1
+            }
+        } else if (start == -1) {
+            start = i
+        }
+    }
+
+    if (start != -1) {
+        add(this@splitAsciiWhitespace.substring(start))
+    }
+}
