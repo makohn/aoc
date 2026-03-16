@@ -54,8 +54,3 @@ class Day10 : Solution<Int, Long>(year = 2021, day = 10) {
         return scores.sorted()[scores.size/2]
     }
 }
-
-fun main() = Day10().run {
-    println(part1(input))
-    println(part2(input))
-}

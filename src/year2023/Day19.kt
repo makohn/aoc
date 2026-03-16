@@ -144,8 +144,3 @@ class Day19 : Solution<Int, Long>(year = 2023, day = 19) {
         return ranges.sumOf { it.countPossibilities() }
     }
 }
-
-fun main() = Day19().run {
-    println(part1(input))
-    println(part2(input))
-}

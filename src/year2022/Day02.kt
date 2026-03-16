@@ -64,8 +64,3 @@ class Day02 : Solution<Int, Int>(year = 2022, day = 2) {
     override fun part2(input: String) = input.lines()
         .map { it.split(" ") }.sumOf { calcScore2(it.first()[0], it.last()[0]) }
 }
-
-fun main() = Day02().run {
-    println(part1(input))
-    println(part2(input))
-}

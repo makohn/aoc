@@ -42,8 +42,3 @@ class Day11 : Solution<Int, Long>(year = 2025, day = 11) {
         return findPath(Node("svr", dac = false, fft = false))
     }
 }
-
-fun main() = Day11().run {
-    println(part1(input))
-    println(part2(input))
-}

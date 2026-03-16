@@ -107,8 +107,3 @@ class Day08 : Solution<Int, Int>(year = 2021, day = 8) {
         return segments.mapIndexed { j, c -> c.toChar() to j}.toMap()
     }
 }
-
-fun main() = Day08().run {
-    println(part1(input))
-    println(part2(input))
-}

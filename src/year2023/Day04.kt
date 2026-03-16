@@ -37,8 +37,3 @@ class Day04 : Solution<Int, Int>(year = 2023, day = 4) {
         return cardCount.sum()
     }
 }
-
-fun main() = Day04().run {
-    println(part1(input))
-    println(part2(input))
-}

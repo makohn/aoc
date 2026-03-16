@@ -88,8 +88,3 @@ class Day24(
         return (a + b + c).toLong()
     }
 }
-
-fun main() = Day24().run {
-    println(part1(input))
-    println(part2(input))
-}

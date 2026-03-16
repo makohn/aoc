@@ -46,8 +46,3 @@ class Day12 : Solution<Int, Int>(year = 2022, day = 12) {
         error("Unreachable")
     }
 }
-
-fun main() = Day12().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -158,8 +158,3 @@ class Day20 : Solution<Int, Long>(year = 2023, day = 20) {
         return findCycles(false, modules, endModule).map { it.value }.lcm()
     }
 }
-
- fun main() = Day20().run {
-     println(part1(input))
-     println(part2(input))
- }

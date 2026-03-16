@@ -14,7 +14,3 @@ class Day12 : Solution<Int, Int>(year = 2025, day = 12) {
 
     override fun part2(input: String) = 0
 }
-
-fun main() = Day12().run {
-    println(part1(input))
-}

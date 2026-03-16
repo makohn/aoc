@@ -133,8 +133,3 @@ class Day23 : Solution<Int, Int>(year = 2021, day = 23) {
         }
     }
 }
-
-fun main() = Day23().run {
-    println(part1(input))
-    println(part2(input))
-}

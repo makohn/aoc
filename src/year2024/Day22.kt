@@ -125,8 +125,3 @@ class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
             }.max()
     }
 }
-
-fun main() = Day22().run {
-    println(part1(input))
-    println(part2(input))
-}

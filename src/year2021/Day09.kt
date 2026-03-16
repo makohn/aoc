@@ -46,8 +46,3 @@ class Day09 : Solution<Int, Int>(year = 2021, day = 9) {
         return visited
     }
 }
-
-fun main() = Day09().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -63,8 +63,3 @@ class Day05 : Solution<String, String>(year = 2022, day = 5) {
         return stacks.map { it.last() }.joinToString("")
     }
 }
-
-fun main() = Day05().run {
-    println(part1(input))
-    println(part2(input))
-}

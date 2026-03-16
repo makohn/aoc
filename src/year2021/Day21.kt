@@ -66,8 +66,3 @@ class Day21 : Solution<Int, Long>(year = 2021, day = 21) {
         return rollDice(Int4(p1, p2, 0, 0))
     }
 }
-
-fun main() = Day21().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -75,8 +75,3 @@ class Day11(val addEmpty: Int = 1_000_000) : Solution<Int, Long>(year = 2023, da
         return ans
     }
 }
-
-fun main() = Day11().run {
-    println(part1(input))
-    println(part2(input))
-}

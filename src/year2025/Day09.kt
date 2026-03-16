@@ -85,8 +85,3 @@ class Day09 : Solution<Long, Long>(year = 2025, day = 9) {
         return max
     }
 }
-
-fun main() = Day09().run {
-    println(part1(input))
-    println(part2(input))
-}

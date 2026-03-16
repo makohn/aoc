@@ -81,8 +81,3 @@ class Day03 : Solution<Int, Int>(year = 2023, day = 3) {
             .sumOf { it.product() }
     }
 }
-
-fun main() = Day03().run {
-    println(part1(input))
-    println(part2(input))
-}

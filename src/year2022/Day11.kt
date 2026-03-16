@@ -87,8 +87,3 @@ class Day11 : Solution<Long, Long>(year = 2022, day = 11) {
         return simulateGame(input, 10_000, false)
     }
 }
-
-fun main() = Day11().run {
-    println(part1(input))
-    println(part2(input))
-}

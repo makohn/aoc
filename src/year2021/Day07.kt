@@ -33,8 +33,3 @@ class Day07 : Solution<Int, Int>(year = 2021, day = 7) {
         return costs.minOf { it }
     }
 }
-
-fun main() = Day07().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -38,8 +38,3 @@ class Day03 : Solution<Int, Int>(year = 2021, day = 3) {
         return listOf(a.first(), b.first()).reduce(Int::times)
     }
 }
-
-fun main() = Day03().run {
-    println(part1(input))
-    println(part2(input))
-}

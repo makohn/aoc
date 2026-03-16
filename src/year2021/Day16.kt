@@ -2,9 +2,9 @@ package year2021
 
 import util.core.*
 
-typealias BitStream = MutableList<String>
-
 class Day16 : Solution<Long, Long>(year = 2021, day = 16) {
+
+    typealias BitStream = MutableList<String>
 
     override fun part1(input: String): Long {
         val bits = parse(input)
@@ -91,9 +91,4 @@ class Day16 : Solution<Long, Long>(year = 2021, day = 16) {
             }
         }
     }
-}
-
-fun main() = Day16().run {
-    println(part1(input))
-    println(part2(input))
 }

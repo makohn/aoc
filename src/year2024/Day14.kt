@@ -53,8 +53,3 @@ class Day14(
         return (5253 * t + 5151 * u).mod(10403)
     }
 }
-
-fun main() = Day14().run {
-    println(part1(input))
-    println(part2(input))
-}

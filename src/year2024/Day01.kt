@@ -22,8 +22,3 @@ class Day01 : Solution<Int, Int>(year = 2024, day = 1) {
         return lists.first.sumOf { it * lists.second.count { i -> i == it } }
     }
 }
-
-fun main() = Day01().run {
-    println(part1(input))
-    println(part2(input))
-}

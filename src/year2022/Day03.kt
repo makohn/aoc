@@ -32,8 +32,3 @@ class Day03 : Solution<Int, Int>(year = 2022, day = 3) {
         return scores.sum()
     }
 }
-
-fun main() = Day03().run {
-    println(part1(input))
-    println(part2(input))
-}

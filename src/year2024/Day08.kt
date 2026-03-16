@@ -56,8 +56,3 @@ class Day08 : Solution<Int, Int>(year = 2024, day = 8) {
         return antinodes.size
     }
 }
-
-fun main() = Day08().run {
-    println(part1(input))
-    println(part2(input))
-}

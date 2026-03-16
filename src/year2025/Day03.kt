@@ -52,8 +52,3 @@ class Day03 : Solution<Int, Long>(year = 2025, day = 3) {
         return sum
     }
 }
-
-fun main() = Day03().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -67,8 +67,3 @@ class Day04 : Solution<Int, Int>(year = 2021, day = 4) {
     private fun bingoRow(game: List<Int>) = game.chunked(numRows).map { it.sum() }.contains(numRows * marker)
     private fun bingoCol(game: List<Int>) = bingoRow(game.chunked(numRows).transpose().flatten())
 }
-
-fun main() = Day04().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -11,7 +11,7 @@ For instance:
 
 To run a specific day:
 ```shell
-./gradlew run -Pyear=2024 -Pday=21
+./gradlew run --args year2024.Day21
 ```
 
 To test a specific year:

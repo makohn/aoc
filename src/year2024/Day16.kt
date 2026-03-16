@@ -84,8 +84,3 @@ class Day16 : Solution<Int, Int>(year = 2024, day = 16) {
         return path.sumOf { it.count { b -> b } }
     }
 }
-
-fun main() = Day16().run {
-    println(part1(input))
-    println(part2(input))
-}

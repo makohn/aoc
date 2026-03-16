@@ -40,8 +40,3 @@ class Day12 : Solution<Int, Int>(year = 2021, day = 12) {
         return paths
     }
 }
-
-fun main() = Day12().run {
-    println(part1(input))
-    println(part2(input))
-}

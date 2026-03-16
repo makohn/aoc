@@ -61,8 +61,3 @@ class Day17 : Solution<Int, Int>(year = 2021, day = 17) {
         return Int4(x, y, vx, vy)
     }
 }
-
-fun main() = Day17().run {
-    println(part1(input))
-    println(part2(input))
-}

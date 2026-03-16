@@ -12,10 +12,8 @@ tasks {
     register<JavaExec>("run") {
         group = "aoc"
         description = "Run a solution for a specific day"
-        val day: String? by project
-        val year: String? by project
         classpath = sourceSets["main"].runtimeClasspath
-        mainClass.set("year${year}.Day${day}Kt")
+        mainClass.set("Main")
     }
 }
 

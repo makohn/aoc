@@ -70,8 +70,3 @@ class Day17 : Solution<String, Long>(year = 2024, day = 17) {
         return findMinA(program, program.lastIndex, 0)!!
     }
 }
-
-fun main() = Day17().run {
-    println(part1(input))
-    println(part2(input))
-}

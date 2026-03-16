@@ -29,8 +29,3 @@ class Day13 : Solution<Long, Long>(year = 2024, day = 13) {
 
     override fun part2(input: String) = solve(input, 10000000000000)
 }
-
-fun main() = Day13().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -46,8 +46,3 @@ class Day11 : Solution<Long, Long>(year = 2024, day = 11) {
         return solve(input, 75)
     }
 }
-
-fun main() = Day11().run {
-    println(part1(input))
-    println(part2(input))
-}

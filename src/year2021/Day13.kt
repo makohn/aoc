@@ -62,8 +62,3 @@ class Day13 : Solution<Int, String>(year = 2021, day = 13) {
         return transparent.joinToString("\n") { it.joinToString("") }
     }
 }
-
-fun main() = Day13().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -80,8 +80,3 @@ class Day18(
         }
     }
 }
-
-fun main() = Day18().run {
-    println(part1(input))
-    println(part2(input))
-}

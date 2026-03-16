@@ -59,8 +59,3 @@ class Day15(
         return 0
     }
 }
-
-fun main() = Day15().run {
-    println(part1(input))
-    println(part2(input))
-}

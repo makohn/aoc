@@ -52,8 +52,3 @@ class Day15 : Solution<Int, Int>(year = 2021, day = 15) {
         return dijkstra(start, ::adjacent)[end]!!
     }
 }
-
-fun main() = Day15().run {
-    println(part1(input))
-    println(part2(input))
-}

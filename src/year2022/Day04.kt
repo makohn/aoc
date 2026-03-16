@@ -52,8 +52,3 @@ class Day04 : Solution<Int, Int>(year = 2022, day = 4) {
         return count
     }
 }
-
-fun main() = Day04().run {
-    println(part1(input))
-    println(part2(input))
-}

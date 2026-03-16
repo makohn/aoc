@@ -87,8 +87,3 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
         return sum
     }
 }
-
-fun main() = Day12().run {
-    println(part1(input))
-    println(part2(input))
-}

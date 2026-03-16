@@ -85,8 +85,3 @@ class Day23 : Solution<Int, String>(year = 2024, day = 23) {
         return res.dropLast(1).toString()
     }
 }
-
-fun main() = Day23().run {
-    println(part1(input))
-    println(part2(input))
-}

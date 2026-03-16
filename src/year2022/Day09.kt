@@ -69,8 +69,3 @@ class Day09 : Solution<Int, Int>(year = 2022, day = 9) {
         return knotPositions.size
     }
 }
-
-fun main() = Day09().run {
-    println(part1(input))
-    println(part2(input))
-}

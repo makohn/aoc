@@ -24,8 +24,3 @@ class Day09 : Solution<Int, Int>(year = 2023, day = 9) {
         .map { it.split(" ").map { it.toInt() } }
         .sumOf { predictFirst(it) }
 }
-
-fun main() = Day09().run {
-    println(part1(input))
-    println(part2(input))
-}

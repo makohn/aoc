@@ -41,8 +41,3 @@ class Day06(
         return counts.fold(0L) { acc, e -> acc + e}
     }
 }
-
-fun main() = Day06().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -44,8 +44,3 @@ class Day07 : Solution<Int, Long>(year = 2025, day = 7) {
         return beamCounts.values.sum()
     }
 }
-
-fun main() = Day07().run {
-    println(part1(input))
-    println(part2(input))
-}

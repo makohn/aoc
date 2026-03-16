@@ -77,8 +77,3 @@ class Day10 : Solution<Int, Int>(year = 2023, day = 10) {
         return insideCount
     }
 }
-
-fun main() = Day10().run {
-    println(part1(input))
-    println(part2(input))
-}

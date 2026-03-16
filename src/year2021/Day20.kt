@@ -2,10 +2,10 @@ package year2021
 
 import util.core.*
 
-typealias Image = Set<Pair<Int, Int>>
-typealias Bounds = List<Int>
-
 class Day20 : Solution<Int, Int>(year = 2021, day = 20) {
+
+    typealias Image = Set<Pair<Int, Int>>
+    typealias Bounds = List<Int>
 
     override fun part1(input: String): Int {
         val (algorithm, image) = parse(input)
@@ -79,9 +79,4 @@ class Day20 : Solution<Int, Int>(year = 2021, day = 20) {
         this@apply[2] - padding,
         this@apply[3] + padding
     )
-}
-
-fun main() = Day20().run {
-    println(part1(input))
-    println(part2(input))
 }

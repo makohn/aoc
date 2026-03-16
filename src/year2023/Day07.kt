@@ -82,8 +82,3 @@ class Day07 : Solution<Int, Int>(year = 2023, day = 7) {
         return sorted.withIndex().sumOf { (idx, pair) -> (idx+1) * pair.first.bid }
     }
 }
-
-fun main() = Day07().run {
-    println(part1(input))
-    println(part2(input))
-}

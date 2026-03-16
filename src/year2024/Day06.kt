@@ -61,8 +61,3 @@ class Day06 : Solution<Int, Int>(year = 2024, day = 6) {
         return solve(startGrid, si, sj, sd, true)
     }
 }
-
-fun main() = Day06().run {
-    println(part1(input))
-    println(part2(input))
-}

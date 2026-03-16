@@ -89,8 +89,3 @@ class Day13 : Solution<Int, Int>(year = 2023, day = 13) {
             .sumOf { verticalMirrorPosition(it) + 100*horizontalMirrorPosition(it) }
     }
 }
-
-fun main() = Day13().run {
-    println(part1(input))
-    println(part2(input))
-}

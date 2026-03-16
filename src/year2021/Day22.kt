@@ -81,8 +81,3 @@ class Day22 : Solution<Long, Long>(year = 2021, day = 22) {
         return Cuboid(x1, x2, y1, y2, z1, z2)
     }
 }
-
-fun main() = Day22().run {
-    println(part1(input))
-    println(part2(input))
-}

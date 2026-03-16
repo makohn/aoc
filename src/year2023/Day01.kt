@@ -33,8 +33,3 @@ class Day01 : Solution<Int, Int>(year = 2023, day = 1) {
         .map { Regex("\\d").findAll(it).map { it.value } }
         .sumOf { (it.first() + it.last()).toInt() }
 }
-
-fun main() = Day01().run {
-    println(part1(input))
-    println(part2(input))
-}

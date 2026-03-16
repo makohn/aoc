@@ -38,7 +38,3 @@ class Day25 : Solution<Int, Int>(year = 2021, day = 25) {
 
     override fun part2(input: String) = 0
 }
-
-fun main() = Day25().run {
-    println(part1(input))
-}

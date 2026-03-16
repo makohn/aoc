@@ -72,8 +72,3 @@ class Day20(
         }.toList().sum()
     }
 }
-
-fun main() = Day20().run {
-    println(part1(input))
-    println(part2(input))
-}

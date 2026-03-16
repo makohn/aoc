@@ -74,8 +74,3 @@ class Day24 : Solution<Long, String>(year = 2024, day = 24) {
         return res.sorted().joinToString(",")
     }
 }
-
-fun main() = Day24().run {
-    println(part1(input))
-    println(part2(input))
-}

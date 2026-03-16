@@ -82,8 +82,3 @@ class Day12 : Solution<Int, Long>(year = 2023, day = 12) {
             .sumOf { (str, dist) -> countPossibilities(str, dist, State(0, 0, 0)) }
     }
 }
-
-fun main() = Day12().run {
-    println(part1(input))
-    println(part2(input))
-}

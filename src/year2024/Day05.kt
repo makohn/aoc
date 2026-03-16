@@ -31,8 +31,3 @@ class Day05 : Solution<Int, Int>(year = 2024, day = 5) {
         return solve(input).second
     }
 }
-
-fun main() = Day05().run {
-    println(part1(input))
-    println(part2(input))
-}

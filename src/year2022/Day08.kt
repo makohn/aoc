@@ -92,8 +92,3 @@ class Day08 : Solution<Int, Int>(year = 2022, day = 8) {
         return scenicScore.maxOf { it.max() }
     }
 }
-
-fun main() = Day08().run {
-    println(part1(input))
-    println(part2(input))
-}

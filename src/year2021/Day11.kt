@@ -53,8 +53,3 @@ class Day11 : Solution<Int, Int>(year = 2021, day = 11) {
         return flashed
     }
 }
-
-fun main() = Day11().run {
-    println(part1(input))
-    println(part2(input))
-}

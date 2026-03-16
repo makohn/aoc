@@ -98,8 +98,3 @@ class Day21 : Solution<Long, Long>(year = 2024, day = 21) {
         return sumOfComplexities(input, 26)
     }
 }
-
-fun main() = Day21().run {
-    println(part1(input))
-    println(part2(input))
-}

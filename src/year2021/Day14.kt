@@ -52,8 +52,3 @@ class Day14 : Solution<Long, Long>(year = 2021, day = 14) {
             .fold(0L) { acc, e -> acc + (e.second/2.0).toLong() }
     }
 }
-
-fun main() = Day14().run {
-    println(part1(input))
-    println(part2(input))
-}

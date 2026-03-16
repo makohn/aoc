@@ -19,8 +19,3 @@ class Day01 : Solution<Int, Int>(year = 2021, day = 1) {
 
     private fun hasIncreased(a: Int, b: Int) = (b > a).compareTo(false)
 }
-
-fun main() = Day01().run {
-    println(part1(input))
-    println(part2(input))
-}

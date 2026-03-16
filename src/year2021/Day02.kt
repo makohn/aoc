@@ -24,8 +24,3 @@ class Day02 : Solution<Int, Int>(year = 2021, day = 2) {
         .map { it.first() to it.last().toInt() }
         .map { if (it.first == "up") "down" to -it.second else it }
 }
-
-fun main() = Day02().run {
-    println(part1(input))
-    println(part2(input))
-}

@@ -86,8 +86,3 @@ class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
         return calculateLoad(e)
     }
 }
-
-fun main() = Day14().run {
-    println(part1(input))
-    println(part2(input))
-}

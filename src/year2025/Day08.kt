@@ -89,8 +89,3 @@ class Day08(val amount: Int = 1000) : Solution<Int, Long>(year = 2025, day = 8) 
         return 0
     }
 }
-
-fun main() = Day08().run {
-    println(part1(input))
-    println(part2(input))
-}

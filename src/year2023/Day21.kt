@@ -48,8 +48,3 @@ class Day21(
         return f(x)
     }
 }
-
-fun main() = Day21().run {
-    println(part1(input))
-    println(part2(input))
-}

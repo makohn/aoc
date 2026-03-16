@@ -36,8 +36,3 @@ class Day24 : Solution<Long, Long>(year = 2021, day = 24) {
         return number.joinToString("").toLong()
     }
 }
-
-fun main() = Day24().run {
-    println(part1(input))
-    println(part2(input))
-}

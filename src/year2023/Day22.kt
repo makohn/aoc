@@ -89,8 +89,3 @@ class Day22 : Solution<Int, Int>(year = 2023, day = 22) {
         return ans - droppedBricks.size
     }
 }
-
-fun main() = Day22().run {
-    println(part1(input))
-    println(part2(input))
-}

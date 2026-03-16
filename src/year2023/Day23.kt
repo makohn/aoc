@@ -107,8 +107,3 @@ class Day23 : Solution<Int, Int>(year = 2023, day = 23) {
         return dfs(startCell)
     }
 }
-
-fun main() = Day23().run {
-    println(part1(input))
-    println(part2(input))
-}

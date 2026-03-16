@@ -3,10 +3,10 @@ package year2021
 import util.core.*
 import kotlin.math.abs
 
-typealias Translations = MutableMap<Pair<Int, Int>, Pair<Int, Day19.Vector3>>
-typealias Translation = Map.Entry<Pair<Int, Int>, Pair<Int, Day19.Vector3>>
-
 class Day19 : Solution<Int, Int>(year = 2021, day = 19) {
+
+    typealias Translations = MutableMap<Pair<Int, Int>, Pair<Int, Day19.Vector3>>
+    typealias Translation = Map.Entry<Pair<Int, Int>, Pair<Int, Day19.Vector3>>
 
     override fun part1(input: String): Int {
         val scanners = parse(input)
@@ -133,9 +133,4 @@ class Day19 : Solution<Int, Int>(year = 2021, day = 19) {
         }
         return beacons.size to distances.maxOf { it }
     }
-}
-
-fun main() = Day19().run {
-    println(part1(input))
-    println(part2(input))
 }

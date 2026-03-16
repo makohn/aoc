@@ -122,8 +122,3 @@ class Day15 : Solution<Int, Int>(year = 2024, day = 15) {
         return gpsSum(grid, '[')
     }
 }
-
-fun main() = Day15().run {
-    println(part1(input))
-    println(part2(input))
-}

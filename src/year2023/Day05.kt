@@ -109,8 +109,3 @@ class Day05 : Solution<Long, Long>(year = 2023, day = 5) {
         return ranges.map { it.first }.min()
     }
 }
-
-fun main() = Day05().run {
-    println(part1(input))
-    println(part2(input))
-}
