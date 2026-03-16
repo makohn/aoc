@@ -1,7 +1,7 @@
 package year2023
 
 import util.core.*
-import util.parse.extractInts
+import util.parse.*
 import kotlin.math.max
 import kotlin.math.min
 

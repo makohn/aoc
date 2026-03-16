@@ -1,7 +1,7 @@
 package year2022
 
 import util.core.*
-import util.parse.extractInts
+import util.parse.*
 import util.point.*
 import kotlin.math.abs
 

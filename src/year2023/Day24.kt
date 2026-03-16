@@ -4,7 +4,7 @@ import util.core.*
 import util.iter.combineElements
 import util.math.Matrix
 import util.math.Matrix4x4
-import util.parse.extractDoubles
+import util.parse.*
 import kotlin.math.roundToLong
 
 class Day24(

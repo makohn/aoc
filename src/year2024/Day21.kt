@@ -2,7 +2,7 @@ package year2024
 
 import util.core.*
 import util.grid.*
-import util.parse.extractLongs
+import util.parse.*
 import util.point.*
 import kotlin.math.abs
 

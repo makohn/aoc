@@ -1,7 +1,7 @@
 package year2024
 
 import util.core.*
-import util.parse.splitAsciiWhitespace
+import util.parse.*
 
 class Day24 : Solution<Long, String>(year = 2024, day = 24) {
 

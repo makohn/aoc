@@ -1,7 +1,7 @@
 package year2024
 
 import util.core.*
-import util.parse.extractInts
+import util.parse.*
 
 class Day14(
     private val w: Int = 101,

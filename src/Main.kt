@@ -1,6 +1,6 @@
 @file:JvmName("Main")
 
-import util.core.Solution
+import util.core.*
 
 fun main(args: Array<String>) {
     val solution = Class.forName(args[0]).getDeclaredConstructor().newInstance() as Solution<*, *>

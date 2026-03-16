@@ -1,7 +1,7 @@
 package year2024
 
 import util.core.*
-import util.parse.extractInts
+import util.parse.*
 
 class Day17 : Solution<String, Long>(year = 2024, day = 17) {
 
