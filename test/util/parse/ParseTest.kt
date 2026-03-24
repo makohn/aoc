@@ -28,6 +28,17 @@ class ParseTest {
         "344051711837792, 354119482543737 @ -90, 10" to listOf(344051711837792.0, 354119482543737.0, -90.0, 10.0)
     )
 
+    private val splitByPredicate = listOf(
+        Triple(
+            "Pipe AB is mounted to x=6; y=7 and connected to pipes XY, QR",
+            listOf("P", "AB", "6", "7", "XY", "QR")
+        ) { c: Char -> !c.isUpperCase() && !c.isDigit() },
+        Triple(
+            "a1234b9857c4758",
+            listOf("a", "b", "c")
+        ) { c: Char -> c.isDigit() }
+    )
+
     private val splitAsciiWhitespaceTestData = mapOf(
         "A few words" to listOf("A", "few", "words"),
         " Mary   had\ta little  \n\t lamb" to listOf("Mary", "had", "a", "little", "lamb"),
@@ -60,12 +71,23 @@ class ParseTest {
     }
 
     @TestFactory
-    @DisplayName("CharSequence.splitAsciiWhitespace")
+    @DisplayName("String.splitAsciiWhitespace")
     fun splitAsciiWhitespace(): List<DynamicTest> {
         var i = 0
         return splitAsciiWhitespaceTestData.map { (k, v) ->
             DynamicTest.dynamicTest("${i++}: '$k'") {
                 Assertions.assertEquals(v, k.splitAsciiWhitespace())
+            }
+        }
+    }
+
+    @TestFactory
+    @DisplayName("String.splitByPredicate")
+    fun splitByPredicate(): List<DynamicTest> {
+        var i = 0
+        return splitByPredicate.map { (k, v, p) ->
+            DynamicTest.dynamicTest("${i++}: '$k'") {
+                Assertions.assertEquals(v, k.split(p))
             }
         }
     }

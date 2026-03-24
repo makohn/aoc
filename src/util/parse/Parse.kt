@@ -109,27 +109,50 @@ fun String.extractLongs(): List<Long> = buildList {
 fun String.extractDoubles() = Regex("[+-]?\\d+(\\.\\d+)*").findAll(this).map { it.value.toDouble() }.toList()
 
 /**
- * Splits this char sequence to a list of strings around occurrences of ASCII whitespace characters.
+ * Splits this [String] to a list of [String]s around occurrences of characters matched by a predicate.
  *
- * ASCII whitespace is U+0009 TAB, U+000A LF, U+000C FF, U+000D CR, or U+0020 SPACE.
+ * @param predicate a function that determines if a character matches
+ *
+ * @return a list of [String]s in this [String] separated by characters matched by a predicate
  */
-fun CharSequence.splitAsciiWhitespace(): List<String> = buildList {
-    var start = -1
-    for (i in this@splitAsciiWhitespace.indices) {
-        val c = this@splitAsciiWhitespace[i]
-        val asciiWhitespace = c == '\t' || c == '\n' || c == '\u000C' || c == '\r' || c == ' '
+inline fun String.split(predicate: (Char) -> Boolean): List<String> {
+    val string = this
+    return buildList {
+        var start = -1
+        for (i in string.indices) {
+            val c = string[i]
 
-        if (asciiWhitespace) {
-            if (start != -1) {
-                add(this@splitAsciiWhitespace.substring(start, i))
-                start = -1
+            if (predicate(c)) {
+                if (start != -1) {
+                    add(string.substring(start, i))
+                    start = -1
+                }
+            } else if (start == -1) {
+                start = i
             }
-        } else if (start == -1) {
-            start = i
+        }
+
+        if (start != -1) {
+            add(string.substring(start))
         }
     }
-
-    if (start != -1) {
-        add(this@splitAsciiWhitespace.substring(start))
-    }
 }
+
+/**
+ * Splits this [String] to a list of [String]s around occurrences of ASCII whitespace characters.
+ *
+ * ASCII whitespace is U+0009 TAB, U+000A LF, U+000C FF, U+000D CR, or U+0020 SPACE.
+ *
+ * For example
+ * ```
+ * " Mary   had\ta little  \n\t lamb"
+ * ```
+ * provides the following list:
+ * ```
+ * ["Mary", "had", "a", "little", "lamb"]
+ * ```
+ *
+ * @return a list of [String]s in this [String] separated by ASCII whitespace characters
+ */
+fun String.splitAsciiWhitespace(): List<String> =
+    split { it == '\t' || it == '\n' || it == '\u000C' || it == '\r' || it == ' ' }
