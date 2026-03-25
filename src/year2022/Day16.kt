@@ -1,6 +1,8 @@
 package year2022
 
 import util.core.*
+import util.iter.*
+import util.math.*
 import util.parse.*
 
 class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
@@ -36,22 +38,6 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
         val pressure: Int
     )
 
-    private class Bitset(private var number: Int) : Iterator<Int> {
-        override fun hasNext() = number != 0
-
-        override fun next(): Int {
-            val zeros = number.countTrailingZeroBits()
-            number = number and (number - 1)
-            return zeros
-        }
-    }
-
-    private fun Int.toBitset() = Bitset(this)
-
-    private infix fun UInt.satAdd(other: UInt): UInt {
-        return if (this > UInt.MAX_VALUE - other) UInt.MAX_VALUE else this + other
-    }
-
     private fun parse(input: String): Input {
         val valves = input.lines().map(::Valve).sorted()
         val size = valves.count { it.flow > 0 } + 1
@@ -78,7 +64,7 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
             }
         }
         for (k in 0..<size) for (i in 0..<size) for (j in 0..<size) {
-            val candidate = distance[i * size + k] satAdd distance[k * size + j]
+            val candidate = distance[i * size + k].saturatingAdd(distance[k * size + j])
             if (candidate < distance[i * size + j]) distance[i * size + j] = candidate
         }
         for (i in distance.indices) distance[i] += 1u
@@ -97,13 +83,13 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
         val (todo, from, time, pressure) = state
         val score = highScore(todo, pressure)
 
-        for (to in todo.toBitset()) {
-            val needed = input.distance[from * input.size + to]
+        for (bit in todo.bits()) {
+            val needed = input.distance[from * input.size + bit]
             if (needed >= time) continue
 
-            val todo = todo xor (1 shl to)
+            val todo = todo xor (1 shl bit)
             val time = time - needed
-            val pressure = pressure + time * input.flow[to]
+            val pressure = pressure + time * input.flow[bit]
             val heuristic = {
                 var valves = todo
                 var time = time
@@ -119,7 +105,7 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
             }
 
             if (heuristic() > score) {
-                val next = State(todo, to, time, pressure)
+                val next = State(todo, bit, time, pressure)
                 solve(input, next, highScore)
             }
         }
@@ -128,7 +114,7 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
     override fun part1(input: String): Int {
         val inp = parse(input)
         var score = 0
-        val highScore: (Int, Int) -> Int = { _, pressure: Int ->
+        val highScore = { _: Int, pressure: Int ->
             score = maxOf(score, pressure)
             score
         }
@@ -138,6 +124,51 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
     }
 
     override fun part2(input: String): Int {
-        return 0
+        val inp = parse(input)
+        var you = 0
+        var remaining = 0
+        val highScore1 = { todo: Int, pressure: Int ->
+            if (pressure > you) {
+                you = pressure
+                remaining = todo
+            }
+            you
+        }
+        val state1 = State(inp.allValves, inp.aa, 26, 0)
+        solve(inp, state1, highScore1)
+
+        var elephant = 0
+        val highScore2 = { _: Int, pressure: Int ->
+            elephant = maxOf(elephant, pressure)
+            elephant
+        }
+        val state2 = State(remaining, inp.aa, 26, 0)
+        solve(inp, state2, highScore2)
+
+        val score = IntArray(inp.allValves + 1)
+        val highScore3 = { todo: Int, pressure: Int ->
+            val done = inp.allValves xor todo
+            score[done] = maxOf(score[done], pressure)
+            elephant
+        }
+        val state3 = State(inp.allValves, inp.aa, 26, 0)
+        solve(inp, state3, highScore3)
+
+        var res = you + elephant
+        val candidates = score.withIndex().filter { (_, s) -> s > 0 }.sortedBy { it.value }
+
+        for (i in candidates.lastIndex downTo 1) {
+            val (mask1, you) = candidates[i]
+            if (you * 2 <= res) break
+
+            for (j in i - 1 downTo 0) {
+                val (mask2, elephant) = candidates[j]
+                if (mask1 and mask2 == 0) {
+                    res = maxOf(res, you + elephant)
+                    break
+                }
+            }
+        }
+        return res
     }
 }

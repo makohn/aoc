@@ -20,6 +20,13 @@ fun Iterable<Long>.lcm() = reduce { acc, i -> lcm(acc, i) }
  * Returns the product of all elements in the collection.
  */
 fun Iterable<Int>.product() = reduce { a, b -> a * b }
+
+/**
+ * Adds the other value to this value, saturating at numeric bounds.
+ */
+fun UInt.saturatingAdd(other: UInt): UInt {
+    return if (this > UInt.MAX_VALUE - other) UInt.MAX_VALUE else this + other
+}
 //endregion
 
 //region Matrix definitions

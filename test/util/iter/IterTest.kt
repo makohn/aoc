@@ -1,10 +1,6 @@
 package util.iter
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.DynamicContainer
-import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.TestFactory
+import org.junit.jupiter.api.*
 
 class IterTest {
 
@@ -85,6 +81,13 @@ class IterTest {
         listOf(listOf("a", "b", "c"), listOf(1, 2, 3)) to listOf(listOf("a", 1), listOf("b", 2), listOf("c", 3))
     )
 
+    private val bitsTestData = mapOf(
+        7 to listOf(0, 1, 2),
+        231 to listOf(0, 1, 2, 5, 6, 7),
+        1024 to listOf(10),
+        123123 to listOf(0, 1, 4, 5, 6, 7, 13, 14, 15, 16)
+    )
+
     @TestFactory
     @DisplayName("List.combineElements")
     fun testCombineElements() = combineElementsTestData.map { (k, v) ->
@@ -106,6 +109,14 @@ class IterTest {
     fun testTranspose() = transposeTestsData.map { (k, v) ->
         DynamicTest.dynamicTest(k.joinToString { it.joinToString("") }) {
             Assertions.assertEquals(v, k.transpose())
+        }
+    }
+
+    @TestFactory
+    @DisplayName("Int.bits")
+    fun toBitset() = bitsTestData.map { (k, v) ->
+        DynamicTest.dynamicTest(k.toString(2)) {
+            Assertions.assertEquals(v, k.bits().asSequence().toList())
         }
     }
 }

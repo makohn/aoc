@@ -23,6 +23,11 @@ class MathTest {
         (3123456789 to 8573748456) to 8926577607357155928
     )
 
+    private val saturatingAddTestData = mapOf(
+        (100u to 1u) to 101u,
+        (UInt.MAX_VALUE to 127u) to UInt.MAX_VALUE
+    )
+
     @TestFactory
     @DisplayName("gcd(a, b)")
     fun testGcd() = gcdTestData.map { (k, v) ->
@@ -36,6 +41,14 @@ class MathTest {
     fun testLcm() = lcmTestData.map { (k, v) ->
         DynamicTest.dynamicTest("lcm(${k.first}, ${k.second}) = $v") {
             Assertions.assertEquals(v, lcm(k.first, k.second))
+        }
+    }
+
+    @TestFactory
+    @DisplayName("a.saturatingAdd(b)")
+    fun testSaturatingAdd() = saturatingAddTestData.map { (k, v) ->
+        DynamicTest.dynamicTest("${k.first}.saturatingAdd(${k.second}) = $v") {
+            Assertions.assertEquals(v, k.first.saturatingAdd(k.second))
         }
     }
 }

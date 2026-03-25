@@ -66,3 +66,29 @@ fun <E> MutableList<E>.replaceFirst(element: E, predicate: (E) -> Boolean) {
     val index = indexOfFirst(predicate)
     if (index != -1) this[index] = element
 }
+
+/**
+ * An iterator over the set bits of a given [Int] number.
+ *
+ * For example
+ * ```
+ * BitIterator(0b111) = [0, 1, 2] // 7
+ * BitIterator(0b11100111) = [0, 1, 2, 5, 6, 7] // 231
+ * ```
+ *
+ * @param number the [Int] whose bits are to be iterated over
+ */
+class BitIterator(private var number: Int) : Iterator<Int> {
+    override fun hasNext() = number != 0
+
+    override fun next(): Int {
+        val zeros = number.countTrailingZeroBits()
+        number = number and (number - 1)
+        return zeros
+    }
+}
+
+/**
+ * Provides a [BitIterator] for the given number.
+ */
+fun Int.bits() = BitIterator(this)

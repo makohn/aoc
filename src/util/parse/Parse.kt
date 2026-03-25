@@ -111,7 +111,7 @@ fun String.extractDoubles() = Regex("[+-]?\\d+(\\.\\d+)*").findAll(this).map { i
 /**
  * Splits this [String] to a list of [String]s around occurrences of characters matched by a predicate.
  *
- * @param predicate a function that determines if a character matches
+ * @param predicate a function that determines if a character matches and thus serves as a delimiter
  *
  * @return a list of [String]s in this [String] separated by characters matched by a predicate
  */
