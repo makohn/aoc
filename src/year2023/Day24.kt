@@ -1,9 +1,8 @@
 package year2023
 
 import util.core.*
-import util.iter.combineElements
-import util.math.Matrix
-import util.math.Matrix4x4
+import util.iter.*
+import util.math.*
 import util.parse.*
 import kotlin.math.roundToLong
 
@@ -34,7 +33,7 @@ class Day24(
     override fun part1(input: String): Int {
         val hailstones = input
             .lines()
-            .map { it.extractDoubles() }
+            .map { it.extractLongs().map { long -> long.toDouble() } }
             .map { (a, b, c, d, e, f) -> Hailstone(a, b, c, d, e, f) }
 
         val intersections = mutableListOf<Vec2>()
@@ -58,7 +57,7 @@ class Day24(
     override fun part2(input: String): Long {
         val hailstones = input
             .lines()
-            .map { it.extractDoubles() }
+            .map { it.extractLongs().map { long -> long.toDouble() } }
             .map { (a, b, c, d, e, f) -> Hailstone(a, b, c, d, e, f) }
 
         val res = hailstones

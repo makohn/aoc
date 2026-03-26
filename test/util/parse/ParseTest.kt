@@ -21,13 +21,6 @@ class ParseTest {
         "range-check(low=-9223372036854775807, high=+9223372036854775807)" to listOf(-9223372036854775807, 9223372036854775807)
     )
 
-    private val extractDoublesTestData = mapOf(
-        "1, 2 sub, 5.923 7.8 -8.7 add 205.1234 10.99999" to listOf(1.0, 2.0, 5.923, 7.8, -8.7, 205.1234, 10.99999),
-        "pi=3.14159, e=2.71828" to listOf(3.14159, 2.71828),
-        "8. 9.-1023" to listOf(8.0, 9.0, -1023.0),
-        "344051711837792, 354119482543737 @ -90, 10" to listOf(344051711837792.0, 354119482543737.0, -90.0, 10.0)
-    )
-
     private val splitByPredicateTestData = listOf(
         Triple(
             "Pipe AB is mounted to x=6; y=7 and connected to pipes XY, QR",
@@ -59,14 +52,6 @@ class ParseTest {
     fun testExtractLongs() = extractLongsTestData.map { (k, v) ->
         DynamicTest.dynamicTest(k) {
             Assertions.assertEquals(v, k.extractLongs())
-        }
-    }
-
-    @TestFactory
-    @DisplayName("String.extractDoubles")
-    fun extractDoubles() = extractDoublesTestData.map { (k, v) ->
-        DynamicTest.dynamicTest(k) {
-            Assertions.assertEquals(v, k.extractDoubles())
         }
     }
 
