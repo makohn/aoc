@@ -55,6 +55,13 @@ fun readTestInput(year: Int, day: Int, suffix: String) = Path("$LOCAL_DATA_DIR/$
 operator fun <T> List<T>.component6() = get(5)
 
 /**
+ * Returns 7th *element* from the list.
+ *
+ * Throws an [IndexOutOfBoundsException] if the size of this list is less than 5.
+ */
+operator fun <T> List<T>.component7() = get(6)
+
+/**
  * Represents a 4D vector of 32-bit signed integers.
  */
 data class Int4(val x: Int, val y: Int, val z: Int, val w: Int)
