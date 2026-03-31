@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day21 : Solution<Long, Int>(year = 2022, day = 21) {
+class Day21 : Solution<Long, Long>(year = 2022, day = 21) {
 
     private enum class Operation {
         Add, Sub, Mul, Div;
@@ -37,12 +37,13 @@ class Day21 : Solution<Long, Int>(year = 2022, day = 21) {
         }
     }
 
-    private class State(val jobs: List<Job>, size: Int) {
-        val yelledNumbers = LongArray(size)
+    private class State(val root: Long, val jobs: List<Job>, size: Int) {
+        val results = LongArray(size)
+        val dependsOnHuman = BooleanArray(size)
     }
 
-    private fun yell(monkeyIndex: Long, state: State): Long {
-        val result = when (val job = state.jobs[monkeyIndex.toInt()]) {
+    private fun yell(index: Long, state: State): Long {
+        val result = when (val job = state.jobs[index.toInt()]) {
             is Job.Number -> job.value
             is Job.MathResult -> {
                 val left = yell(job.left, state)
@@ -50,27 +51,70 @@ class Day21 : Solution<Long, Int>(year = 2022, day = 21) {
                 job.operation(left, right)
             }
         }
-        state.yelledNumbers[monkeyIndex.toInt()] = result
+        state.results[index.toInt()] = result
         return result
     }
 
-    override fun part1(input: String): Long {
+    private fun find(state: State, human: Long, index: Long): Boolean {
+        val res  = when (val job = state.jobs[index.toInt()]) {
+            is Job.Number -> human == index
+            is Job.MathResult -> find(state, human, job.left) || find(state, human, job.right)
+        }
+        state.dependsOnHuman[index.toInt()] = res
+        return res
+    }
+
+    private fun backSolve(state: State, index: Long, value: Long): Long {
+        return when (val job = state.jobs[index.toInt()]) {
+            is Job.Number -> value
+            is Job.MathResult -> {
+                val (left, operation, right) = job
+                if (index == state.root) {
+                    if (state.dependsOnHuman[left.toInt()]) {
+                        backSolve(state, left, state.results[right.toInt()])
+                    } else {
+                        backSolve(state, right, state.results[left.toInt()])
+                    }
+                } else {
+                    if (state.dependsOnHuman[left.toInt()]) {
+                        when (operation) {
+                            Operation.Add -> backSolve(state, left, value - state.results[right.toInt()])
+                            Operation.Sub -> backSolve(state, left, value + state.results[right.toInt()])
+                            Operation.Mul -> backSolve(state, left, value / state.results[right.toInt()])
+                            Operation.Div -> backSolve(state, left, value * state.results[right.toInt()])
+                        }
+                    } else {
+                        when (operation) {
+                            Operation.Add -> backSolve(state, right, value - state.results[left.toInt()])
+                            Operation.Sub -> backSolve(state, right, state.results[left.toInt()] - value)
+                            Operation.Mul -> backSolve(state, right, value / state.results[left.toInt()])
+                            Operation.Div -> backSolve(state, right, state.results[left.toInt()] / value)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun parse(input: String): Pair<State, Map<String, Long>> {
         val lines = input.lines()
         val monkeys = lines.withIndex().associate { (index, line) -> line.substring(0, 4) to index.toLong() }
         val jobs = lines.map { line -> Job(line.substring(6), monkeys) }
         val root = monkeys["root"]!!
-        val state = State(jobs, lines.size)
-        yell(root, state)
-        return state.yelledNumbers[root.toInt()]
+        return State(root, jobs, lines.size) to monkeys
     }
 
-    override fun part2(input: String): Int {
-        return 0
+    override fun part1(input: String): Long {
+        val (state, _) = parse(input)
+        yell(state.root, state)
+        return state.results[state.root.toInt()]
     }
-}
 
-fun main() {
-    Day21().run {
-        println(part1(input))
+    override fun part2(input: String): Long {
+        val (state, monkeys) = parse(input)
+        val human = monkeys["humn"]!!
+        yell(state.root, state)
+        find(state, human, state.root)
+        return backSolve(state, state.root, -1)
     }
 }
