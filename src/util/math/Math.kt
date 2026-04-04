@@ -7,6 +7,11 @@ package util.math
 tailrec fun gcd(a: Long, b: Long): Long = if (b == 0L) a else gcd(b, a % b)
 
 /**
+ * Returns the greatest common divisor between two numbers.
+ */
+tailrec fun gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
+
+/**
  * Returns the least common multiple between two numbers.
  */
 fun lcm(a: Long, b: Long) = a / gcd(a, b) * b

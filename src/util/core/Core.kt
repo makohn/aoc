@@ -26,7 +26,7 @@ abstract class Solution<T, U>(val year: Int, val day: Int) {
  * @param year the year of the AoC puzzle
  * @param day the day of the AoC puzzle
  */
-fun readInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/$year/$day.txt").readText().trim()
+fun readInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/$year/$day.txt").readText().trimEnd()
 
 /**
  * Reads the AoC example input which can be found in the puzzle text.
@@ -34,7 +34,7 @@ fun readInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/$year/$day.txt").read
  * @param year the year of the AoC puzzle
  * @param day the day of the AoC puzzle
  */
-fun readTestInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/$year/test/${day}_test.txt").readText().trim()
+fun readTestInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/$year/test/${day}_test.txt").readText().trimEnd()
 
 /**
  * Reads a specific version of AoC example input which can be found in the puzzle text.
@@ -44,7 +44,7 @@ fun readTestInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/$year/test/${day}
  * @param suffix an optional suffix, used to distinguish between multiple inputs
  */
 fun readTestInput(year: Int, day: Int, suffix: String) = Path("$LOCAL_DATA_DIR/$year/test/${day}_test$suffix.txt").let {
-    if (it.exists()) it.readText().trim() else readTestInput(year, day)
+    if (it.exists()) it.readText().trimEnd() else readTestInput(year, day)
 }
 
 /**
