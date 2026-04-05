@@ -44,6 +44,21 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
         return Board(width, height, tiles, start, block)
     }
 
+    data class Vec3(
+        val x: Int,
+        val y: Int,
+        val z: Int
+    ) {
+        operator fun unaryMinus() = Vec3(-this.x, -this.y, -this.z)
+    }
+
+    data class Face(
+        val corner: Point,
+        val a: Vec3,
+        val b: Vec3,
+        val c: Vec3
+    )
+
     private fun parseMoves(str: String): List<Move> {
         val letters = str.filter { it.isLetter() }.iterator()
         val moves = ArrayList<Move>()
@@ -110,6 +125,89 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
     }
 
     override fun part2(input: String): Int {
-        return 0
+        val (boardStr, movesStr) = input.split("\n\n")
+        val board = Board(boardStr)
+        val moves = parseMoves(movesStr)
+        val block = board.block
+        val start = Face(
+            corner = Point(0, board.start - board.start % block),
+            a = Vec3(1, 0, 0),
+            b = Vec3(0, 1, 0),
+            c = Vec3(0, 0, 1),
+        )
+        val todo = arrayListOf(start)
+        val faces = hashMapOf(start.c to start)
+        val corners = hashMapOf(start.corner to start)
+
+        while (todo.isNotEmpty()) {
+            val (corner, a, b, c) = todo.removeFirst()
+            val neighbors = arrayOf(
+                Face(corner = corner + Point(0, -block), a = -c, b = b, c = a),
+                Face(corner = corner + Point(0, block), a = c, b = b, c = -a),
+                Face(corner = corner + Point(-block, 0), a = a, b = -c, c = b),
+                Face(corner = corner + Point(block, 0), a = a, b = c, c = -b)
+            )
+            for (neighbor in neighbors) {
+                if (board.tile(neighbor.corner) != ' ' && neighbor.c !in faces) {
+                    todo.add(neighbor)
+                    faces[neighbor.c] = neighbor
+                    corners[neighbor.corner] = neighbor
+                }
+            }
+        }
+        return password(board, moves) { pos, dir ->
+            val edge = block - 1
+            val offset = Point(pos.i % block, pos.j % block)
+            val corner = pos - offset
+            val (_, a, b, c) = corners[corner]!!
+            val nextC = when(dir) {
+                LEFT -> a
+                RIGHT -> -a
+                UP -> b
+                DOWN -> -b
+                else -> error(dir)
+            }
+            val (nextCorner, nextA, nextB, _) = faces[nextC]!!
+            val nextDir = when (c) {
+                nextA -> RIGHT
+                -nextA -> LEFT
+                nextB -> DOWN
+                -nextB -> UP
+                else -> error(c)
+            }
+            val nextOffset = when(dir) {
+                LEFT -> when (nextDir) {
+                    LEFT -> Point(offset.i, edge)
+                    RIGHT -> Point(edge - offset.i, 0)
+                    DOWN -> Point(0, offset.i)
+                    UP -> Point(edge, edge - offset.i)
+                    else -> error(nextDir)
+                }
+                RIGHT -> when (nextDir) {
+                    LEFT -> Point(edge - offset.i, edge)
+                    RIGHT -> Point(offset.i, 0)
+                    DOWN -> Point(0, edge - offset.i)
+                    UP -> Point(edge, offset.i)
+                    else -> error(nextDir)
+                }
+                DOWN -> when (nextDir) {
+                    LEFT -> Point(offset.j, edge)
+                    RIGHT -> Point(edge - offset.j, 0)
+                    DOWN -> Point(0, offset.j)
+                    UP -> Point(edge, edge - offset.j)
+                    else -> error(nextDir)
+                }
+                UP -> when (nextDir) {
+                    LEFT -> Point(edge - offset.j, edge)
+                    RIGHT -> Point(offset.j, 0)
+                    DOWN -> Point(0, edge - offset.j)
+                    UP -> Point(edge, offset.j)
+                    else -> error(nextDir)
+                }
+                else -> error(dir)
+            }
+            val nextPos = nextCorner + nextOffset
+            nextPos to nextDir
+        }
     }
 }
