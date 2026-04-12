@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm") version "2.3.0"
-    kotlin("plugin.serialization") version "2.3.0"
     id("org.jetbrains.kotlinx.benchmark") version "0.4.15"
 }
 
@@ -62,18 +61,16 @@ tasks.withType<Test> {
     outputs.upToDateWhen { false }
 
     afterTest(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
-        val res = when(val type = result.resultType) {
-            TestResult.ResultType.FAILURE -> "\u001B[31m${type}\u001B[0m"
-            TestResult.ResultType.SUCCESS -> "\u001B[32m${type}\u001B[0m"
-            TestResult.ResultType.SKIPPED -> "\u001B[33m${type}\u001B[0m"
+        val res = when(result.resultType) {
+            TestResult.ResultType.FAILURE -> "\u001B[31mFAILED\u001B[0m"
+            TestResult.ResultType.SUCCESS -> "\u001B[32mPASSED\u001B[0m"
+            TestResult.ResultType.SKIPPED -> "\u001B[33mSKIPPED\u001B[0m"
         }
-        val deltaTime = result.endTime - result.startTime
-        println(String.format("%-35s %6s %7s %sms", desc.parent?.displayName, desc.displayName, res, deltaTime))
+        println("${desc.parent?.className} > ${desc.displayName} $res")
     }))
 }
 
 dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.15")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0-RC")
 }

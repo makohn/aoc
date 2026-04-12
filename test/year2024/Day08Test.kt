@@ -1,0 +1,36 @@
+package year2024
+
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class Day08Test {
+
+    companion object {
+        private val INPUT = """
+            ............
+            ........0...
+            .....0......
+            .......0....
+            ....0.......
+            ......A.....
+            ............
+            ............
+            ........A...
+            .........A..
+            ............
+            ............
+        """.trimIndent()
+    }
+
+    private val day = Day08()
+
+    @Test
+    fun part1() {
+        assertEquals(14, day.part1(INPUT))
+    }
+
+    @Test
+    fun part2() {
+        assertEquals(34, day.part2(INPUT))
+    }
+}
