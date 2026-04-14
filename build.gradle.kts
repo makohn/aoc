@@ -67,6 +67,10 @@ tasks.withType<Test> {
             TestResult.ResultType.SKIPPED -> "\u001B[33mSKIPPED\u001B[0m"
         }
         println("${desc.parent?.className} > ${desc.displayName} $res")
+
+        if (result.exception != null) {
+            result.exception!!.printStackTrace()
+        }
     }))
 }
 
