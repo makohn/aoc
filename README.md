@@ -14,9 +14,14 @@ To run a specific day:
 ./gradlew run --args year2024.Day21
 ```
 
+To test a specific day:
+```shell
+./gradlew test --tests year2024.Day21Test
+```
+
 To test a specific year:
 ```shell
-./gradlew test --tests year2024.Test2024
+./gradlew test --tests year2024*
 ```
 
 To run a specific benchmark:
