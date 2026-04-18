@@ -67,11 +67,11 @@ class Day15 : Solution<Int, Int>(year = 2024, day = 15) {
 
     private fun gpsSum(grid: CharGrid, box: Char): Int {
         var res = 0
-        val (m, n) = grid.shape
-        for (i in 0..<m) {
-            for (j in 0..<n) {
-                if (grid[i][j] == box) {
-                    res += 100 * i + j
+        val (width, height) = grid.shape
+        for (y in 0..<height) {
+            for (x in 0..<width) {
+                if (grid[y][x] == box) {
+                    res += 100 * y + x
                 }
             }
         }

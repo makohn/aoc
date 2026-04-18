@@ -4,61 +4,61 @@ import kotlin.math.abs
 
 val ORIGIN = Point(0, 0)
 
-val UP = Point(-1, 0)
-val RIGHT = Point(0, 1)
-val DOWN = Point(1, 0)
-val LEFT = Point(0, -1)
+val UP = Point(0, -1)
+val RIGHT = Point(1, 0)
+val DOWN = Point(0, 1)
+val LEFT = Point(-1, 0)
 
 val RDLU = arrayOf(RIGHT, DOWN, LEFT, UP)
 
 /**
  * Represents a coordinate in a 2D grid.
  *
- * @param i the row
- * @param j the column
+ * @param x the column
+ * @param y the row
  */
-class Point(i: Int, j: Int) {
+class Point(x: Int, y: Int) {
 
-    var i: Int = i
+    var x: Int = x
         private set
-    var j: Int = j
+    var y: Int = y
         private set
 
-    operator fun plus(other: Point) = Point(this.i + other.i, this.j + other.j)
+    operator fun plus(other: Point) = Point(this.x + other.x, this.y + other.y)
 
     operator fun plusAssign(other: Point) {
-        this.i += other.i
-        this.j += other.j
+        this.y += other.y
+        this.x += other.x
     }
 
-    operator fun minus(other: Point) = Point(this.i - other.i, this.j - other.j)
+    operator fun minus(other: Point) = Point(this.x - other.x, this.y - other.y)
 
     operator fun minusAssign(other: Point) {
-        this.i -= other.i
-        this.j -= other.j
+        this.y -= other.y
+        this.x -= other.x
     }
 
-    operator fun times(rhs: Int) = Point(this.i * rhs, this.j * rhs)
+    operator fun times(rhs: Int) = Point(this.x * rhs, this.y * rhs)
 
     /**
      * Returns the Manhattan distance to the other point.
      */
-    fun distanceTo(other: Point) = abs(this.i - other.i) + abs(this.j - other.j)
+    fun distanceTo(other: Point) = abs(this.y - other.y) + abs(this.x - other.x)
 
     /**
      * Rotates in clockwise direction.
      */
-    fun clockwise() = Point(-this.j, this.i)
+    fun clockwise() = Point(this.y, -this.x)
 
     /**
      * Rotates in counterclockwise direction.
      */
-    fun counterClockwise() = Point(this.j, -this.i)
+    fun counterClockwise() = Point(-this.y, this.x)
 
-    operator fun component1() = this.i
-    operator fun component2() = this.j
+    operator fun component1() = this.x
+    operator fun component2() = this.y
 
-    override fun equals(other: Any?) = other is Point && this.i == other.i && this.j == other.j
-    override fun hashCode() = 31 * i * j
-    override fun toString() = "($i, $j)"
+    override fun equals(other: Any?) = other is Point && this.y == other.y && this.x == other.x
+    override fun hashCode() = 31 * y + x
+    override fun toString() = "($x, $y)"
 }

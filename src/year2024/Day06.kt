@@ -8,16 +8,16 @@ class Day06 : Solution<Int, Int>(year = 2024, day = 6) {
 
     override fun part1(input: String): Int {
         val grid = input.lines().toCharGrid()
-        val (n, m) = grid.shape
+        val (width, height) = grid.shape
         val p = grid.positionOf('^')
-        var d = Point(-1, 0)
+        var d = Point(0, -1)
         var c = 1
         while (true) {
-            val (i, j) = p
-            val (di, dj) = p + d
+            val (j, i) = p
+            val (dj, di) = p + d
             if (grid[i][j] == '.') c++
-            if (di in 0..<n && dj in 0..<m) {
-                if (grid[di][dj] == '#') d = Point(d.j, -d.i)
+            if (di in 0..<height && dj in 0..<width) {
+                if (grid[di][dj] == '#') d = Point(-d.y, d.x)
                 grid[i][j] = 'X'
                 p += d
             } else {
@@ -29,11 +29,11 @@ class Day06 : Solution<Int, Int>(year = 2024, day = 6) {
 
     override fun part2(input: String): Int {
         val startGrid = input.lines().toCharGrid()
-        val (n, m) = startGrid.shape
-        val (si, sj) = startGrid.positionOf('^')
+        val (width, height) = startGrid.shape
+        val (sj, si) = startGrid.positionOf('^')
         val sd = 0
-        val dirs = arrayOf(Point(-1, 0), Point(0, 1), Point(1, 0), Point(0, -1))
-        val seen = Array(4) { Array(n) { BooleanArray(m) } }
+        val dirs = arrayOf(Point(0, -1), Point(1, 0), Point(0, 1), Point(-1, 0))
+        val seen = Array(4) { Array(height) { BooleanArray(width) } }
 
         fun solve(grid: CharGrid, i: Int, j: Int, dir: Int, first: Boolean): Int {
             seen.forEach { arr -> arr.forEach { it.fill(false) } }
@@ -42,10 +42,10 @@ class Day06 : Solution<Int, Int>(year = 2024, day = 6) {
             var d = dir
             var c = 0
             while (true) {
-                val di = ii + dirs[d].i
-                val dj = jj + dirs[d].j
+                val di = ii + dirs[d].y
+                val dj = jj + dirs[d].x
                 if (seen[d][ii][jj]) return 1 else seen[d][ii][jj] = true
-                if (di in 0..<n && dj in 0..<m) {
+                if (di in 0..<height && dj in 0..<width) {
                     if (grid[di][dj] == '#') {
                         d = (d + 1) % 4
                     } else {

@@ -11,10 +11,10 @@ class Day15(
 ) : Solution<Int, Long>(year = 2022, day = 15) {
 
     fun List<List<Point>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
-        val yDistance = abs(scanner.j - row)
+        val yDistance = abs(scanner.x - row)
         val distance = scanner.distanceTo(beacon)
         if (yDistance <= distance) {
-            (scanner.i - distance) + yDistance..(scanner.i + distance) - yDistance
+            (scanner.y - distance) + yDistance..(scanner.y + distance) - yDistance
         } else {
             IntRange.EMPTY
         }
@@ -23,7 +23,7 @@ class Day15(
     fun parseInput(input: String) = input
         .lines()
         .map { it.extractInts() }
-        .flatMap { (x1, y1, x2, y2) -> listOf(Point(x1, y1), Point(x2, y2)) }
+        .flatMap { (x1, y1, x2, y2) -> listOf(Point(y1, x1), Point(y2, x2)) }
         .chunked(2)
 
     fun List<IntRange>.merge() = this

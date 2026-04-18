@@ -7,7 +7,7 @@ class Day04 : Solution<Int, Int>(year = 2024, day = 4) {
 
     override fun part1(input: String): Int {
         val grid = input.lines().toCharGrid()
-        val (n, m) = grid.shape
+        val (m, n) = grid.shape
         var acc = 0
         for (i in 0..<n) {
             for (j in 0..<m) {
@@ -27,7 +27,7 @@ class Day04 : Solution<Int, Int>(year = 2024, day = 4) {
 
     override fun part2(input: String): Int {
         val grid = input.lines().toCharGrid()
-        val (n, m) = grid.shape
+        val (m, n) = grid.shape
         var acc = 0
         for (i in 0..<n) {
             for (j in 0..<m) {

@@ -11,7 +11,7 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
 
     override fun part1(input: String): Int {
         val grid = input.lines().map { it.map { c -> c.code }.toIntArray() }.toTypedArray()
-        val (n, m) = grid.shape
+        val (width, height) = grid.shape
 
         fun solve(i: Int, j: Int, c: Int, r: Int): Point {
             grid[i][j] = r
@@ -20,25 +20,25 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
             for (x in 0..3) {
                 val ii = i + di[x]
                 val jj = j + dj[x]
-                val inGrid = ii in 0..<n && jj in 0..<m
+                val inGrid = ii in 0..<height && jj in 0..<width
                 if (inGrid && grid[ii][jj] == c) {
-                    val (na, np) = solve(ii, jj, c, r)
+                    val (np, na) = solve(ii, jj, c, r)
                     a += na
                     p += np
                 }
                 if (!inGrid || (grid[ii][jj] != c && grid[ii][jj] != r)) p++
             }
-            return Point(a, p)
+            return Point(p, a)
         }
 
         val r = -1
         var sum = 0
         var x = r
-        for (i in 0..<n) {
-            for (j in 0..<m) {
+        for (i in 0..<height) {
+            for (j in 0..<width) {
                 val c = grid[i][j]
                 if (c <= r) continue
-                val (a, p) = solve(i, j, c, x)
+                val (p, a) = solve(i, j, c, x)
                 x--
                 sum += a * p
             }
@@ -48,10 +48,10 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
 
     override fun part2(input: String): Int {
         val grid = input.lines().map { it.map { c -> c.code }.toIntArray() }.toTypedArray()
-        val (n, m) = grid.shape
+        val (width, height) = grid.shape
 
-        fun check(i: Int, j: Int, c: Int, r: Int) = (i in 0..<n && j in 0..<m && (grid[i][j] == c || grid[i][j] == r))
-        fun check(i: Int, j: Int, c: Int) = (i in 0..<n && j in 0..<m && (grid[i][j] == c))
+        fun check(i: Int, j: Int, c: Int, r: Int) = (i in 0..<height && j in 0..<width && (grid[i][j] == c || grid[i][j] == r))
+        fun check(i: Int, j: Int, c: Int) = (i in 0..<height && j in 0..<width && (grid[i][j] == c))
 
         fun solve(i: Int, j: Int, c: Int, r: Int): Point {
             grid[i][j] = r
@@ -61,11 +61,11 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
                 val ii = i + di[x]
                 val jj = j + dj[x]
                 if (check(ii, jj, c)) {
-                    val (na, np) = solve(ii, jj, c, r)
+                    val (np, na) = solve(ii, jj, c, r)
                     a += na
                     sides += np
                 }
-                val inGrid = ii in 0..<n && jj in 0..<m
+                val inGrid = ii in 0..<height && jj in 0..<width
                 if (!inGrid || (grid[ii][jj] != c && grid[ii][jj] != r)) {
                     val rx = (x + 1).mod(4)
                     val lx = (x - 1).mod(4)
@@ -73,17 +73,17 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
                     if (!(check(i + di[lx], j + dj[lx], c, r)) || check(ii + di[lx], jj + dj[lx], c, r)) sides++
                 }
             }
-            return Point(a, sides)
+            return Point(sides, a)
         }
 
         val r = -1
         var sum = 0
         var x = r
-        for (i in 0..<n) {
-            for (j in 0..<m) {
+        for (i in 0..<height) {
+            for (j in 0..<width) {
                 val c = grid[i][j]
                 if (c <= r) continue
-                val (a, sides) = solve(i, j, c, x)
+                val (sides, a) = solve(i, j, c, x)
                 x--
                 sum += a * (sides / 2)
             }

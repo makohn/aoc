@@ -45,13 +45,13 @@ class Day20(
     override fun part1(input: String): Int {
         val time = parse(input)
         var cheats = 0
-        val (m, n) = time.shape
+        val (n, m) = time.shape
         for (i in 1..<m - 1) {
             for (j in 1..<n - 1) {
-                val point = Point(i, j)
+                val point = Point(j, i)
                 if (time[point] != Int.MAX_VALUE) {
-                    cheats += check(time, point, Point(2, 0), picos1)
                     cheats += check(time, point, Point(0, 2), picos1)
+                    cheats += check(time, point, Point(2, 0), picos1)
                 }
             }
         }
@@ -61,10 +61,10 @@ class Day20(
     override fun part2(input: String): Int {
         val time = parse(input)
         val points = ArrayList<Point>(10000)
-        val (m, n) = time.shape
+        val (n, m) = time.shape
         for (i in 1..<m - 1) {
             for (j in 1..<n - 1) {
-                val point = Point(i, j)
+                val point = Point(j, i)
                 if (time[point] != Int.MAX_VALUE) {
                     points.add(point)
                 }
@@ -72,10 +72,10 @@ class Day20(
         }
         return points.parallelStream().map { point ->
             var cheats = 0
-            for (i in 2..20) cheats += check(time, point, Point(i, 0), picos2)
+            for (i in 2..20) cheats += check(time, point, Point(0, i), picos2)
             for (j in 1..20) {
                 for (i in (j - 20)..(20 - j)) {
-                    cheats += check(time, point, Point(i, j), picos2)
+                    cheats += check(time, point, Point(j, i), picos2)
                 }
             }
             cheats

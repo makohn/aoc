@@ -20,8 +20,8 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
         val start: Int,
         val block: Int,
     ) {
-        fun tile(point: Point): Char = if (point.j in 0..<width && point.i in 0..<height) {
-            tiles[point.i * width + point.j]
+        fun tile(point: Point): Char = if (point.x in 0..<width && point.y in 0..<height) {
+            tiles[point.y * width + point.x]
         } else {
             ' '
         }
@@ -73,7 +73,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
     }
 
     private fun password(board: Board, moves: List<Move>, handleNone: (Point, Point) -> Pair<Point, Point>): Int {
-        var pos = Point(0, board.start)
+        var pos = Point(board.start, 0)
         var dir = RIGHT
         for (move in moves) {
             when (move) {
@@ -99,7 +99,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
                 }
             }
         }
-        val posScore = 1000 * (pos.i + 1) + 4 * (pos.j + 1)
+        val posScore = 1000 * (pos.y + 1) + 4 * (pos.x + 1)
         val dirScore = when (dir) {
             RIGHT -> 0
             DOWN -> 1
@@ -132,7 +132,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
         val moves = parseMoves(movesStr)
         val block = board.block
         val start = Face(
-            corner = Point(0, board.start - board.start % block),
+            corner = Point(board.start - board.start % block, 0),
             a = Vec3(1, 0, 0),
             b = Vec3(0, 1, 0),
             c = Vec3(0, 0, 1),
@@ -144,10 +144,10 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
         while (todo.isNotEmpty()) {
             val (corner, a, b, c) = todo.removeFirst()
             val neighbors = arrayOf(
-                Face(corner = corner + Point(0, -block), a = -c, b = b, c = a),
-                Face(corner = corner + Point(0, block), a = c, b = b, c = -a),
-                Face(corner = corner + Point(-block, 0), a = a, b = -c, c = b),
-                Face(corner = corner + Point(block, 0), a = a, b = c, c = -b),
+                Face(corner = corner + Point(-block, 0), a = -c, b = b, c = a),
+                Face(corner = corner + Point(block, 0), a = c, b = b, c = -a),
+                Face(corner = corner + Point(0, -block), a = a, b = -c, c = b),
+                Face(corner = corner + Point(0, block), a = a, b = c, c = -b),
             )
             for (neighbor in neighbors) {
                 if (board.tile(neighbor.corner) != ' ' && neighbor.c !in faces) {
@@ -159,7 +159,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
         }
         return password(board, moves) { pos, dir ->
             val edge = block - 1
-            val offset = Point(pos.i % block, pos.j % block)
+            val offset = Point(pos.x % block, pos.y % block)
             val corner = pos - offset
             val (_, a, b, c) = corners[corner]!!
             val nextC = when (dir) {
@@ -179,31 +179,31 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
             }
             val nextOffset = when (dir) {
                 LEFT -> when (nextDir) {
-                    LEFT -> Point(offset.i, edge)
-                    RIGHT -> Point(edge - offset.i, 0)
-                    DOWN -> Point(0, offset.i)
-                    UP -> Point(edge, edge - offset.i)
+                    LEFT -> Point(edge, offset.y)
+                    RIGHT -> Point(0, edge - offset.y)
+                    DOWN -> Point(offset.y, 0)
+                    UP -> Point(edge - offset.y, edge)
                     else -> error(nextDir)
                 }
                 RIGHT -> when (nextDir) {
-                    LEFT -> Point(edge - offset.i, edge)
-                    RIGHT -> Point(offset.i, 0)
-                    DOWN -> Point(0, edge - offset.i)
-                    UP -> Point(edge, offset.i)
+                    LEFT -> Point(edge, edge - offset.y)
+                    RIGHT -> Point(0, offset.y)
+                    DOWN -> Point(edge - offset.y, 0)
+                    UP -> Point(offset.y, edge)
                     else -> error(nextDir)
                 }
                 DOWN -> when (nextDir) {
-                    LEFT -> Point(offset.j, edge)
-                    RIGHT -> Point(edge - offset.j, 0)
-                    DOWN -> Point(0, offset.j)
-                    UP -> Point(edge, edge - offset.j)
+                    LEFT -> Point(edge, offset.x)
+                    RIGHT -> Point(0, edge - offset.x)
+                    DOWN -> Point(offset.x, 0)
+                    UP -> Point(edge - offset.x, edge)
                     else -> error(nextDir)
                 }
                 UP -> when (nextDir) {
-                    LEFT -> Point(edge - offset.j, edge)
-                    RIGHT -> Point(offset.j, 0)
-                    DOWN -> Point(0, edge - offset.j)
-                    UP -> Point(edge, offset.j)
+                    LEFT -> Point(edge, edge - offset.x)
+                    RIGHT -> Point(0, offset.x)
+                    DOWN -> Point(edge - offset.x, 0)
+                    UP -> Point(offset.x, edge)
                     else -> error(nextDir)
                 }
                 else -> error(dir)

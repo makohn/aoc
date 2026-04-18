@@ -8,14 +8,14 @@ class Day10 : Solution<Int, Int>(year = 2023, day = 10) {
 
     fun getNeighbours(input: String): Pair<CharPoint, Map<CharPoint, List<CharPoint>>> {
         val grid = input.lines().toCharGrid()
-        val (n, m) = grid.shape
+        val (width, height) = grid.shape
 
         lateinit var startCell: CharPoint
         val neighbours = mutableMapOf<CharPoint, List<CharPoint>>()
 
-        for (i in 0..<n) {
-            for (j in 0..<m) {
-                val currentCell = CharPoint(i, j, grid[i][j])
+        for (y in 0..<height) {
+            for (x in 0..<width) {
+                val currentCell = CharPoint(y, x, grid[y][x])
                 when (currentCell.data) {
                     '|' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.North, Direction.South)
                     '-' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.East, Direction.West)
@@ -43,8 +43,8 @@ class Day10 : Solution<Int, Int>(year = 2023, day = 10) {
         val mainLoop = getMainLoopWithDistance(startCell, neighbours)
         val grid = input.lines().toCharGrid()
         val cleanMap = grid
-            .mapIndexed { i, row ->
-                row.mapIndexed { j, c -> CharPoint(i, j, c) }.map {
+            .mapIndexed { y, row ->
+                row.mapIndexed { x, c -> CharPoint(y, x, c) }.map {
                     if (it.data == 'S') {
                         val n = neighbours[it]!!.map { it.data }.toSet()
                         when {

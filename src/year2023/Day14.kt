@@ -7,7 +7,7 @@ class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
 
     override fun part1(input: String): Int {
         val grid = input.lines().toCharGrid()
-        val (n, m) = grid.shape
+        val (m, n) = grid.shape
 
         var ans = 0
         for (j in 0..<m) {
@@ -31,7 +31,7 @@ class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
     }
 
     fun simulateRolling(grid: CharGrid): CharGrid {
-        val (n, m) = grid.shape
+        val (m, n) = grid.shape
         for (j in 0..<m) {
             for (i in 0..<n) {
                 for (x in 0..<n) {
@@ -46,7 +46,7 @@ class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
     }
 
     fun calculateLoad(grid: CharGrid): Int {
-        val (n, m) = grid.shape
+        val (m, n) = grid.shape
 
         var ans = 0
         for (i in 0..<n) {

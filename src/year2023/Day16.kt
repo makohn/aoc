@@ -47,7 +47,7 @@ class Day16 : Solution<Int, Int>(year = 2023, day = 16) {
     }
 
     private fun findEnergizedTiles(map: CharGrid, startPos: Pos): Int {
-        val (n, m) = map.shape
+        val (m, n) = map.shape
         val seen = HashSet<Pos>()
         val nextSteps = ArrayDeque<Pos>()
         nextSteps.addLast(startPos)
@@ -102,7 +102,7 @@ class Day16 : Solution<Int, Int>(year = 2023, day = 16) {
 
     override fun part2(input: String): Int {
         val map = input.lines().toCharGrid()
-        val (n, m) = map.shape
+        val (m, n) = map.shape
         val startPositions = mutableListOf<Pos>()
         for (y in 0..<m) {
             startPositions.add(Pos(0, y, Dir.Down))

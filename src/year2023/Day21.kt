@@ -36,7 +36,7 @@ class Day21(
 
     override fun part2(input: String): Long {
         val map = input.lines().toCharGrid()
-        val (n, _) = map.shape
+        val (_, n) = map.shape
         val x0 = s2 % n
         val (a, b, c) = countReachableCells(map, x0, x0 + 1 * n, x0 + 2 * n) {
             map.neighborsOfUnbound(it, *directions)

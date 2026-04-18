@@ -19,7 +19,7 @@ class Day18(
         val grid = IntGrid(size, size) { Int.MAX_VALUE }
         for ((i, element) in input.extractInts().chunked(2).withIndex()) {
             val (x, y) = element
-            grid[x][y] = i
+            grid[y][x] = i
         }
         return grid
     }
@@ -60,8 +60,8 @@ class Day18(
             while (todo.isNotEmpty()) {
                 val pos = todo.removeFirst()
                 if (pos == exit) {
-                    val (i, j) = grid.positionOf(time)
-                    return "$i,$j"
+                    val (row, col) = grid.positionOf(time)
+                    return "$row,$col"
                 }
                 for (next in RDLU.map { pos + it }) {
                     if (next in grid) {

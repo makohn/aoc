@@ -39,7 +39,7 @@ class Day21 : Solution<Long, Long>(year = 2024, day = 21) {
 
     private fun parsePad(pad: CharGrid): Pair<KeyPad, Point> {
         val map = HashMap<Char, Point>()
-        for (i in pad.indices) for (j in pad[0].indices) map[pad[i][j]] = Point(i, j)
+        for (i in pad.indices) for (j in pad[0].indices) map[pad[i][j]] = Point(j, i)
         val gap = map.remove(' ')!!
         return map to gap
     }
@@ -47,15 +47,15 @@ class Day21 : Solution<Long, Long>(year = 2024, day = 21) {
     private fun findSequences(sequences: Sequences, pad: KeyPad, gap: Point) {
         for ((a, from) in pad) {
             for ((b, to) in pad) {
-                val horizontal = createSequence(from.j, to.j, '>', '<')
-                val vertical = createSequence(from.i, to.i, 'v', '^')
+                val horizontal = createSequence(from.x, to.x, '>', '<')
+                val vertical = createSequence(from.y, to.y, 'v', '^')
 
-                if (gap != Point(to.i, from.j)) {
+                if (gap != Point(from.x, to.y)) {
                     val sequence = vertical + horizontal + 'A'
                     sequences.computeIfAbsent(a to b) { ArrayList() }.add(sequence)
                 }
 
-                if (from != to && gap != Point(from.i, to.j)) {
+                if (from != to && gap != Point(to.x, from.y)) {
                     val sequence = horizontal + vertical + 'A'
                     sequences.computeIfAbsent(a to b) { ArrayList() }.add(sequence)
                 }
