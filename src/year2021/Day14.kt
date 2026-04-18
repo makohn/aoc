@@ -30,13 +30,13 @@ class Day14 : Solution<Long, Long>(year = 2021, day = 14) {
         repeat(steps) {
             polymer = polymer.windowed(2) {
                 if (rules.contains(it)) "${it[0]}${rules[it]}${it[1]}" else it
-            }.also { println(it) }.foldRight("") { acc, e -> "${acc}${e.drop(1)}"}
+            }.also { println(it) }.foldRight("") { acc, e -> "${acc}${e.drop(1)}" }
         }
         return polymer
     }
 
     private fun simulatePolymer(template: String, rules: Map<String, String>, steps: Int = 40): Map<String, Long> {
-        val pairRules = rules.map { it.key to (it.key[0]+it.value to it.value+it.key[1]) }.toMap()
+        val pairRules = rules.map { it.key to (it.key[0] + it.value to it.value + it.key[1]) }.toMap()
         var polymer = template.windowed(2).groupingBy { it }.fold(0L) { acc, _ -> acc + 1 }
         repeat(steps) {
             val newPolymer = mutableMapOf<String, Long>()
@@ -49,6 +49,6 @@ class Day14 : Solution<Long, Long>(year = 2021, day = 14) {
         }
         return polymer.flatMap { listOf(it.key[0].toString() to it.value, it.key[1].toString() to it.value) }
             .groupingBy { it.first }
-            .fold(0L) { acc, e -> acc + (e.second/2.0).toLong() }
+            .fold(0L) { acc, e -> acc + (e.second / 2.0).toLong() }
     }
 }

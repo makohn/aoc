@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.3.0"
     id("org.jetbrains.kotlinx.benchmark") version "0.4.15"
+    id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
 }
 
 tasks {
@@ -60,18 +61,20 @@ tasks.withType<Test> {
 
     outputs.upToDateWhen { false }
 
-    afterTest(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
-        val res = when(result.resultType) {
-            TestResult.ResultType.FAILURE -> "\u001B[31mFAILED\u001B[0m"
-            TestResult.ResultType.SUCCESS -> "\u001B[32mPASSED\u001B[0m"
-            TestResult.ResultType.SKIPPED -> "\u001B[33mSKIPPED\u001B[0m"
-        }
-        println("${desc.parent?.className} > ${desc.displayName} $res")
+    afterTest(
+        KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
+            val res = when (result.resultType) {
+                TestResult.ResultType.FAILURE -> "\u001B[31mFAILED\u001B[0m"
+                TestResult.ResultType.SUCCESS -> "\u001B[32mPASSED\u001B[0m"
+                TestResult.ResultType.SKIPPED -> "\u001B[33mSKIPPED\u001B[0m"
+            }
+            println("${desc.parent?.className} > ${desc.displayName} $res")
 
-        if (result.exception != null) {
-            result.exception!!.printStackTrace()
-        }
-    }))
+            if (result.exception != null) {
+                result.exception!!.printStackTrace()
+            }
+        }),
+    )
 }
 
 dependencies {

@@ -26,7 +26,7 @@ class Day22 : Solution<Long, Long>(year = 2021, day = 22) {
             if (!step.on) continue
             val cuboid = step.cuboid
             candidates.addAll(
-                steps.drop(i + 1).mapNotNull { cuboid.intersect(it.cuboid) }
+                steps.drop(i + 1).mapNotNull { cuboid.intersect(it.cuboid) },
             )
             sum += cuboid.volume() + subsetSize(cuboid, -1, candidates)
             candidates.clear()

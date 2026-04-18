@@ -14,8 +14,11 @@ class Day11 : Solution<Int, Long>(year = 2025, day = 11) {
         while (q.isNotEmpty()) {
             val targets = q.removeFirst()
             for (target in targets) {
-                if (target == "out") count++
-                else q.add(connections[target]!!)
+                if (target == "out") {
+                    count++
+                } else {
+                    q.add(connections[target]!!)
+                }
             }
         }
 

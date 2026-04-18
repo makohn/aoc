@@ -11,13 +11,15 @@ class Day21 : Solution<Int, Long>(year = 2021, day = 21) {
         var newScores = scores
         var i = 0
         while (1000 !in newScores) {
-            val newPositions = playerPositions.map { (((it + die.roll(3).sum()) -1) % 10) + 1 }
+            val newPositions = playerPositions.map { (((it + die.roll(3).sum()) - 1) % 10) + 1 }
             newScores = scores.zip(newPositions).map { it.first + it.second }
             playerPositions = newPositions
             if (1000 !in newScores) {
                 scores = newScores
                 i += 6
-            } else { i += 3 }
+            } else {
+                i += 3
+            }
         }
         return i * scores.minOf { it }
     }
@@ -30,7 +32,11 @@ class Day21 : Solution<Int, Long>(year = 2021, day = 21) {
 
     class Die {
         private var pos = 1
-        fun roll(n: Int) = sequence { while (true) { yield(((pos++ -1) % 100) + 1) } }.take(n)
+        fun roll(n: Int) = sequence {
+            while (true) {
+                yield(((pos++ - 1) % 100) + 1)
+            }
+        }.take(n)
     }
 
     fun playGame(p1: Int, p2: Int): Pair<Long, Long> {
@@ -47,9 +53,9 @@ class Day21 : Solution<Int, Long>(year = 2021, day = 21) {
             // Dice 3 times -> Consider all result combinations (i, j, k) for i, j, k in (1, 2, 3)
             // We basically iterate over a tree depth-first, starting with the 1 -> 1 -> 1 -> ... "universe"
             // This is recursively repeated for each branch, alternating between player 1 and player 2 until either on reaches 21
-            for (i in (1 .. 3)) {
-                for (j in (1 .. 3)) {
-                    for (k in (1 .. 3)) {
+            for (i in (1..3)) {
+                for (j in (1..3)) {
+                    for (k in (1..3)) {
                         // Move position by sum of dice results (clockwise) (-1 / +1 to account for 10 % 10 being 0)
                         val newPos1 = ((pos1 + i + j + k - 1) % 10) + 1
                         val newScore1 = score1 + newPos1

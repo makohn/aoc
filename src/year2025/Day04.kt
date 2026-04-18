@@ -13,11 +13,13 @@ class Day04 : Solution<Int, Int>(year = 2025, day = 4) {
             for (j in 0..<m) {
                 if (grid[i][j] == '@') {
                     var count = 0
-                    for (a in -1..1) for (b in -1..1) {
-                        val ai = i + a
-                        val bj = j + b
-                        if (ai in 0..<n && bj in 0..<m && !(ai == i && bj == j) && grid[ai][bj] == '@') {
-                            count++
+                    for (a in -1..1) {
+                        for (b in -1..1) {
+                            val ai = i + a
+                            val bj = j + b
+                            if (ai in 0..<n && bj in 0..<m && !(ai == i && bj == j) && grid[ai][bj] == '@') {
+                                count++
+                            }
                         }
                     }
                     if (count < 4) sum++
@@ -38,11 +40,13 @@ class Day04 : Solution<Int, Int>(year = 2025, day = 4) {
                 for (j in 0..<m) {
                     if (grid[i][j] == '@') {
                         var count = 0
-                        for (a in -1..1) for (b in -1..1) {
-                            val ai = i + a
-                            val bj = j + b
-                            if (ai in 0..<n && bj in 0..<m && !(ai == i && bj == j) && grid[ai][bj] == '@') {
-                                count++
+                        for (a in -1..1) {
+                            for (b in -1..1) {
+                                val ai = i + a
+                                val bj = j + b
+                                if (ai in 0..<n && bj in 0..<m && !(ai == i && bj == j) && grid[ai][bj] == '@') {
+                                    count++
+                                }
                             }
                         }
                         if (count < 4) {

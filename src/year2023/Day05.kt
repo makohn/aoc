@@ -8,14 +8,14 @@ class Day05 : Solution<Long, Long>(year = 2023, day = 5) {
 
     fun LongRange.mapBy(sourceRange: LongRange, destRange: LongRange): Pair<LongRange, List<LongRange>> {
         // `this intersect sourceRange` is slow
-        val intersect = max(this.first, sourceRange.first) .. min(this.last, sourceRange.last)
+        val intersect = max(this.first, sourceRange.first)..min(this.last, sourceRange.last)
         if (intersect.isEmpty()) {
             return LongRange.EMPTY to listOf(this)
         }
         val diff = destRange.first - sourceRange.first
-        val mapped = intersect.first() + diff .. intersect.last() + diff
-        val start = this.first ..< intersect.first()
-        val end = intersect.last() + 1 .. this.last
+        val mapped = intersect.first() + diff..intersect.last() + diff
+        val start = this.first..<intersect.first()
+        val end = intersect.last() + 1..this.last
         return mapped to listOf(start, end).filter { !it.isEmpty() }
     }
 
@@ -37,8 +37,8 @@ class Day05 : Solution<Long, Long>(year = 2023, day = 5) {
                 maps[line] = listOfMap
             } else {
                 val (dest, source, len) = line.split(" ").map { it.toLong() }
-                val destRange = dest..dest+len
-                val sourceRange = source..source+len
+                val destRange = dest..dest + len
+                val sourceRange = source..source + len
                 listOfMap.add(sourceRange to destRange)
             }
         }
@@ -71,7 +71,7 @@ class Day05 : Solution<Long, Long>(year = 2023, day = 5) {
             .filter { it.isNotEmpty() }
             .map { it.toLong() }
             .chunked(2)
-            .map { (a, b) -> a..<a+b }
+            .map { (a, b) -> a..<a + b }
 
         val maps = mutableMapOf<String, List<Pair<LongRange, LongRange>>>()
         var listOfMap = mutableListOf<Pair<LongRange, LongRange>>()
@@ -81,8 +81,8 @@ class Day05 : Solution<Long, Long>(year = 2023, day = 5) {
                 maps[line] = listOfMap
             } else {
                 val (dest, source, len) = line.split(" ").map { it.toLong() }
-                val destRange = dest..dest+len
-                val sourceRange = source..source+len
+                val destRange = dest..dest + len
+                val sourceRange = source..source + len
                 listOfMap.add(sourceRange to destRange)
             }
         }

@@ -7,14 +7,16 @@ class Day08(val amount: Int = 1000) : Solution<Int, Long>(year = 2025, day = 8) 
 
     override fun part1(input: String): Int {
         data class Vec3(val x: Int, val y: Int, val z: Int)
-        val positions = input.lines().map { it.split(",").map { it.toInt() } }.map { (x,y,z) -> Vec3(x,y,z) }
+        val positions = input.lines().map { it.split(",").map { it.toInt() } }.map { (x, y, z) -> Vec3(x, y, z) }
         data class Connection(val i: Int, val j: Int, val d: Double)
         val connections = ArrayList<Connection>()
-        for ((i, v) in positions.withIndex()) for (j in i+1..positions.lastIndex) {
-            val u = positions[j]
-            val dist =
-                sqrt(((v.x - u.x).toLong() * (v.x - u.x) + (v.y - u.y).toLong() * (v.y - u.y) + (v.z - u.z).toLong() * (v.z - u.z)).toDouble())
-            connections.add(Connection(i, j, dist))
+        for ((i, v) in positions.withIndex()) {
+            for (j in i + 1..positions.lastIndex) {
+                val u = positions[j]
+                val dist =
+                    sqrt(((v.x - u.x).toLong() * (v.x - u.x) + (v.y - u.y).toLong() * (v.y - u.y) + (v.z - u.z).toLong() * (v.z - u.z)).toDouble())
+                connections.add(Connection(i, j, dist))
+            }
         }
 
         val candidates = connections.sortedBy { it.d }.take(amount)
@@ -46,14 +48,16 @@ class Day08(val amount: Int = 1000) : Solution<Int, Long>(year = 2025, day = 8) 
 
     override fun part2(input: String): Long {
         data class Vec3(val x: Int, val y: Int, val z: Int)
-        val positions = input.lines().map { it.split(",").map { it.toInt() } }.map { (x,y,z) -> Vec3(x,y,z) }
+        val positions = input.lines().map { it.split(",").map { it.toInt() } }.map { (x, y, z) -> Vec3(x, y, z) }
         data class Connection(val i: Int, val j: Int, val d: Double)
         val connections = ArrayList<Connection>()
-        for ((i, v) in positions.withIndex()) for (j in i+1..positions.lastIndex) {
-            val u = positions[j]
-            val dist =
-                sqrt(((v.x - u.x).toLong() * (v.x - u.x) + (v.y - u.y).toLong() * (v.y - u.y) + (v.z - u.z).toLong() * (v.z - u.z)).toDouble())
-            connections.add(Connection(i, j, dist))
+        for ((i, v) in positions.withIndex()) {
+            for (j in i + 1..positions.lastIndex) {
+                val u = positions[j]
+                val dist =
+                    sqrt(((v.x - u.x).toLong() * (v.x - u.x) + (v.y - u.y).toLong() * (v.y - u.y) + (v.z - u.z).toLong() * (v.z - u.z)).toDouble())
+                connections.add(Connection(i, j, dist))
+            }
         }
 
         val circuits = HashMap<Int, Int>()

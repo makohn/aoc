@@ -8,9 +8,7 @@ import util.parse.*
 class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
 
     private data class Valve(val name: String, val flow: Int, val tunnels: List<String>) : Comparable<Valve> {
-        override fun compareTo(other: Valve): Int {
-            return compareValuesBy(this, other, { -it.flow }, { it.name })
-        }
+        override fun compareTo(other: Valve): Int = compareValuesBy(this, other, { -it.flow }, { it.name })
     }
 
     private fun Valve(str: String): Valve {
@@ -18,7 +16,7 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
         return Valve(
             name = tokens[1],
             flow = tokens[2].toInt(),
-            tunnels = tokens.drop(3)
+            tunnels = tokens.drop(3),
         )
     }
 
@@ -28,14 +26,14 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
         val allValves: Int,
         val flow: List<Int>,
         val distance: List<Int>,
-        val closest: List<Int>
+        val closest: List<Int>,
     )
 
     private data class State(
         val todo: Int,
         val start: Int,
         val time: Int,
-        val pressure: Int
+        val pressure: Int,
     )
 
     private fun parse(input: String): Input {
@@ -63,9 +61,13 @@ class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
                 distance[start * size + goal] = total
             }
         }
-        for (k in 0..<size) for (i in 0..<size) for (j in 0..<size) {
-            val candidate = distance[i * size + k].saturatingAdd(distance[k * size + j])
-            if (candidate < distance[i * size + j]) distance[i * size + j] = candidate
+        for (k in 0..<size) {
+            for (i in 0..<size) {
+                for (j in 0..<size) {
+                    val candidate = distance[i * size + k].saturatingAdd(distance[k * size + j])
+                    if (candidate < distance[i * size + j]) distance[i * size + j] = candidate
+                }
+            }
         }
         for (i in distance.indices) distance[i] += 1u
         val aa = size - 1

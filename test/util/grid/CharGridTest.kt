@@ -11,12 +11,12 @@ class CharGridTest {
         arrayOf(
             charArrayOf('A', 'B', 'C'),
             charArrayOf('D', 'E', 'F'),
-            charArrayOf('G', 'H', 'I')
+            charArrayOf('G', 'H', 'I'),
         ) to arrayOf(
             charArrayOf('G', 'D', 'A'),
             charArrayOf('H', 'E', 'B'),
-            charArrayOf('I', 'F', 'C')
-        )
+            charArrayOf('I', 'F', 'C'),
+        ),
     )
 
     @TestFactory

@@ -43,7 +43,7 @@ class Day13 : Solution<Int, Int>(year = 2023, day = 13) {
         return input
             .split("\n\n")
             .map { it.split("\n").toCharGrid() }
-            .sumOf { verticalMirrorPosition(it) + 100*horizontalMirrorPosition(it) }
+            .sumOf { verticalMirrorPosition(it) + 100 * horizontalMirrorPosition(it) }
     }
 
     override fun part2(input: String): Int {
@@ -86,6 +86,6 @@ class Day13 : Solution<Int, Int>(year = 2023, day = 13) {
         return input
             .split("\n\n")
             .map { it.split("\n").toCharGrid() }
-            .sumOf { verticalMirrorPosition(it) + 100*horizontalMirrorPosition(it) }
+            .sumOf { verticalMirrorPosition(it) + 100 * horizontalMirrorPosition(it) }
     }
 }

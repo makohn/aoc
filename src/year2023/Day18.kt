@@ -31,8 +31,8 @@ class Day18 : Solution<Int, Long>(year = 2023, day = 18) {
             .zipWithNext()
             .sumOf { (a, b) -> a.x * b.y - a.y * b.x }
 
-        val b = instructions.sumOf { it.amount }/2 + 1
-        val c = a/2 + b
+        val b = instructions.sumOf { it.amount } / 2 + 1
+        val c = a / 2 + b
 
         return c
     }
@@ -76,8 +76,8 @@ class Day18 : Solution<Int, Long>(year = 2023, day = 18) {
             .zipWithNext()
             .sumOf { (a, b) -> a.x * b.y - a.y * b.x }
 
-        val b = instructions.sumOf { it.amount }/2 + 1
-        val c = a/2 + b
+        val b = instructions.sumOf { it.amount } / 2 + 1
+        val c = a / 2 + b
 
         return c
     }

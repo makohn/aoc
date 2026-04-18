@@ -30,15 +30,17 @@ class Day19 : Solution<Int, Int>(year = 2021, day = 19) {
     private fun getRotations(v: Vector3) = sequence {
         var w = v
         repeat(2) {
-            repeat(3) {             // Yield RTTT 3 times
+            repeat(3) {
+                // Yield RTTT 3 times
                 w = roll(w)
-                yield(w)                  // Yield R
-                repeat(3) {         // Yield TTT
+                yield(w) // Yield R
+                repeat(3) {
+                    // Yield TTT
                     w = turn(w)
                     yield(w)
                 }
             }
-            w = roll(turn(roll(w)))  // Do RTR
+            w = roll(turn(roll(w))) // Do RTR
         }
     }
 
@@ -85,8 +87,8 @@ class Day19 : Solution<Int, Int>(year = 2021, day = 19) {
 
     private fun solve(scanners: List<MutableSet<Vector3>>): Pair<Int, Int> {
         val translations = mutableMapOf<Pair<Int, Int>, Pair<Int, Vector3>>()
-        for (i in 0 .. scanners.lastIndex) {
-            for (j in 0 .. scanners.lastIndex) {
+        for (i in 0..scanners.lastIndex) {
+            for (j in 0..scanners.lastIndex) {
                 if (i == j) continue
                 val res = findOverlaps(scanners[i], scanners[j])
                 if (res != null) {
@@ -97,11 +99,12 @@ class Day19 : Solution<Int, Int>(year = 2021, day = 19) {
 
         fun findTranslations(from: Int, to: Int, t: Translations = translations, path: MutableSet<Translation> = mutableSetOf()): Set<Translation> {
             if (t.isEmpty() || path.any { it.key.first == from || it.key.second == to }) return mutableSetOf()
-            val candidates = t.filter { it.key.first == from  }
+            val candidates = t.filter { it.key.first == from }
             val res = candidates.entries.firstOrNull { it.key.second == to }
             val newTranslations = t.filter { it.key !in candidates }.toMutableMap()
-            if (res != null) path.add(res)
-            else {
+            if (res != null) {
+                path.add(res)
+            } else {
                 for (candidate in candidates) {
                     val tt = findTranslations(candidate.key.second, to, newTranslations, path)
                     if (tt.isNotEmpty()) path.add(candidate)
@@ -111,7 +114,7 @@ class Day19 : Solution<Int, Int>(year = 2021, day = 19) {
         }
 
         val beacons = mutableSetOf<Vector3>()
-        val offsets = mutableMapOf( 0 to Vector3(0, 0, 0))
+        val offsets = mutableMapOf(0 to Vector3(0, 0, 0))
         beacons.addAll(scanners[0])
         for (i in 1..scanners.lastIndex) {
             val translation = findTranslations(0, i)
@@ -126,8 +129,8 @@ class Day19 : Solution<Int, Int>(year = 2021, day = 19) {
         }
 
         val distances = mutableListOf<Int>()
-        for (i in 0 until offsets.size-1) {
-            for (j in i+1 until offsets.size) {
+        for (i in 0 until offsets.size - 1) {
+            for (j in i + 1 until offsets.size) {
                 distances.add(manhattanDistance(offsets[i]!!, offsets[j]!!))
             }
         }

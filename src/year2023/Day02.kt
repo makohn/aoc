@@ -36,7 +36,7 @@ class Day02 : Solution<Int, Int>(year = 2023, day = 2) {
             if (game.steps.any { it.b > 14 }) continue
             if (game.steps.any { it.g > 13 }) continue
             if (game.steps.any { it.r > 12 }) continue
-            ans += i+1
+            ans += i + 1
         }
         println(games)
         return ans

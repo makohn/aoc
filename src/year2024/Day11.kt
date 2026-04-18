@@ -38,11 +38,7 @@ class Day11 : Solution<Long, Long>(year = 2024, day = 11) {
         return numberCounts.values.sum()
     }
 
-    override fun part1(input: String): Long {
-        return solve(input, 25)
-    }
+    override fun part1(input: String): Long = solve(input, 25)
 
-    override fun part2(input: String): Long {
-        return solve(input, 75)
-    }
+    override fun part2(input: String): Long = solve(input, 75)
 }

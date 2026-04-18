@@ -12,11 +12,11 @@ class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
         var ans = 0
         for (j in 0..<m) {
             var rocksToRoll = 0
-            for (i in n-1 downTo 0) {
+            for (i in n - 1 downTo 0) {
                 when (grid[i][j]) {
                     '#' -> {
                         for (x in 0..<rocksToRoll) {
-                            ans += n - (i+x+1)
+                            ans += n - (i + x + 1)
                         }
                         rocksToRoll = 0
                     }
@@ -35,9 +35,9 @@ class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
         for (j in 0..<m) {
             for (i in 0..<n) {
                 for (x in 0..<n) {
-                    if (grid[x][j] == 'O' && x > 0 && grid[x-1][j] == '.') {
+                    if (grid[x][j] == 'O' && x > 0 && grid[x - 1][j] == '.') {
                         grid[x][j] = '.'
-                        grid[x-1][j] = 'O'
+                        grid[x - 1][j] = 'O'
                     }
                 }
             }
@@ -51,7 +51,7 @@ class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
         var ans = 0
         for (i in 0..<n) {
             for (j in 0..<m) {
-                if (grid[i][j] == 'O') ans += n-i
+                if (grid[i][j] == 'O') ans += n - i
             }
         }
         return ans
@@ -65,18 +65,18 @@ class Day14 : Solution<Int, Int>(year = 2023, day = 14) {
         val seenReversed = mutableMapOf<Int, String>()
         seenReversed[0] = grid.rowsToString()
         seen[grid.rowsToString()] = 0
-        iterate@for(cycle in 0..1000000000) {
+        iterate@for (cycle in 0..1000000000) {
             repeat(4) {
                 grid = simulateRolling(grid)
                 grid = grid.rotated()
             }
             val strMap = grid.rowsToString()
             if (strMap in seen) {
-                pos = cycle+1 to seen[strMap]!!
+                pos = cycle + 1 to seen[strMap]!!
                 break@iterate
             }
-            seen[strMap] = cycle+1
-            seenReversed[cycle+1] = grid.rowsToString()
+            seen[strMap] = cycle + 1
+            seenReversed[cycle + 1] = grid.rowsToString()
         }
         val a = (1000000000 - pos!!.second)
         val b = (pos.first - pos.second)

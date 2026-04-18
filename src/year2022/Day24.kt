@@ -17,7 +17,10 @@ class Day24 : Solution<Int, Int>(year = 2022, day = 24) {
     }
 
     private enum class Type {
-        Down, Left, Up, Right
+        Down,
+        Left,
+        Up,
+        Right,
     }
 
     private data class BlizzardUnit(val pos: Vec2, val type: Type)
@@ -26,16 +29,20 @@ class Day24 : Solution<Int, Int>(year = 2022, day = 24) {
         val start: Vec2,
         val target: Vec2,
         val blizzards: MutableList<Blizzards>,
-        val bounds: Vec2
+        val bounds: Vec2,
     )
 
     private class Blizzards(
         var blizzards: MutableList<BlizzardUnit> = mutableListOf(),
-        var positions: MutableSet<Vec2> = mutableSetOf()
+        var positions: MutableSet<Vec2> = mutableSetOf(),
     )
 
     private val potentialMoves = arrayOf(
-        Vec2(1, 0), Vec2(0, 1), Vec2(0, 0), Vec2(0, -1), Vec2(-1, 0)
+        Vec2(1, 0),
+        Vec2(0, 1),
+        Vec2(0, 0),
+        Vec2(0, -1),
+        Vec2(-1, 0),
     )
 
     private val horizontalMoveAxes = arrayOf(0, 1, 2, 3, 4)
@@ -46,7 +53,7 @@ class Day24 : Solution<Int, Int>(year = 2022, day = 24) {
         start: Vec2,
         target: Vec2,
         blizzards: MutableList<Blizzards>,
-        bounds: Vec2
+        bounds: Vec2,
     ): Int {
         val q = PriorityQueue<Pair<Vec2, Int>>(compareBy { it.second })
         q.add(Pair(start, startStep))
@@ -118,8 +125,8 @@ class Day24 : Solution<Int, Int>(year = 2022, day = 24) {
         val blizzards = mutableListOf(
             Blizzards(
                 blizzards = blizzardStarts.toMutableList(),
-                positions = blizzardStarts.map { it.pos }.toMutableSet()
-            )
+                positions = blizzardStarts.map { it.pos }.toMutableSet(),
+            ),
         )
 
         val bounds = Vec2(width, height)

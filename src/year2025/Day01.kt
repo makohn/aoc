@@ -21,7 +21,7 @@ class Day01 : Solution<Int, Int>(year = 2025, day = 1) {
         for (ins in input.lines()) {
             val (d, n) = ins.take(1) to ins.drop(1).toInt()
             val dl = if (d == "R") (dial + n) else (dial - n)
-            c += if (dl > 0) dl / 100 else (-dl / 100) + if(dial == 0) 0 else 1
+            c += if (dl > 0) dl / 100 else (-dl / 100) + if (dial == 0) 0 else 1
             dial = dl.mod(100)
         }
         return c

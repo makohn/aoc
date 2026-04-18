@@ -23,14 +23,14 @@ class Day03 : Solution<Int, Int>(year = 2021, day = 3) {
         val max = input.lines().first().count()
         var pos = 0
         while ((a.size > 1) and (pos < max)) {
-            val x = 1 shl max-1 shr pos
+            val x = 1 shl max - 1 shr pos
             val (l1, l2) = a.partition { (it and x) == x }
             a = if (l1.size >= l2.size) l1 else l2
             pos += 1
         }
         pos = 0
         while ((b.size > 1) and (pos < max)) {
-            val x = 1 shl max-1 shr pos
+            val x = 1 shl max - 1 shr pos
             val (l1, l2) = b.partition { (it and x) == x }
             b = if (l1.size >= l2.size) l2 else l1
             pos += 1

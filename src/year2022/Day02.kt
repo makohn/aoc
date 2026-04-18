@@ -4,13 +4,16 @@ import util.core.*
 
 class Day02 : Solution<Int, Int>(year = 2022, day = 2) {
 
-    private fun toScore(c:  Char) = when(c) {
+    private fun toScore(c: Char) = when (c) {
         'X',
-        'A' -> 1
+        'A',
+        -> 1
         'Y',
-        'B' -> 2
+        'B',
+        -> 2
         'Z',
-        'C' -> 3
+        'C',
+        -> 3
         else -> throw IllegalArgumentException()
     }
 

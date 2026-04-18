@@ -39,7 +39,7 @@ class Day09 : Solution<Long, Long>(year = 2024, day = 9) {
 
     override fun part2(input: String): Long {
         val blocks = input
-            .mapIndexed { idx, c -> Block(if (idx % 2 == 0) idx/2L else FREE, c.digitToInt()) }
+            .mapIndexed { idx, c -> Block(if (idx % 2 == 0) idx / 2L else FREE, c.digitToInt()) }
             .toMutableList()
         var s = 0
         var e = blocks.lastIndex

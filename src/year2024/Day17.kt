@@ -9,7 +9,7 @@ class Day17 : Solution<String, Long>(year = 2024, day = 17) {
         private val program: List<Int>,
         private var a: Long,
         private var b: Long = 0,
-        private var c: Long = 0
+        private var c: Long = 0,
     ) {
         private var ip: Int = 0
 

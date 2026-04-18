@@ -19,8 +19,10 @@ val RDLU = arrayOf(RIGHT, DOWN, LEFT, UP)
  */
 class Point(i: Int, j: Int) {
 
-    var i: Int = i; private set
-    var j: Int = j; private set
+    var i: Int = i
+        private set
+    var j: Int = j
+        private set
 
     operator fun plus(other: Point) = Point(this.i + other.i, this.j + other.j)
 

@@ -10,25 +10,23 @@ class Day20 : Solution<Int, Long>(year = 2023, day = 20) {
     data class FlipFlop(
         override val id: String,
         override val targets: List<String>,
-        var on: Boolean = false
+        var on: Boolean = false,
     ) : Module(id, targets)
 
     data class Conjunction(
         override val id: String,
         override val targets: List<String>,
-        var inputs: MutableMap<String, Boolean> = mutableMapOf()
+        var inputs: MutableMap<String, Boolean> = mutableMapOf(),
     ) : Module(id, targets)
 
-    data class Broadcaster(override val id: String, override val targets: List<String>): Module(id, targets)
+    data class Broadcaster(override val id: String, override val targets: List<String>) : Module(id, targets)
 
     data class Transmission(val source: String, val target: String, val pulse: Boolean)
 
-    fun getModule(id: String, targets: List<String>): Module {
-        return when (id.first()) {
-            '%' -> FlipFlop(id.drop(1), targets)
-            '&' -> Conjunction(id.drop(1), targets)
-            else -> Broadcaster(id, targets)
-        }
+    fun getModule(id: String, targets: List<String>): Module = when (id.first()) {
+        '%' -> FlipFlop(id.drop(1), targets)
+        '&' -> Conjunction(id.drop(1), targets)
+        else -> Broadcaster(id, targets)
     }
 
     fun parseInput(input: String): Map<String, Module> {
@@ -53,7 +51,7 @@ class Day20 : Solution<Int, Long>(year = 2023, day = 20) {
         source: String,
         currentModule: Module,
         pulse: Boolean,
-        queue: ArrayDeque<Transmission>
+        queue: ArrayDeque<Transmission>,
     ) {
         when (currentModule) {
             is FlipFlop -> {
@@ -111,7 +109,7 @@ class Day20 : Solution<Int, Long>(year = 2023, day = 20) {
         var highCount = 0
         var lowCount = 0
 
-        repeat (1000) {
+        repeat(1000) {
             val (hi, lo) = transmitSignal(false, modules, "broadcaster")
             highCount += hi
             lowCount += lo
@@ -121,7 +119,6 @@ class Day20 : Solution<Int, Long>(year = 2023, day = 20) {
     }
 
     fun findCycles(signal: Boolean, modules: Map<String, Module>, endModuleId: String): Map<String, Long> {
-
         val firstTimeHigh = mutableMapOf<String, Long>()
         val cycles = mutableMapOf<String, Long>()
         val endModule = modules[endModuleId]!! as Conjunction

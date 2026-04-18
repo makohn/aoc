@@ -20,8 +20,7 @@ fun List<String>.toCharGrid(): CharGrid = Array(size) { get(it).toCharArray() }
 /**
  * Returns a string representation of the rows of the specified 2D char grid.
  */
-fun CharGrid.rowsToString(rowSeparator: String = "\n", columnSeparator: String = "") =
-    joinToString(rowSeparator) { it.joinToString(columnSeparator) }
+fun CharGrid.rowsToString(rowSeparator: String = "\n", columnSeparator: String = "") = joinToString(rowSeparator) { it.joinToString(columnSeparator) }
 
 /**
  * Shortcut for ```grid[point.i][point.j]```
@@ -59,8 +58,11 @@ operator fun CharGrid.contains(point: Point): Boolean = point.i in 0..<size && p
 fun CharGrid.rotated(): CharGrid {
     val (n, m) = shape
     val ret = Array(m) { CharArray(n) }
-    for (i in 0..<n) for (j in 0..<m)
-        ret[j][i] = get(n - i - 1)[j]
+    for (i in 0..<n) {
+        for (j in 0..<m) {
+            ret[j][i] = get(n - i - 1)[j]
+        }
+    }
     return ret
 }
 
@@ -154,8 +156,7 @@ typealias Grid<T> = Array<Array<T>>
 /**
  * Constructs a generic grid with the given shape (rows, columns)
  */
-inline fun <reified T> Grid(shape: Point, noinline init: (Int) -> T): Grid<T> =
-    Array(shape.i) { Array(shape.j, init) }
+inline fun <reified T> Grid(shape: Point, noinline init: (Int) -> T): Grid<T> = Array(shape.i) { Array(shape.j, init) }
 
 /**
  * Shortcut for ```grid[point.i][point.j]```
@@ -192,10 +193,12 @@ fun CharGrid.neighborsOf(x: Int, y: Int): List<DataPoint<Char>> {
     val arr = this
     val (n, m) = shape
     return buildList {
-        for (i in -1..1) for (j in -1..1) {
-            val dx = x + i
-            val dy = y + j
-            if (dx in 0..<n && dy in 0..<m) add(DataPoint(dx, dy, arr[dx][dy]))
+        for (i in -1..1) {
+            for (j in -1..1) {
+                val dx = x + i
+                val dy = y + j
+                if (dx in 0..<n && dy in 0..<m) add(DataPoint(dx, dy, arr[dx][dy]))
+            }
         }
     }
 }
@@ -207,7 +210,8 @@ enum class Direction(val xDir: Int, val yDir: Int) {
     North(0, -1),
     West(-1, 0),
     East(1, 0),
-    South(0, 1);
+    South(0, 1),
+    ;
 
     operator fun component1() = xDir
     operator fun component2() = yDir

@@ -22,11 +22,11 @@ class Day18 : Solution<Int, Int>(year = 2022, day = 18) {
         for ((i, cell) in cube.withIndex()) {
             if (cell == 1) {
                 val neighbors = cube[i - 1] +
-                        cube[i + 1] +
-                        cube[i - SIZE] +
-                        cube[i + SIZE] +
-                        cube[i - SIZE * SIZE] +
-                        cube[i + SIZE * SIZE]
+                    cube[i + 1] +
+                    cube[i - SIZE] +
+                    cube[i + SIZE] +
+                    cube[i - SIZE * SIZE] +
+                    cube[i + SIZE * SIZE]
                 total += fn(neighbors)
             }
         }

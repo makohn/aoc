@@ -9,7 +9,7 @@ class Day13 : Solution<Int, Int>(year = 2022, day = 13) {
         var cs = ""
         while (str.isNotEmpty()) {
             when (val c = str.removeFirst()) {
-                in '0'..'9' -> cs+=c
+                in '0'..'9' -> cs += c
                 '[' -> list.add(eval(str))
                 ']' -> {
                     if (cs.isNotEmpty()) list.add(cs.toInt())
@@ -50,7 +50,7 @@ class Day13 : Solution<Int, Int>(year = 2022, day = 13) {
                 val (a, b) = it
                 eval(a.toMutableList())[0] as List<*> to eval(b.toMutableList())[0] as List<*>
             }
-            .map { (a, b) ->  compare(a, b) }
+            .map { (a, b) -> compare(a, b) }
             .foldIndexed(0) { idx, acc, b -> if (b < 0) acc + idx + 1 else acc }
 
         return numRightOrder

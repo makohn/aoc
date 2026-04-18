@@ -41,7 +41,7 @@ class Day05 : Solution<Int, Long>(year = 2025, day = 5) {
                 } else if (r.first >= x.first && r.last <= x.last) {
                     rem.add(r)
                 } else if (x.first in r.first..r.last) {
-                    x = r.last+1..x.last
+                    x = r.last + 1..x.last
                 } else if (r.first in x.first..x.last) {
                     x = x.first..<r.first
                 }

@@ -12,7 +12,7 @@ class Day02 : Solution<Int, Int>(year = 2024, day = 2) {
             val decreasing = nums[0] > nums[1]
             val res = nums
                 .zipWithNext()
-                .map { (a, b) -> (if (decreasing) a > b else a < b) && abs(a - b) in 1..3}
+                .map { (a, b) -> (if (decreasing) a > b else a < b) && abs(a - b) in 1..3 }
                 .all { it }
             if (res) acc++
         }
@@ -31,9 +31,10 @@ class Day02 : Solution<Int, Int>(year = 2024, day = 2) {
         var acc = 0
         for (line in input.lines()) {
             val nums = line.split(" ").map { it.toInt() }
-            val res = check(nums) || nums.mapIndexed { i, _ ->
-                check(nums.subList(0, i) + nums.subList(i+1, nums.size))
-            }.any { it }
+            val res = check(nums) ||
+                nums.mapIndexed { i, _ ->
+                    check(nums.subList(0, i) + nums.subList(i + 1, nums.size))
+                }.any { it }
             if (res) acc++
         }
         return acc

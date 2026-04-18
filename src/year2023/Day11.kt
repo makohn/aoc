@@ -69,7 +69,7 @@ class Day11(val addEmpty: Int = 1_000_000) : Solution<Int, Long>(year = 2023, da
         for ((i, galaxy) in galaxies.withIndex()) {
             for (otherGalaxy in galaxies.drop(i)) {
                 ans += abs(galaxyRows[galaxy.first] - galaxyRows[otherGalaxy.first]) +
-                        abs(galaxyCols[galaxy.second] - galaxyCols[otherGalaxy.second])
+                    abs(galaxyCols[galaxy.second] - galaxyCols[otherGalaxy.second])
             }
         }
         return ans

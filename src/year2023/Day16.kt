@@ -11,13 +11,14 @@ class Day16 : Solution<Int, Int>(year = 2023, day = 16) {
         Up,
         Right,
         Down,
-        Left;
+        Left,
+        ;
 
-        fun apply(p: Pos) = when(this) {
-            Up -> Pos(p.i-1, p.j, this)
-            Right -> Pos(p.i, p.j+1, this)
-            Left -> Pos(p.i, p.j-1, this)
-            Down -> Pos(p.i+1, p.j, this)
+        fun apply(p: Pos) = when (this) {
+            Up -> Pos(p.i - 1, p.j, this)
+            Right -> Pos(p.i, p.j + 1, this)
+            Left -> Pos(p.i, p.j - 1, this)
+            Down -> Pos(p.i + 1, p.j, this)
         }
 
         // /
@@ -25,7 +26,7 @@ class Day16 : Solution<Int, Int>(year = 2023, day = 16) {
         // > -> ^  R  U
         // v -> <  D  L
         // < -> v  L  D
-        fun mirror90() = when(this) {
+        fun mirror90() = when (this) {
             Up -> Right
             Right -> Up
             Down -> Left
@@ -37,7 +38,7 @@ class Day16 : Solution<Int, Int>(year = 2023, day = 16) {
         // > -> v  R  D
         // v -> >  D  R
         // < -> ^  L  U
-        fun mirrorMinus90() = when(this) {
+        fun mirrorMinus90() = when (this) {
             Up -> Left
             Right -> Down
             Down -> Right
@@ -105,11 +106,11 @@ class Day16 : Solution<Int, Int>(year = 2023, day = 16) {
         val startPositions = mutableListOf<Pos>()
         for (y in 0..<m) {
             startPositions.add(Pos(0, y, Dir.Down))
-            startPositions.add(Pos(n-1, y, Dir.Up))
+            startPositions.add(Pos(n - 1, y, Dir.Up))
         }
         for (x in 0..<n) {
             startPositions.add(Pos(x, 0, Dir.Right))
-            startPositions.add(Pos(x, m-1, Dir.Left))
+            startPositions.add(Pos(x, m - 1, Dir.Left))
         }
 
         return startPositions.maxOf { findEnergizedTiles(map, it) }

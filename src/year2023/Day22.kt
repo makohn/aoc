@@ -12,8 +12,7 @@ class Day22 : Solution<Int, Int>(year = 2023, day = 22) {
         val supportingBricks = mutableSetOf<Brick>()
     }
 
-    infix fun Brick.intersectsWith(other: Brick) =
-        max(this.x0, other.x0) <= min(this.x1, other.x1) && max(this.y0, other.y0) <= min(this.y1, other.y1)
+    infix fun Brick.intersectsWith(other: Brick) = max(this.x0, other.x0) <= min(this.x1, other.x1) && max(this.y0, other.y0) <= min(this.y1, other.y1)
 
     fun Brick.drop(bricksBelow: List<Brick>): Brick {
         var z = 1

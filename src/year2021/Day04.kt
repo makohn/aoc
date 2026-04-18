@@ -6,35 +6,34 @@ import util.iter.transpose
 class Day04 : Solution<Int, Int>(year = 2021, day = 4) {
 
     companion object {
-        const val numRows = 5
-        const val boardSize = numRows * numRows
-        const val marker = -1
-        const val invalidIndex = -1
+        const val NUM_ROWS = 5
+        const val BOARD_SIZE = NUM_ROWS * NUM_ROWS
+        const val MARKER = -1
+        const val INVALID_INDEX = -1
     }
 
     override fun part1(input: String): Int {
         val (numbers, games) = parseInput(input)
         val (number, index) = evaluate(numbers, games)
-        return games.chunked(boardSize)[index].filter { it > marker }.sum() * number
+        return games.chunked(BOARD_SIZE)[index].filter { it > MARKER }.sum() * number
     }
 
     override fun part2(input: String): Int {
         val (numbers, games) = parseInput(input)
         val (number, index) = evaluate(numbers, games) { false }
-        return games.chunked(boardSize)[index].filter { it > marker }.sum() * number
+        return games.chunked(BOARD_SIZE)[index].filter { it > MARKER }.sum() * number
     }
 
-    private fun evaluate(numbers: List<Int>, games: MutableList<Int>, terminate: (Set<Int>) -> Boolean = Set<Int>::isNotEmpty)
-            : Pair<Int, Int> {
-        var winningIndex = invalidIndex
-        var winningNumber = invalidIndex
+    private fun evaluate(numbers: List<Int>, games: MutableList<Int>, terminate: (Set<Int>) -> Boolean = Set<Int>::isNotEmpty): Pair<Int, Int> {
+        var winningIndex = INVALID_INDEX
+        var winningNumber = INVALID_INDEX
         val indices = mutableSetOf<Int>()
         numbers
             .dropWhile { number ->
-                games.replaceAll { nr -> if (nr == number) marker else nr }
+                games.replaceAll { nr -> if (nr == number) MARKER else nr }
                 val index = games
                     .asSequence()
-                    .chunked(boardSize)
+                    .chunked(BOARD_SIZE)
                     .withIndex()
                     .filter(::isBingo)
                     .map { it.index }
@@ -64,6 +63,6 @@ class Day04 : Solution<Int, Int>(year = 2021, day = 4) {
     }
 
     private fun isBingo(game: IndexedValue<List<Int>>) = bingoRow(game.value) or bingoCol(game.value)
-    private fun bingoRow(game: List<Int>) = game.chunked(numRows).map { it.sum() }.contains(numRows * marker)
-    private fun bingoCol(game: List<Int>) = bingoRow(game.chunked(numRows).transpose().flatten())
+    private fun bingoRow(game: List<Int>) = game.chunked(NUM_ROWS).map { it.sum() }.contains(NUM_ROWS * MARKER)
+    private fun bingoCol(game: List<Int>) = bingoRow(game.chunked(NUM_ROWS).transpose().flatten())
 }

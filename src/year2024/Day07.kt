@@ -19,7 +19,7 @@ class Day07 : Solution<Long, Long>(year = 2024, day = 7) {
                 else -> false
             }
 
-            if(solve(numbers[0], 1)) sum += testValue
+            if (solve(numbers[0], 1)) sum += testValue
         }
         return sum
     }
@@ -50,7 +50,7 @@ class Day07 : Solution<Long, Long>(year = 2024, day = 7) {
                 else -> false
             }
 
-            if(solve(numbers[0], 1)) sum += testValue
+            if (solve(numbers[0], 1)) sum += testValue
         }
         return sum
     }

@@ -7,9 +7,8 @@ class Day14 : Solution<Int, Int>(year = 2022, day = 14) {
     data class Pos(val x: Int, val y: Int)
 
     data class Path(val from: Pos, val to: Pos) {
-        operator fun contains(other: Pos) =
-            ((other.x in from.x .. to.x) && (other.y in from.y .. to.y)) ||
-                    ((other.x in to.x .. from.x) && (other.y in to.y .. from.y))
+        operator fun contains(other: Pos) = ((other.x in from.x..to.x) && (other.y in from.y..to.y)) ||
+            ((other.x in to.x..from.x) && (other.y in to.y..from.y))
     }
 
     fun Map<Pos, Char>.bounds() = this.keys.maxOf { it.x } to this.keys.maxOf { it.y }
@@ -30,9 +29,9 @@ class Day14 : Solution<Int, Int>(year = 2022, day = 14) {
         var sandPos = sandSource
         dropSand@while (sandPos.y <= bottom && map[sandPos] == null) {
             for (pos in arrayOf(
-                Pos(sandPos.x, sandPos.y+1),
-                Pos(sandPos.x-1, sandPos.y+1),
-                Pos(sandPos.x+1, sandPos.y+1)
+                Pos(sandPos.x, sandPos.y + 1),
+                Pos(sandPos.x - 1, sandPos.y + 1),
+                Pos(sandPos.x + 1, sandPos.y + 1),
             )) {
                 if (map[pos] == null) {
                     sandPos = pos

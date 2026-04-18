@@ -57,19 +57,19 @@ class Day23 : Solution<Int, String>(year = 2024, day = 23) {
         val seen = BooleanArray(COMBINATIONS)
         val set = ArrayList<Int>()
         val largestSet = ArrayList<Int>()
-        
+
         for ((node1, neighbours) in nodes) {
             if (!seen[node1]) {
                 set.clear()
                 set.add(node1)
-                
+
                 for (node2 in neighbours) {
                     if (set.all { edges[node2][it] }) {
                         seen[node2] = true
                         set.add(node2)
                     }
                 }
-                
+
                 if (set.size > largestSet.size) {
                     largestSet.clear()
                     largestSet.addAll(set)
@@ -78,10 +78,12 @@ class Day23 : Solution<Int, String>(year = 2024, day = 23) {
         }
         val res = StringBuilder()
         largestSet.sort()
-        for (node in largestSet) res
-            .append((node / ALPHABET_SIZE).char())
-            .append((node % ALPHABET_SIZE).char())
-            .append(',')
+        for (node in largestSet) {
+            res
+                .append((node / ALPHABET_SIZE).char())
+                .append((node % ALPHABET_SIZE).char())
+                .append(',')
+        }
         return res.dropLast(1).toString()
     }
 }

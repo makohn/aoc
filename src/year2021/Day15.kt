@@ -17,29 +17,27 @@ class Day15 : Solution<Int, Int>(year = 2021, day = 15) {
         val board = parse(input)
         val n = board.size
         val m = board[0].size
-        val map = Array(n*5) { IntArray(m*5) }
+        val map = Array(n * 5) { IntArray(m * 5) }
         for (i in board.indices) {
             for (j in board[i].indices) {
                 for (k in 0..4) {
-                    val l = j + k*m
-                    map[i][l] = (((board[i][j] + 1*k -1)) % 9) + 1
+                    val l = j + k * m
+                    map[i][l] = (((board[i][j] + 1 * k - 1)) % 9) + 1
                 }
             }
             for (x in 1..4) {
-                map[i + x*n] = map[i].map { ((it + x*1 -1)) % 9 + 1 }.toIntArray()
+                map[i + x * n] = map[i].map { ((it + x * 1 - 1)) % 9 + 1 }.toIntArray()
             }
         }
-        return solve(map, n*5, m*5)
+        return solve(map, n * 5, m * 5)
     }
 
-    private fun parse(input: String) =
-        input.lines().map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
+    private fun parse(input: String) = input.lines().map { it.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
 
     private fun solve(board: Array<IntArray>, n: Int, m: Int): Int {
-
         fun adjacent(u: Point) = buildList {
             val (i, j) = u
-            for ((ii, jj) in listOf(Point(i-1, j), Point(i+1, j), Point(i, j-1), Point(i, j+1))) {
+            for ((ii, jj) in listOf(Point(i - 1, j), Point(i + 1, j), Point(i, j - 1), Point(i, j + 1))) {
                 if ((0 <= ii) && (ii < m) && (0 <= jj) && (jj < n)) {
                     add(Point(ii, jj) to board[ii][jj])
                 }
@@ -47,7 +45,7 @@ class Day15 : Solution<Int, Int>(year = 2021, day = 15) {
         }
 
         val start = Point(0, 0)
-        val end = Point(m-1, n-1)
+        val end = Point(m - 1, n - 1)
 
         return dijkstra(start, ::adjacent)[end]!!
     }

@@ -34,12 +34,14 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
         val r = -1
         var sum = 0
         var x = r
-        for (i in 0..<n) for (j in 0..<m) {
-            val c = grid[i][j]
-            if (c <= r) continue
-            val (a, p) = solve(i, j, c, x)
-            x--
-            sum += a * p
+        for (i in 0..<n) {
+            for (j in 0..<m) {
+                val c = grid[i][j]
+                if (c <= r) continue
+                val (a, p) = solve(i, j, c, x)
+                x--
+                sum += a * p
+            }
         }
         return sum
     }
@@ -67,8 +69,8 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
                 if (!inGrid || (grid[ii][jj] != c && grid[ii][jj] != r)) {
                     val rx = (x + 1).mod(4)
                     val lx = (x - 1).mod(4)
-                    if (!(check(i + di[rx], j + dj[rx], c ,r)) || check(ii + di[rx], jj + dj[rx], c, r)) sides++
-                    if (!(check(i + di[lx], j + dj[lx], c ,r)) || check(ii + di[lx], jj + dj[lx], c, r)) sides++
+                    if (!(check(i + di[rx], j + dj[rx], c, r)) || check(ii + di[rx], jj + dj[rx], c, r)) sides++
+                    if (!(check(i + di[lx], j + dj[lx], c, r)) || check(ii + di[lx], jj + dj[lx], c, r)) sides++
                 }
             }
             return Point(a, sides)
@@ -77,12 +79,14 @@ class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
         val r = -1
         var sum = 0
         var x = r
-        for (i in 0..<n) for (j in 0..<m) {
-            val c = grid[i][j]
-            if (c <= r) continue
-            val (a, sides) = solve(i, j, c, x)
-            x--
-            sum += a * (sides/2)
+        for (i in 0..<n) {
+            for (j in 0..<m) {
+                val c = grid[i][j]
+                if (c <= r) continue
+                val (a, sides) = solve(i, j, c, x)
+                x--
+                sum += a * (sides / 2)
+            }
         }
         return sum
     }

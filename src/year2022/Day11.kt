@@ -29,23 +29,24 @@ class Day11 : Solution<Long, Long>(year = 2022, day = 11) {
         private val operation: (Long) -> Long,
         private val divisor: Int,
         private val otherMonkeys: Pair<Int, Int>,
-        var inspectionCount: Int = 0
+        var inspectionCount: Int = 0,
     ) {
 
         lateinit var allOtherMonkeys: List<Monkey>
 
         val commonDivisor: Int
-            get() = allOtherMonkeys.map { it.divisor }.reduce { a,b -> a*b }
+            get() = allOtherMonkeys.map { it.divisor }.reduce { a, b -> a * b }
 
         fun inspectItems(decreaseWorry: Boolean) {
             items.forEach {
                 it.adaptWorryLevel(operation)
                 it.worryLevel %= commonDivisor
                 if (decreaseWorry) it.worryLevel /= 3
-                if (it.worryLevel % divisor == 0L)
+                if (it.worryLevel % divisor == 0L) {
                     allOtherMonkeys.first { monkey -> monkey.id == otherMonkeys.first }.add(it)
-                else
+                } else {
                     allOtherMonkeys.first { monkey -> monkey.id == otherMonkeys.second }.add(it)
+                }
             }
             inspectionCount += items.size
             items.clear()
@@ -68,7 +69,7 @@ class Day11 : Solution<Long, Long>(year = 2022, day = 11) {
                 val divisor = parts[3].substringAfter("divisible by ").toInt()
                 val monkeyA = parts[4].substringAfter("throw to monkey ").toInt()
                 val monkeyB = parts[5].substringAfter("throw to monkey ").toInt()
-                Monkey(id, items, operation, divisor,monkeyA to monkeyB)
+                Monkey(id, items, operation, divisor, monkeyA to monkeyB)
             }
         monkeys.forEach { it.allOtherMonkeys = monkeys }
 
@@ -76,14 +77,10 @@ class Day11 : Solution<Long, Long>(year = 2022, day = 11) {
             monkeys.forEach { it.inspectItems(decreaseWorry) }
         }
 
-        return monkeys.map { it.inspectionCount }.sortedDescending().take(2).fold(1) { acc, i -> acc * i}
+        return monkeys.map { it.inspectionCount }.sortedDescending().take(2).fold(1) { acc, i -> acc * i }
     }
 
-    override fun part1(input: String): Long {
-        return simulateGame(input, 20, true)
-    }
+    override fun part1(input: String): Long = simulateGame(input, 20, true)
 
-    override fun part2(input: String): Long {
-        return simulateGame(input, 10_000, false)
-    }
+    override fun part2(input: String): Long = simulateGame(input, 10_000, false)
 }

@@ -14,7 +14,7 @@ class Day25 : Solution<Int, Int>(year = 2021, day = 25) {
             mat = newMat.map { it.copyOf() }.toTypedArray()
             for (i in mat.indices) {
                 for (j in mat[0].indices) {
-                    val k = if (j < mat[0].lastIndex) j+1 else 0
+                    val k = if (j < mat[0].lastIndex) j + 1 else 0
                     if (mat[i][j] == '>' && newMat[i][k] == '.' && mat[i][k] != '>') {
                         newMat[i][j] = '.'
                         newMat[i][k] = '>'
@@ -23,7 +23,7 @@ class Day25 : Solution<Int, Int>(year = 2021, day = 25) {
             }
             for (i in mat.indices) {
                 for (j in mat[0].indices) {
-                    val k = if (i < mat.lastIndex) i+1 else 0
+                    val k = if (i < mat.lastIndex) i + 1 else 0
                     if (mat[i][j] == 'v' && newMat[k][j] == '.' && mat[k][j] != 'v') {
                         newMat[i][j] = '.'
                         newMat[k][j] = 'v'
@@ -31,7 +31,7 @@ class Day25 : Solution<Int, Int>(year = 2021, day = 25) {
                 }
             }
         } while (!(mat.contentDeepEquals(newMat)))
-        newMat.forEach { println(it.joinToString("") ) }
+        newMat.forEach { println(it.joinToString("")) }
         println(step)
         return step
     }

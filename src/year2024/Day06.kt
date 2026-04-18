@@ -20,8 +20,9 @@ class Day06 : Solution<Int, Int>(year = 2024, day = 6) {
                 if (grid[di][dj] == '#') d = Point(d.j, -d.i)
                 grid[i][j] = 'X'
                 p += d
-            } else break
-
+            } else {
+                break
+            }
         }
         return c
     }
@@ -45,8 +46,9 @@ class Day06 : Solution<Int, Int>(year = 2024, day = 6) {
                 val dj = jj + dirs[d].j
                 if (seen[d][ii][jj]) return 1 else seen[d][ii][jj] = true
                 if (di in 0..<n && dj in 0..<m) {
-                    if (grid[di][dj] == '#') d = (d + 1) % 4
-                    else {
+                    if (grid[di][dj] == '#') {
+                        d = (d + 1) % 4
+                    } else {
                         if (first && grid[di][dj] == '.') {
                             grid[di][dj] = '#'
                             c += solve(grid, ii, jj, d, false)
@@ -55,7 +57,9 @@ class Day06 : Solution<Int, Int>(year = 2024, day = 6) {
                         ii = di
                         jj = dj
                     }
-                } else return c
+                } else {
+                    return c
+                }
             }
         }
         return solve(startGrid, si, sj, sd, true)

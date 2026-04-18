@@ -10,20 +10,20 @@ class Day19 : Solution<Int, Int>(year = 2022, day = 19) {
         var ore: Int,
         var clay: Int,
         var obsidian: Int,
-        var geode: Int
+        var geode: Int,
     ) {
         operator fun plus(other: ResourceBundle) = ResourceBundle(
             ore = this.ore + other.ore,
             clay = this.clay + other.clay,
             obsidian = this.obsidian + other.obsidian,
-            geode = this.geode + other.geode
+            geode = this.geode + other.geode,
         )
 
         operator fun minus(other: ResourceBundle) = ResourceBundle(
             ore = this.ore - other.ore,
             clay = this.clay - other.clay,
             obsidian = this.obsidian - other.obsidian,
-            geode = this.geode - other.geode
+            geode = this.geode - other.geode,
         )
 
         operator fun plusAssign(other: ResourceBundle) {
@@ -44,7 +44,7 @@ class Day19 : Solution<Int, Int>(year = 2022, day = 19) {
         val oreCost: ResourceBundle,
         val clayCost: ResourceBundle,
         val obsidianCost: ResourceBundle,
-        val geodeCost: ResourceBundle
+        val geodeCost: ResourceBundle,
     )
 
     private fun Blueprint(input: List<Int>): Blueprint {
@@ -57,12 +57,13 @@ class Day19 : Solution<Int, Int>(year = 2022, day = 19) {
             oreCost = ResourceBundle(ore1, 0, 0, 0),
             clayCost = ResourceBundle(ore2, 0, 0, 0),
             obsidianCost = ResourceBundle(ore3, clay, 0, 0),
-            geodeCost = ResourceBundle(ore4, 0, obsidian, 0)
+            geodeCost = ResourceBundle(ore4, 0, obsidian, 0),
         )
     }
 
     class Result(value: Int) {
-        var value = value; private set
+        var value = value
+            private set
         fun set(newValue: Int) {
             value = newValue
         }
@@ -85,12 +86,15 @@ class Day19 : Solution<Int, Int>(year = 2022, day = 19) {
     private fun dfs(blueprint: Blueprint, result: Result, time: Int, bots: ResourceBundle, resources: ResourceBundle) {
         result.set(maxOf(result.value, resources.geode + bots.geode * time))
         if (canBeatBest(blueprint, result, time, bots.copy(), resources.copy())) {
-            if (bots.obsidian > 0 && time > 1)
+            if (bots.obsidian > 0 && time > 1) {
                 step(blueprint, result, time, bots.copy(), resources.copy(), GEODE_BOT, blueprint.geodeCost)
-            if (bots.obsidian < blueprint.maxObsidian && bots.clay > 0 && time > 3)
+            }
+            if (bots.obsidian < blueprint.maxObsidian && bots.clay > 0 && time > 3) {
                 step(blueprint, result, time, bots.copy(), resources.copy(), OBSIDIAN_BOT, blueprint.obsidianCost)
-            if (bots.ore < blueprint.maxOre && time > 3)
+            }
+            if (bots.ore < blueprint.maxOre && time > 3) {
                 step(blueprint, result, time, bots.copy(), resources.copy(), ORE_BOT, blueprint.oreCost)
+            }
             if (bots.clay < blueprint.maxClay && time > 5) {
                 step(blueprint, result, time, bots.copy(), resources.copy(), CLAY_BOT, blueprint.clayCost)
             }
@@ -102,7 +106,7 @@ class Day19 : Solution<Int, Int>(year = 2022, day = 19) {
         result: Result,
         time: Int,
         bots: ResourceBundle,
-        resources: ResourceBundle
+        resources: ResourceBundle,
     ): Boolean {
         repeat(time) {
             resources.ore = blueprint.maxOre
@@ -129,7 +133,7 @@ class Day19 : Solution<Int, Int>(year = 2022, day = 19) {
         bots: ResourceBundle,
         resources: ResourceBundle,
         newBot: ResourceBundle,
-        cost: ResourceBundle
+        cost: ResourceBundle,
     ) {
         for (jump in 1..<time) {
             if (cost leq resources) {
@@ -142,11 +146,7 @@ class Day19 : Solution<Int, Int>(year = 2022, day = 19) {
 
     private fun parse(input: String) = input.extractInts().chunked(7).map(::Blueprint)
 
-    override fun part1(input: String): Int {
-        return parse(input).sumOf { it.id * maximize(it, 24) }
-    }
+    override fun part1(input: String): Int = parse(input).sumOf { it.id * maximize(it, 24) }
 
-    override fun part2(input: String): Int {
-        return parse(input).take(3).map { maximize(it, 32) }.product()
-    }
+    override fun part2(input: String): Int = parse(input).take(3).map { maximize(it, 32) }.product()
 }

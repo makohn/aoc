@@ -11,7 +11,7 @@ class Day06 : Solution<Int, Int>(year = 2023, day = 6) {
         val ans = raceLengths.withIndex().map { (idx, len) ->
             var count = 0
             for (i in 0..len) {
-                if ((len - i) * i > records[idx]) count ++
+                if ((len - i) * i > records[idx]) count++
             }
             count
         }
@@ -23,7 +23,7 @@ class Day06 : Solution<Int, Int>(year = 2023, day = 6) {
 
         var count = 0
         for (i in 0..raceLength) {
-            if ((raceLength - i) * i > record) count ++
+            if ((raceLength - i) * i > record) count++
         }
 
         return count

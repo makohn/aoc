@@ -13,25 +13,25 @@ class Day10 : Solution<Int, Int>(year = 2023, day = 10) {
         lateinit var startCell: CharPoint
         val neighbours = mutableMapOf<CharPoint, List<CharPoint>>()
 
-        for (i in 0..<n) for (j in 0..<m) {
-            val currentCell = CharPoint(i, j, grid[i][j])
-            when (currentCell.data) {
-                '|' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.North, Direction.South)
-                '-' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.East, Direction.West)
-                'L' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.North, Direction.East)
-                'J' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.North, Direction.West)
-                '7' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.South, Direction.West)
-                'F' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.South, Direction.East)
-                'S' -> startCell = currentCell
+        for (i in 0..<n) {
+            for (j in 0..<m) {
+                val currentCell = CharPoint(i, j, grid[i][j])
+                when (currentCell.data) {
+                    '|' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.North, Direction.South)
+                    '-' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.East, Direction.West)
+                    'L' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.North, Direction.East)
+                    'J' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.North, Direction.West)
+                    '7' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.South, Direction.West)
+                    'F' -> neighbours[currentCell] = grid.neighborsOf(currentCell, Direction.South, Direction.East)
+                    'S' -> startCell = currentCell
+                }
             }
         }
         neighbours[startCell] = neighbours.filter { (_, v) -> v.any { it == startCell } }.keys.toList()
         return startCell to neighbours
     }
 
-    fun getMainLoopWithDistance(startCell: CharPoint, neighbours: Map<CharPoint, List<CharPoint>>): HashMap<CharPoint, Int> {
-        return bfs(startCell) { neighbours[it]!! }
-    }
+    fun getMainLoopWithDistance(startCell: CharPoint, neighbours: Map<CharPoint, List<CharPoint>>): HashMap<CharPoint, Int> = bfs(startCell) { neighbours[it]!! }
 
     override fun part1(input: String): Int {
         val (startCell, neighbours) = getNeighbours(input)
@@ -51,8 +51,11 @@ class Day10 : Solution<Int, Int>(year = 2023, day = 10) {
                             n == setOf('-') || n == setOf('F', '7') || n == setOf('L', 'J') -> '-'
                             else -> '|'
                         }
+                    } else if (it in mainLoop) {
+                        it.data
+                    } else {
+                        '.'
                     }
-                    else if (it in mainLoop) it.data else '.'
                 }
             }
 
@@ -63,9 +66,9 @@ class Day10 : Solution<Int, Int>(year = 2023, day = 10) {
             var previous = '.'
             for (char in row) {
                 when (char) {
-                    '.' -> if (parity%2 != 0) insideCount++
+                    '.' -> if (parity % 2 != 0) insideCount++
                     in "JLF7|" -> {
-                        when(previous to char) {
+                        when (previous to char) {
                             'F' to 'J', 'L' to '7' -> Unit
                             else -> parity++
                         }

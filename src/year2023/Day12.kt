@@ -27,18 +27,16 @@ class Day12 : Solution<Int, Long>(year = 2023, day = 12) {
     fun countPossibilities(str: String, distribution: List<Int>, pos: Int): Int {
         if (pos == str.length) return if (checkPattern(str, distribution)) 1 else 0
         return when (str[pos]) {
-            '?' -> "#.".sumOf { countPossibilities(str.substring(0..pos) + it + str.substring(pos+1), distribution, pos+1) }
-            else -> countPossibilities(str, distribution, pos+1)
+            '?' -> "#.".sumOf { countPossibilities(str.substring(0..pos) + it + str.substring(pos + 1), distribution, pos + 1) }
+            else -> countPossibilities(str, distribution, pos + 1)
         }
     }
 
-    override fun part1(input: String): Int {
-        return input
-            .lines()
-            .map { it.split(" ") }
-            .map { (a, b) -> a to b.split(",").map { it.toInt() } }
-            .sumOf { (str, dist) -> countPossibilities(str, dist, 0) }
-    }
+    override fun part1(input: String): Int = input
+        .lines()
+        .map { it.split(" ") }
+        .map { (a, b) -> a to b.split(",").map { it.toInt() } }
+        .sumOf { (str, dist) -> countPossibilities(str, dist, 0) }
 
     data class State(val strPos: Int, val distPos: Int, val blockLen: Int)
     val memoize = HashMap<State, Long>()
@@ -46,39 +44,41 @@ class Day12 : Solution<Int, Long>(year = 2023, day = 12) {
     fun countPossibilities(str: String, distribution: List<Int>, state: State): Long {
         if (state in memoize) return memoize[state]!!
         val (strPos, distPos, blockLen) = state
-        if (strPos == str.length) return when {
-            distPos == distribution.size && blockLen == 0 -> 1
-            distPos == distribution.size-1 && blockLen == distribution[distPos] -> 1
-            else -> 0
+        if (strPos == str.length) {
+            return when {
+                distPos == distribution.size && blockLen == 0 -> 1
+                distPos == distribution.size - 1 && blockLen == distribution[distPos] -> 1
+                else -> 0
+            }
         }
         var count = 0L
         ".#".forEach { s ->
             val char = str[strPos]
-            if (char == s || char == '?') count += when {
-                (s == '.' && (blockLen == 0)) -> {
-                    countPossibilities(str, distribution, State(strPos+1, distPos, 0))
+            if (char == s || char == '?') {
+                count += when {
+                    (s == '.' && (blockLen == 0)) -> {
+                        countPossibilities(str, distribution, State(strPos + 1, distPos, 0))
+                    }
+                    (s == '.' && (blockLen > 0) && (distPos < distribution.size) && (blockLen == distribution[distPos])) -> {
+                        countPossibilities(str, distribution, State(strPos + 1, distPos + 1, 0))
+                    }
+                    (s == '#') -> {
+                        countPossibilities(str, distribution, State(strPos + 1, distPos, blockLen + 1))
+                    }
+                    else -> 0
                 }
-                (s == '.' && (blockLen > 0) && (distPos < distribution.size) && (blockLen == distribution[distPos])) -> {
-                    countPossibilities(str, distribution, State(strPos+1, distPos+1, 0))
-                }
-                (s == '#') -> {
-                    countPossibilities(str, distribution, State(strPos+1, distPos, blockLen+1))
-                }
-                else -> 0
             }
         }
         memoize[state] = count
         return count
     }
 
-    override fun part2(input: String): Long {
-        return input
-            .lines()
-            .asSequence()
-            .map { it.split(" ") }
-            .map { (a, b) -> a to b.split(",").map { it.toInt() } }
-            .map { (a, b) -> listOf(a, a, a, a, a).joinToString("?") to listOf(b, b, b, b, b).flatten() }
-            .onEach { memoize.clear() }
-            .sumOf { (str, dist) -> countPossibilities(str, dist, State(0, 0, 0)) }
-    }
+    override fun part2(input: String): Long = input
+        .lines()
+        .asSequence()
+        .map { it.split(" ") }
+        .map { (a, b) -> a to b.split(",").map { it.toInt() } }
+        .map { (a, b) -> listOf(a, a, a, a, a).joinToString("?") to listOf(b, b, b, b, b).flatten() }
+        .onEach { memoize.clear() }
+        .sumOf { (str, dist) -> countPossibilities(str, dist, State(0, 0, 0)) }
 }

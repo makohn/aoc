@@ -6,9 +6,7 @@ import util.math.product
 
 class Day03 : Solution<Int, Int>(year = 2023, day = 3) {
 
-    fun Char.isSymbol(): Boolean {
-        return !this.isDigit() && this != '.'
-    }
+    fun Char.isSymbol(): Boolean = !this.isDigit() && this != '.'
 
     override fun part1(input: String): Int {
         val schematic = input.lines().toCharGrid()
@@ -64,10 +62,12 @@ class Day03 : Solution<Int, Int>(year = 2023, day = 3) {
                 when (char) {
                     in '0'..'9' -> {
                         number += char
-                        gearPositions.addAll(schematic
-                            .neighborsOf(i, j)
-                            .filter { it.data == '*' }
-                            .toList())
+                        gearPositions.addAll(
+                            schematic
+                                .neighborsOf(i, j)
+                                .filter { it.data == '*' }
+                                .toList(),
+                        )
                     }
                     else -> reset()
                 }

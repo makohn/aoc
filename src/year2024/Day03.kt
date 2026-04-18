@@ -50,11 +50,7 @@ class Day03 : Solution<Int, Int>(year = 2024, day = 3) {
         return ans
     }
 
-    override fun part1(input: String): Int {
-        return solve(input, true)
-    }
+    override fun part1(input: String): Int = solve(input, true)
 
-    override fun part2(input: String): Int {
-        return solve(input, false)
-    }
+    override fun part2(input: String): Int = solve(input, false)
 }

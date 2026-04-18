@@ -7,7 +7,7 @@ import kotlin.math.abs
 
 class Day15(
     private val row: Int = 2000000,
-    private val range: IntRange = 0..4000000
+    private val range: IntRange = 0..4000000,
 ) : Solution<Int, Long>(year = 2022, day = 15) {
 
     fun List<List<Point>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
@@ -15,23 +15,30 @@ class Day15(
         val distance = scanner.distanceTo(beacon)
         if (yDistance <= distance) {
             (scanner.i - distance) + yDistance..(scanner.i + distance) - yDistance
-        } else IntRange.EMPTY
+        } else {
+            IntRange.EMPTY
+        }
     }
 
     fun parseInput(input: String) = input
         .lines()
         .map { it.extractInts() }
-        .flatMap { (x1, y1, x2, y2) -> listOf( Point(x1, y1), Point(x2, y2)) }
+        .flatMap { (x1, y1, x2, y2) -> listOf(Point(x1, y1), Point(x2, y2)) }
         .chunked(2)
 
     fun List<IntRange>.merge() = this
         .filter { !it.isEmpty() }
         .sortedBy { it.first }
         .foldIndexed(ArrayDeque<IntRange>()) { idx, stack, range ->
-            if (idx == 0) stack.add(range)
-            else if (range.last <= stack.last().last) return@foldIndexed stack
-            else if (range.first > stack.last().last + 1) stack.add(range)
-            else stack.add(stack.removeLast().first..range.last)
+            if (idx == 0) {
+                stack.add(range)
+            } else if (range.last <= stack.last().last) {
+                return@foldIndexed stack
+            } else if (range.first > stack.last().last + 1) {
+                stack.add(range)
+            } else {
+                stack.add(stack.removeLast().first..range.last)
+            }
             stack
         }
 

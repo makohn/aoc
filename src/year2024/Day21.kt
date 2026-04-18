@@ -19,15 +19,15 @@ class Day21 : Solution<Long, Long>(year = 2024, day = 21) {
                 charArrayOf('7', '8', '9'),
                 charArrayOf('4', '5', '6'),
                 charArrayOf('1', '2', '3'),
-                charArrayOf(' ', '0', 'A')
-            )
+                charArrayOf(' ', '0', 'A'),
+            ),
         )
 
         val (dirPad, dirGap) = parsePad(
             arrayOf(
                 charArrayOf(' ', '^', 'A'),
-                charArrayOf('<', 'v', '>')
-            )
+                charArrayOf('<', 'v', '>'),
+            ),
         )
 
         val sequences: Sequences = HashMap()
@@ -45,18 +45,20 @@ class Day21 : Solution<Long, Long>(year = 2024, day = 21) {
     }
 
     private fun findSequences(sequences: Sequences, pad: KeyPad, gap: Point) {
-        for ((a, from) in pad) for ((b, to) in pad) {
-            val horizontal = createSequence(from.j, to.j, '>', '<')
-            val vertical = createSequence(from.i, to.i, 'v', '^')
+        for ((a, from) in pad) {
+            for ((b, to) in pad) {
+                val horizontal = createSequence(from.j, to.j, '>', '<')
+                val vertical = createSequence(from.i, to.i, 'v', '^')
 
-            if (gap != Point(to.i, from.j)) {
-                val sequence = vertical + horizontal + 'A'
-                sequences.computeIfAbsent(a to b) { ArrayList() }.add(sequence)
-            }
+                if (gap != Point(to.i, from.j)) {
+                    val sequence = vertical + horizontal + 'A'
+                    sequences.computeIfAbsent(a to b) { ArrayList() }.add(sequence)
+                }
 
-            if (from != to && gap != Point(from.i, to.j)) {
-                val sequence = horizontal + vertical + 'A'
-                sequences.computeIfAbsent(a to b) { ArrayList() }.add(sequence)
+                if (from != to && gap != Point(from.i, to.j)) {
+                    val sequence = horizontal + vertical + 'A'
+                    sequences.computeIfAbsent(a to b) { ArrayList() }.add(sequence)
+                }
             }
         }
     }
@@ -90,11 +92,7 @@ class Day21 : Solution<Long, Long>(year = 2024, day = 21) {
         return codes.sumOf { (code, num) -> dfs(cache, sequences, code, depth) * num }
     }
 
-    override fun part1(input: String): Long {
-        return sumOfComplexities(input, 3)
-    }
+    override fun part1(input: String): Long = sumOfComplexities(input, 3)
 
-    override fun part2(input: String): Long {
-        return sumOfComplexities(input, 26)
-    }
+    override fun part2(input: String): Long = sumOfComplexities(input, 26)
 }

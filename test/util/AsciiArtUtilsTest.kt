@@ -14,7 +14,7 @@ class AsciiArtUtilsTest {
         ####.#..#.#....
         #..#.#..#.#..#.
         #..#.###...##..
-        """.trimIndent() to "ABC"
+        """.trimIndent() to "ABC",
     )
 
     @TestFactory

@@ -8,7 +8,7 @@ class Day16 : Solution<Long, Long>(year = 2021, day = 16) {
 
     override fun part1(input: String): Long {
         val bits = parse(input)
-        return parsePacket(bits).map{ it.version() }.sum()
+        return parsePacket(bits).map { it.version() }.sum()
     }
 
     override fun part2(input: String): Long {
@@ -20,13 +20,13 @@ class Day16 : Solution<Long, Long>(year = 2021, day = 16) {
         abstract fun version(): Long
         abstract fun value(): Long
     }
-    class LiteralPacket(version: Long, type: Long, value: Long): Packet<Long>(version, type, value) {
+    class LiteralPacket(version: Long, type: Long, value: Long) : Packet<Long>(version, type, value) {
         override fun version(): Long = version
         override fun value(): Long = value
     }
-    class OperatorPacket(version: Long, type: Long, value: Sequence<Packet<*>>): Packet<Sequence<Packet<*>>>(version, type, value) {
+    class OperatorPacket(version: Long, type: Long, value: Sequence<Packet<*>>) : Packet<Sequence<Packet<*>>>(version, type, value) {
         override fun version(): Long = version + value.map { it.version() }.sum()
-        override fun value(): Long = when(type) {
+        override fun value(): Long = when (type) {
             0L -> value.sumOf { it.value() }
             1L -> value.map { it.value() }.reduce { a, b -> a * b }
             2L -> value.minOf { it.value() }
@@ -46,7 +46,7 @@ class Day16 : Solution<Long, Long>(year = 2021, day = 16) {
         return newBits
     }
 
-    private infix fun <R> Int.times(transform: () -> Sequence<R>): Sequence<R> = (0 until  this).flatMap { transform.invoke() }.asSequence()
+    private infix fun <R> Int.times(transform: () -> Sequence<R>): Sequence<R> = (0 until this).flatMap { transform.invoke() }.asSequence()
 
     private fun parse(input: String) = input
         .map {
@@ -79,13 +79,17 @@ class Day16 : Solution<Long, Long>(year = 2021, day = 16) {
                         val spl = readNumber(15, bits).toInt()
                         if (spl > 0) {
                             yield(OperatorPacket(version, type, parsePacket(bits.slice(spl))))
-                        } else break
+                        } else {
+                            break
+                        }
                     }
                     1L -> {
                         val spc = readNumber(11, bits).toInt()
                         if (spc > 0) {
                             yield(OperatorPacket(version, type, parsePacket(bits).take(spc)))
-                        } else break
+                        } else {
+                            break
+                        }
                     }
                 }
             }

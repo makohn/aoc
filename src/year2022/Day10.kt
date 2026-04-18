@@ -12,7 +12,7 @@ class Day10 : Solution<Int, String>(year = 2022, day = 10) {
 
         fun tick() {
             cycle++
-            if (cycle in (20 .. 220) step 40) {
+            if (cycle in (20..220) step 40) {
                 acc += cycle * x
             }
         }
@@ -23,7 +23,7 @@ class Day10 : Solution<Int, String>(year = 2022, day = 10) {
             when (op) {
                 "addx" -> {
                     tick()
-                    x+= parts[1].toInt()
+                    x += parts[1].toInt()
                 }
                 "noop" -> Unit
             }
@@ -39,7 +39,7 @@ class Day10 : Solution<Int, String>(year = 2022, day = 10) {
 
         fun tick() {
             cycle++
-            val crt = if (cursor in x-1..x+1) "#" else "."
+            val crt = if (cursor in x - 1..x + 1) "#" else "."
             sb.append(crt)
             cursor++
             if (cursor == 40) {

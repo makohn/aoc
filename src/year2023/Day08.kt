@@ -20,7 +20,7 @@ class Day08 : Solution<Int, Long>(year = 2023, day = 8) {
         var current = "AAA"
 
         while (true) {
-            val instruction = instructions[steps%instructions.length]
+            val instruction = instructions[steps % instructions.length]
             if (current == "ZZZ") break
             steps++
             val path = paths[current]!!
@@ -47,7 +47,7 @@ class Day08 : Solution<Int, Long>(year = 2023, day = 8) {
         while (true) {
             val nextNodes = mutableListOf<String>()
             for ((i, current) in currentNodes.withIndex()) {
-                val pos = (steps.toInt())%instructions.length
+                val pos = (steps.toInt()) % instructions.length
                 val instruction = instructions[pos]
                 val path = paths[current]!!
                 val nextNode = if (instruction == 'L') path.first else path.second

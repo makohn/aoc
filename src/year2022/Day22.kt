@@ -18,12 +18,12 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
         val height: Int,
         val tiles: CharArray,
         val start: Int,
-        val block: Int
+        val block: Int,
     ) {
-        fun tile(point: Point): Char {
-            return if (point.j in 0..<width && point.i in 0..<height) {
-                tiles[point.i * width + point.j]
-            } else ' '
+        fun tile(point: Point): Char = if (point.j in 0..<width && point.i in 0..<height) {
+            tiles[point.i * width + point.j]
+        } else {
+            ' '
         }
     }
 
@@ -47,7 +47,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
     data class Vec3(
         val x: Int,
         val y: Int,
-        val z: Int
+        val z: Int,
     ) {
         operator fun unaryMinus() = Vec3(-this.x, -this.y, -this.z)
     }
@@ -56,7 +56,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
         val corner: Point,
         val a: Vec3,
         val b: Vec3,
-        val c: Vec3
+        val c: Vec3,
     )
 
     private fun parseMoves(str: String): List<Move> {
@@ -90,7 +90,9 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
                                 if (board.tile(nextPos) == '.') {
                                     pos = nextPos
                                     dir = nextDir
-                                } else return@repeat
+                                } else {
+                                    return@repeat
+                                }
                             }
                         }
                     }
@@ -145,7 +147,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
                 Face(corner = corner + Point(0, -block), a = -c, b = b, c = a),
                 Face(corner = corner + Point(0, block), a = c, b = b, c = -a),
                 Face(corner = corner + Point(-block, 0), a = a, b = -c, c = b),
-                Face(corner = corner + Point(block, 0), a = a, b = c, c = -b)
+                Face(corner = corner + Point(block, 0), a = a, b = c, c = -b),
             )
             for (neighbor in neighbors) {
                 if (board.tile(neighbor.corner) != ' ' && neighbor.c !in faces) {
@@ -160,7 +162,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
             val offset = Point(pos.i % block, pos.j % block)
             val corner = pos - offset
             val (_, a, b, c) = corners[corner]!!
-            val nextC = when(dir) {
+            val nextC = when (dir) {
                 LEFT -> a
                 RIGHT -> -a
                 UP -> b
@@ -175,7 +177,7 @@ class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
                 -nextB -> UP
                 else -> error(c)
             }
-            val nextOffset = when(dir) {
+            val nextOffset = when (dir) {
                 LEFT -> when (nextDir) {
                     LEFT -> Point(offset.i, edge)
                     RIGHT -> Point(edge - offset.i, 0)

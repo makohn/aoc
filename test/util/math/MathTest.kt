@@ -12,7 +12,7 @@ class MathTest {
         (252L to 105L) to 21L,
         (24140L to 16762L) to 34L,
         (16762L to 24140L) to 34L,
-        (3141592653589793238 to 2718281828459045235) to 3L
+        (3141592653589793238 to 2718281828459045235) to 3L,
     )
 
     private val lcmTestData = mapOf(
@@ -20,12 +20,12 @@ class MathTest {
         (36L to 48L) to 144L,
         (3123L to 8575L) to 26779725L,
         (8575L to 3123L) to 26779725L,
-        (3123456789 to 8573748456) to 8926577607357155928
+        (3123456789 to 8573748456) to 8926577607357155928,
     )
 
     private val saturatingAddTestData = mapOf(
         (100u to 1u) to 101u,
-        (UInt.MAX_VALUE to 127u) to UInt.MAX_VALUE
+        (UInt.MAX_VALUE to 127u) to UInt.MAX_VALUE,
     )
 
     @TestFactory

@@ -29,9 +29,7 @@ fun Iterable<Int>.product() = reduce { a, b -> a * b }
 /**
  * Adds the other value to this value, saturating at numeric bounds.
  */
-fun UInt.saturatingAdd(other: UInt): UInt {
-    return if (this > UInt.MAX_VALUE - other) UInt.MAX_VALUE else this + other
-}
+fun UInt.saturatingAdd(other: UInt): UInt = if (this > UInt.MAX_VALUE - other) UInt.MAX_VALUE else this + other
 //endregion
 
 //region Matrix definitions
@@ -45,7 +43,7 @@ fun UInt.saturatingAdd(other: UInt): UInt {
 open class Matrix(
     val m: Int,
     val n: Int,
-    val data: DoubleArray = DoubleArray(m * n) { 0.0 }
+    val data: DoubleArray = DoubleArray(m * n) { 0.0 },
 ) {
 
     /**
@@ -57,10 +55,12 @@ open class Matrix(
         val size = this.m * other.n
         val res = DoubleArray(size)
 
-        for (i in 0..<this.m) for (j in 0..<other.n) {
-            var sum = 0.0
-            for (k in 0..<this.n) sum += this.data[i * this.n + k] * other.data[k * other.n + j]
-            res[i * other.n + j] = sum
+        for (i in 0..<this.m) {
+            for (j in 0..<other.n) {
+                var sum = 0.0
+                for (k in 0..<this.n) sum += this.data[i * this.n + k] * other.data[k * other.n + j]
+                res[i * other.n + j] = sum
+            }
         }
         return Matrix(this.m, other.n, res)
     }
@@ -105,11 +105,11 @@ class Matrix4x4(data: DoubleArray = DoubleArray(16) { 0.0 }) : Matrix(4, 4, data
             fun e(a: Int, b: Int) = data[((j + b) % 4) * 4 + ((i + a) % 4)]
 
             val inv = e(+1, -1) * e(+0, +0) * e(-1, +1) +
-                    e(+1, +1) * e(+0, -1) * e(-1, +0) +
-                    e(-1, -1) * e(+1, +0) * e(+0, +1) -
-                    e(-1, -1) * e(+0, +0) * e(+1, +1) -
-                    e(-1, +1) * e(+0, -1) * e(+1, +0) -
-                    e(+1, -1) * e(-1, +0) * e(+0, +1)
+                e(+1, +1) * e(+0, -1) * e(-1, +0) +
+                e(-1, -1) * e(+1, +0) * e(+0, +1) -
+                e(-1, -1) * e(+0, +0) * e(+1, +1) -
+                e(-1, +1) * e(+0, -1) * e(+1, +0) -
+                e(+1, -1) * e(-1, +0) * e(+0, +1)
 
             return if (o % 2 == 0) inv else -inv
         }

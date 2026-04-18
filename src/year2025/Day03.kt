@@ -37,7 +37,7 @@ class Day03 : Solution<Int, Long>(year = 2025, day = 3) {
         for (line in input.lines()) {
             val maximums = Array(12) { -1 to -1 }
             for (n in 0..m) {
-                val startIndex = if (n > 0) maximums[n-1].second + 1 else 0
+                val startIndex = if (n > 0) maximums[n - 1].second + 1 else 0
                 for ((i, d) in line.substring(startIndex).withIndex()) {
                     if ((i + startIndex) > line.lastIndex - (m - n)) break
                     val di = d.digitToInt()

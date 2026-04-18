@@ -18,7 +18,5 @@ class Day25 : Solution<Int, Int>(year = 2024, day = 25) {
         return res
     }
 
-    override fun part2(input: String): Int {
-        return 0
-    }
+    override fun part2(input: String): Int = 0
 }

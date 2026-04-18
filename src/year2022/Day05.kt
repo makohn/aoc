@@ -12,7 +12,8 @@ class Day05 : Solution<String, String>(year = 2022, day = 5) {
             .reversed()
             .drop(1)
             .forEach {
-                it.filterIndexed { i, _ -> i % 4 == 1
+                it.filterIndexed { i, _ ->
+                    i % 4 == 1
                 }.forEachIndexed { i, s ->
                     if (i >= stacks.size) stacks.add(Stack<Char>())
                     if (s.isLetter()) stacks[i].push(s)
@@ -39,7 +40,8 @@ class Day05 : Solution<String, String>(year = 2022, day = 5) {
             .reversed()
             .drop(1)
             .forEach {
-                it.filterIndexed { i, _ -> i % 4 == 1
+                it.filterIndexed { i, _ ->
+                    i % 4 == 1
                 }.forEachIndexed { i, s ->
                     if (i >= stacks.size) stacks.add(Stack<Char>())
                     if (s.isLetter()) stacks[i].push(s)

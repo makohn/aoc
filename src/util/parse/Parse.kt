@@ -144,5 +144,4 @@ inline fun String.split(predicate: (Char) -> Boolean): List<String> {
  *
  * @return a list of [String]s in this [String] separated by ASCII whitespace characters
  */
-fun String.splitAsciiWhitespace(): List<String> =
-    split { it == '\t' || it == '\n' || it == '\u000C' || it == '\r' || it == ' ' }
+fun String.splitAsciiWhitespace(): List<String> = split { it == '\t' || it == '\n' || it == '\u000C' || it == '\r' || it == ' ' }

@@ -1,6 +1,10 @@
 package util.iter
 
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.DynamicContainer
+import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.TestFactory
 
 class IterTest {
 
@@ -11,7 +15,7 @@ class IterTest {
                 listOf("a"),
                 listOf("b"),
                 listOf("c"),
-                listOf("d")
+                listOf("d"),
             ),
             listOf(
                 listOf("a", "b"),
@@ -19,17 +23,17 @@ class IterTest {
                 listOf("a", "d"),
                 listOf("b", "c"),
                 listOf("b", "d"),
-                listOf("c", "d")
+                listOf("c", "d"),
             ),
             listOf(
                 listOf("a", "b", "c"),
                 listOf("a", "b", "d"),
                 listOf("a", "c", "d"),
-                listOf("b", "c", "d")
+                listOf("b", "c", "d"),
             ),
             listOf(
-                listOf("a", "b", "c", "d")
-            )
+                listOf("a", "b", "c", "d"),
+            ),
         ),
         listOf(1, 2, 3, 4, 5) to arrayOf(
             listOf(emptyList<Int>()),
@@ -38,7 +42,7 @@ class IterTest {
                 listOf(2),
                 listOf(3),
                 listOf(4),
-                listOf(5)
+                listOf(5),
             ),
             listOf(
                 listOf(1, 2),
@@ -50,7 +54,7 @@ class IterTest {
                 listOf(2, 5),
                 listOf(3, 4),
                 listOf(3, 5),
-                listOf(4, 5)
+                listOf(4, 5),
             ),
             listOf(
                 listOf(1, 2, 3),
@@ -62,30 +66,30 @@ class IterTest {
                 listOf(2, 3, 4),
                 listOf(2, 3, 5),
                 listOf(2, 4, 5),
-                listOf(3, 4, 5)
+                listOf(3, 4, 5),
             ),
             listOf(
                 listOf(1, 2, 3, 4),
                 listOf(1, 2, 3, 5),
                 listOf(1, 2, 4, 5),
                 listOf(1, 3, 4, 5),
-                listOf(2, 3, 4, 5)
+                listOf(2, 3, 4, 5),
             ),
             listOf(
-                listOf(1, 2, 3, 4, 5)
-            )
-        )
+                listOf(1, 2, 3, 4, 5),
+            ),
+        ),
     )
 
     private val transposeTestsData = mapOf(
-        listOf(listOf("a", "b", "c"), listOf(1, 2, 3)) to listOf(listOf("a", 1), listOf("b", 2), listOf("c", 3))
+        listOf(listOf("a", "b", "c"), listOf(1, 2, 3)) to listOf(listOf("a", 1), listOf("b", 2), listOf("c", 3)),
     )
 
     private val bitsTestData = mapOf(
         7 to listOf(0, 1, 2),
         231 to listOf(0, 1, 2, 5, 6, 7),
         1024 to listOf(10),
-        123123 to listOf(0, 1, 4, 5, 6, 7, 13, 14, 15, 16)
+        123123 to listOf(0, 1, 4, 5, 6, 7, 13, 14, 15, 16),
     )
 
     @TestFactory
@@ -97,10 +101,10 @@ class IterTest {
                 DynamicTest.dynamicTest("r = $i") {
                     Assertions.assertEquals(
                         v[i],
-                        k.combineElements(i).toList()
+                        k.combineElements(i).toList(),
                     )
                 }
-            }
+            },
         )
     }
 

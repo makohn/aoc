@@ -5,7 +5,11 @@ import util.core.*
 class Day21 : Solution<Long, Long>(year = 2022, day = 21) {
 
     private enum class Operation {
-        Add, Sub, Mul, Div;
+        Add,
+        Sub,
+        Mul,
+        Div,
+        ;
 
         operator fun invoke(left: Long, right: Long): Long = when (this) {
             Add -> left + right
@@ -15,7 +19,7 @@ class Day21 : Solution<Long, Long>(year = 2022, day = 21) {
         }
     }
 
-    private fun Operation(op: Char) = when (op) {
+    private fun Operation(op: Char): Operation = when (op) {
         '+' -> Operation.Add
         '-' -> Operation.Sub
         '*' -> Operation.Mul
@@ -24,17 +28,17 @@ class Day21 : Solution<Long, Long>(year = 2022, day = 21) {
     }
 
     private sealed interface Job {
-        data class Number(val value: Long): Job
-        data class MathResult(val left: Long, val operation: Operation, val right: Long): Job
+        data class Number(val value: Long) : Job
+        data class MathResult(val left: Long, val operation: Operation, val right: Long) : Job
     }
 
-    private fun Job(str: String, monkeys: Map<String, Long>): Job {
-        return if (str.length < 11) Job.Number(str.toLong()) else {
-            val left = monkeys[str.substring(0, 4)]!!
-            val right = monkeys[str.substring(7, 11)]!!
-            val operation = Operation(str[5])
-            Job.MathResult(left, operation, right)
-        }
+    private fun Job(str: String, monkeys: Map<String, Long>): Job = if (str.length < 11) {
+        Job.Number(str.toLong())
+    } else {
+        val left = monkeys[str.substring(0, 4)]!!
+        val right = monkeys[str.substring(7, 11)]!!
+        val operation = Operation(str[5])
+        Job.MathResult(left, operation, right)
     }
 
     private class State(val root: Long, val jobs: List<Job>, size: Int) {
@@ -47,7 +51,7 @@ class Day21 : Solution<Long, Long>(year = 2022, day = 21) {
             is Job.Number -> job.value
             is Job.MathResult -> {
                 val left = yell(job.left, state)
-                val right = yell( job.right, state)
+                val right = yell(job.right, state)
                 job.operation(left, right)
             }
         }
@@ -56,7 +60,7 @@ class Day21 : Solution<Long, Long>(year = 2022, day = 21) {
     }
 
     private fun find(state: State, human: Long, index: Long): Boolean {
-        val res  = when (val job = state.jobs[index.toInt()]) {
+        val res = when (val job = state.jobs[index.toInt()]) {
             is Job.Number -> human == index
             is Job.MathResult -> find(state, human, job.left) || find(state, human, job.right)
         }
@@ -64,32 +68,30 @@ class Day21 : Solution<Long, Long>(year = 2022, day = 21) {
         return res
     }
 
-    private fun backSolve(state: State, index: Long, value: Long): Long {
-        return when (val job = state.jobs[index.toInt()]) {
-            is Job.Number -> value
-            is Job.MathResult -> {
-                val (left, operation, right) = job
-                if (index == state.root) {
-                    if (state.dependsOnHuman[left.toInt()]) {
-                        backSolve(state, left, state.results[right.toInt()])
-                    } else {
-                        backSolve(state, right, state.results[left.toInt()])
+    private fun backSolve(state: State, index: Long, value: Long): Long = when (val job = state.jobs[index.toInt()]) {
+        is Job.Number -> value
+        is Job.MathResult -> {
+            val (left, operation, right) = job
+            if (index == state.root) {
+                if (state.dependsOnHuman[left.toInt()]) {
+                    backSolve(state, left, state.results[right.toInt()])
+                } else {
+                    backSolve(state, right, state.results[left.toInt()])
+                }
+            } else {
+                if (state.dependsOnHuman[left.toInt()]) {
+                    when (operation) {
+                        Operation.Add -> backSolve(state, left, value - state.results[right.toInt()])
+                        Operation.Sub -> backSolve(state, left, value + state.results[right.toInt()])
+                        Operation.Mul -> backSolve(state, left, value / state.results[right.toInt()])
+                        Operation.Div -> backSolve(state, left, value * state.results[right.toInt()])
                     }
                 } else {
-                    if (state.dependsOnHuman[left.toInt()]) {
-                        when (operation) {
-                            Operation.Add -> backSolve(state, left, value - state.results[right.toInt()])
-                            Operation.Sub -> backSolve(state, left, value + state.results[right.toInt()])
-                            Operation.Mul -> backSolve(state, left, value / state.results[right.toInt()])
-                            Operation.Div -> backSolve(state, left, value * state.results[right.toInt()])
-                        }
-                    } else {
-                        when (operation) {
-                            Operation.Add -> backSolve(state, right, value - state.results[left.toInt()])
-                            Operation.Sub -> backSolve(state, right, state.results[left.toInt()] - value)
-                            Operation.Mul -> backSolve(state, right, value / state.results[left.toInt()])
-                            Operation.Div -> backSolve(state, right, state.results[left.toInt()] / value)
-                        }
+                    when (operation) {
+                        Operation.Add -> backSolve(state, right, value - state.results[left.toInt()])
+                        Operation.Sub -> backSolve(state, right, state.results[left.toInt()] - value)
+                        Operation.Mul -> backSolve(state, right, value / state.results[left.toInt()])
+                        Operation.Div -> backSolve(state, right, state.results[left.toInt()] / value)
                     }
                 }
             }

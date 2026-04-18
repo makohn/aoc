@@ -7,7 +7,7 @@ import java.util.PriorityQueue
 
 class Day16 : Solution<Int, Int>(year = 2024, day = 16) {
 
-    private data class Node(val pos: Point, val dir: Int, val cost: Int): Comparable<Node> {
+    private data class Node(val pos: Point, val dir: Int, val cost: Int) : Comparable<Node> {
         override fun compareTo(other: Node) = this.cost.compareTo(other.cost)
     }
 

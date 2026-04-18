@@ -13,7 +13,6 @@ import kotlin.collections.plusAssign
  * @return a map providing the distance to each node
  */
 fun <N> bfs(start: N, adjacent: (N) -> List<N>): HashMap<N, Int> {
-
     val queue = ArrayDeque<N>()
     val visited = HashMap<N, Int>()
 
@@ -47,8 +46,7 @@ fun <N> bfs(start: N, adjacent: (N) -> List<N>): HashMap<N, Int> {
  * @return a map providing the distance to each node
  */
 fun <N> dijkstra(start: N, adjacent: (N) -> List<Pair<N, Int>>): HashMap<N, Int> {
-
-    val queue = PriorityQueue<Pair<Int, N>>(compareBy{ it.first })
+    val queue = PriorityQueue<Pair<Int, N>>(compareBy { it.first })
     val visited = HashMap<N, Int>()
 
     fun enqueue(node: N, distance: Int) {

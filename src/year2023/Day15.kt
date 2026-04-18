@@ -22,9 +22,7 @@ class Day15 : Solution<Int, Int>(year = 2023, day = 15) {
     }
 
     data class Lens(val label: String, val focalLength: Int) {
-        override fun toString(): String {
-            return "[$label $focalLength]"
-        }
+        override fun toString(): String = "[$label $focalLength]"
     }
 
     override fun part2(input: String): Int {
@@ -52,7 +50,7 @@ class Day15 : Solution<Int, Int>(year = 2023, day = 15) {
         var ans = 0
         for ((i, box) in boxes.withIndex()) {
             for ((j, lens) in box.withIndex()) {
-                ans += (i+1)*(j+1)*lens.focalLength
+                ans += (i + 1) * (j + 1) * lens.focalLength
             }
         }
         return ans

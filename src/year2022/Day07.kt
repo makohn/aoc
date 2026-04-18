@@ -10,10 +10,8 @@ class Day07 : Solution<Int, Int>(year = 2022, day = 7) {
         fun add(child: TreeNode<T>) = children.add(child)
     }
 
-    fun TreeNode<Int>.getDirSize(): Int {
-        return children.fold(0) { acc, treeNode ->
-            acc + if (treeNode.value == -1) treeNode.getDirSize() else treeNode.value
-        }
+    fun TreeNode<Int>.getDirSize(): Int = children.fold(0) { acc, treeNode ->
+        acc + if (treeNode.value == -1) treeNode.getDirSize() else treeNode.value
     }
 
     fun getDirs(input: String): List<TreeNode<Int>> {
@@ -24,7 +22,9 @@ class Day07 : Solution<Int, Int>(year = 2022, day = 7) {
             val c = command.split(" ")
             when (c[0]) {
                 "$" -> when (c[1]) {
-                    "cd" -> curDir = if (c[2] == "..") curDir.parent!! else {
+                    "cd" -> curDir = if (c[2] == "..") {
+                        curDir.parent!!
+                    } else {
                         val newDir = TreeNode(c[1], -1, curDir)
                         dirs.add(newDir)
                         curDir.add(newDir)
@@ -39,9 +39,9 @@ class Day07 : Solution<Int, Int>(year = 2022, day = 7) {
     }
 
     override fun part1(input: String) = getDirs(input)
-            .map { it.getDirSize() }
-            .filter { it <= 100_000 }
-            .sum()
+        .map { it.getDirSize() }
+        .filter { it <= 100_000 }
+        .sum()
 
     override fun part2(input: String): Int {
         val dirs = getDirs(input)

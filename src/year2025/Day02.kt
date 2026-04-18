@@ -10,7 +10,7 @@ class Day02 : Solution<Long, Long>(year = 2025, day = 2) {
         var sum = 0L
         for (range in ranges) {
             val (a, b) = range.split("-")
-            for (id in a.toLong() .. b.toLong()) {
+            for (id in a.toLong()..b.toLong()) {
                 val pow = 10.0.pow(id.toString().length / 2).toLong()
                 val div = id.div(pow)
                 val rem = id.rem(pow)
@@ -25,7 +25,7 @@ class Day02 : Solution<Long, Long>(year = 2025, day = 2) {
         var sum = 0L
         for (range in ranges) {
             val (a, b) = range.split("-")
-            nextId@for (id in a.toLong() .. b.toLong()) {
+            nextId@for (id in a.toLong()..b.toLong()) {
                 val len = id.toString().length
                 for (step in 1..len / 2) {
                     val chunks = id.toString().chunked(step)

@@ -13,7 +13,7 @@ class Day01 : Solution<Int, Int>(year = 2023, day = 1) {
         "six" to "6",
         "seven" to "7",
         "eight" to "8",
-        "nine" to "9"
+        "nine" to "9",
     )
 
     fun String.replace(mapping: Map<String, String>): String {

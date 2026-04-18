@@ -114,13 +114,11 @@ class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
         return sum
     }
 
-    override fun part2(input: String): Int {
-        return input
-            .extractInts()
-            .inParallel { process(it) }
-            .fold(IntArray(MAX_SEQUENCES)) { acc, part ->
-                for (i in acc.indices) acc[i] += part[i]
-                acc
-            }.max()
-    }
+    override fun part2(input: String): Int = input
+        .extractInts()
+        .inParallel { process(it) }
+        .fold(IntArray(MAX_SEQUENCES)) { acc, part ->
+            for (i in acc.indices) acc[i] += part[i]
+            acc
+        }.max()
 }

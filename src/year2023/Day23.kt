@@ -11,14 +11,14 @@ class Day23 : Solution<Int, Int>(year = 2023, day = 23) {
         '<' to arrayOf(Direction.West),
         'v' to arrayOf(Direction.South),
         '^' to arrayOf(Direction.North),
-        '.' to arrayOf(Direction.North, Direction.East, Direction.South, Direction.West)
+        '.' to arrayOf(Direction.North, Direction.East, Direction.South, Direction.West),
     )
 
     override fun part1(input: String): Int {
         val map = input.lines().toCharGrid()
         val (n, _) = map.shape
         val startCell = map[0].mapIndexed { i, d -> CharPoint(0, i, d) }.first { it.data != '#' }
-        val endCell = map[n-1].mapIndexed { i, d -> CharPoint(n-1, i, d) }.last { it.data != '#' }
+        val endCell = map[n - 1].mapIndexed { i, d -> CharPoint(n - 1, i, d) }.last { it.data != '#' }
         val visited = HashSet<CharPoint>()
 
         fun dfs(node: CharPoint): Int {
@@ -48,7 +48,7 @@ class Day23 : Solution<Int, Int>(year = 2023, day = 23) {
         val (n, _) = map.shape
         val charCells = map.dataPoints()
         val startCell = map[0].mapIndexed { i, d -> CharPoint(0, i, d) }.first { it.data != '#' }
-        val endCell = map[n-1].mapIndexed { i, d -> CharPoint(n-1, i, d) }.last { it.data != '#' }
+        val endCell = map[n - 1].mapIndexed { i, d -> CharPoint(n - 1, i, d) }.last { it.data != '#' }
 
         val forks = charCells
             .filter { it.data != '#' }

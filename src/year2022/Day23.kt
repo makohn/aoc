@@ -12,7 +12,7 @@ class Day23 : Solution<Int, Int>(year = 2022, day = 23) {
         N(arrayOf(Vec2(-1, -1), Vec2(0, -1), Vec2(1, -1)), Vec2(0, -1)),
         S(arrayOf(Vec2(-1, 1), Vec2(0, 1), Vec2(1, 1)), Vec2(0, 1)),
         W(arrayOf(Vec2(-1, -1), Vec2(-1, 0), Vec2(-1, 1)), Vec2(-1, 0)),
-        E(arrayOf(Vec2(1, -1), Vec2(1, 0), Vec2(1, 1)), Vec2(1, 0));
+        E(arrayOf(Vec2(1, -1), Vec2(1, 0), Vec2(1, 1)), Vec2(1, 0)),
     }
 
     private fun parse(input: String): HashSet<Vec2> {
@@ -26,14 +26,19 @@ class Day23 : Solution<Int, Int>(year = 2022, day = 23) {
     }
 
     private val neighborOffsets = listOf(
-        Vec2(-1, -1), Vec2(0, -1), Vec2(1, -1),
-        Vec2(-1, 0), Vec2(1, 0),
-        Vec2(-1, 1), Vec2(0, 1), Vec2(1, 1)
+        Vec2(-1, -1),
+        Vec2(0, -1),
+        Vec2(1, -1),
+        Vec2(-1, 0),
+        Vec2(1, 0),
+        Vec2(-1, 1),
+        Vec2(0, 1),
+        Vec2(1, 1),
     )
 
     private fun simulate(
         input: String,
-        onRound: (elves: Set<Vec2>, round: Int, moved: Boolean) -> Int?
+        onRound: (elves: Set<Vec2>, round: Int, moved: Boolean) -> Int?,
     ): Int {
         var elves = parse(input)
         val dirs = ArrayDeque(listOf(Dir.N, Dir.S, Dir.W, Dir.E))
@@ -78,30 +83,28 @@ class Day23 : Solution<Int, Int>(year = 2022, day = 23) {
         }
     }
 
-    override fun part1(input: String): Int {
-        return simulate(input) { elves, round, _ ->
-            if (round == 10) {
-                var minX = Int.MAX_VALUE
-                var maxX = Int.MIN_VALUE
-                var minY = Int.MAX_VALUE
-                var maxY = Int.MIN_VALUE
+    override fun part1(input: String): Int = simulate(input) { elves, round, _ ->
+        if (round == 10) {
+            var minX = Int.MAX_VALUE
+            var maxX = Int.MIN_VALUE
+            var minY = Int.MAX_VALUE
+            var maxY = Int.MIN_VALUE
 
-                for (e in elves) {
-                    if (e.x < minX) minX = e.x
-                    if (e.x > maxX) maxX = e.x
-                    if (e.y < minY) minY = e.y
-                    if (e.y > maxY) maxY = e.y
-                }
+            for (e in elves) {
+                if (e.x < minX) minX = e.x
+                if (e.x > maxX) maxX = e.x
+                if (e.y < minY) minY = e.y
+                if (e.y > maxY) maxY = e.y
+            }
 
-                val area = (maxX - minX + 1) * (maxY - minY + 1)
-                area - elves.size
-            } else null
+            val area = (maxX - minX + 1) * (maxY - minY + 1)
+            area - elves.size
+        } else {
+            null
         }
     }
 
-    override fun part2(input: String): Int {
-        return simulate(input) { _, round, moved ->
-            if (!moved) round else null
-        }
+    override fun part2(input: String): Int = simulate(input) { _, round, moved ->
+        if (!moved) round else null
     }
 }

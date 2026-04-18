@@ -33,24 +33,21 @@ class Day08 : Solution<Int, Int>(year = 2021, day = 8) {
         return sum
     }
 
-    private fun toNumber(segments: List<Int>): Int {
-        return when (segments.sorted()) {
-            listOf(0, 1, 2, 4, 5, 6) -> 0
-            listOf(2, 5) -> 1
-            listOf(0, 2, 3, 4, 6) -> 2
-            listOf(0, 2, 3, 5, 6) -> 3
-            listOf(1, 2, 3, 5) -> 4
-            listOf(0, 1, 3, 5, 6) -> 5
-            listOf(0, 1, 3, 4, 5, 6) -> 6
-            listOf(0, 2, 5) -> 7
-            listOf(0, 1, 2, 3, 4, 5, 6) -> 8
-            listOf(0, 1, 2, 3, 5, 6) -> 9
-            else -> -1
-        }
+    private fun toNumber(segments: List<Int>): Int = when (segments.sorted()) {
+        listOf(0, 1, 2, 4, 5, 6) -> 0
+        listOf(2, 5) -> 1
+        listOf(0, 2, 3, 4, 6) -> 2
+        listOf(0, 2, 3, 5, 6) -> 3
+        listOf(1, 2, 3, 5) -> 4
+        listOf(0, 1, 3, 5, 6) -> 5
+        listOf(0, 1, 3, 4, 5, 6) -> 6
+        listOf(0, 2, 5) -> 7
+        listOf(0, 1, 2, 3, 4, 5, 6) -> 8
+        listOf(0, 1, 2, 3, 5, 6) -> 9
+        else -> -1
     }
 
     private fun decode(signals: List<MutableSet<Int>>): Map<Char, Int> {
-
         //    0
         //  1   2
         //    3
@@ -104,6 +101,6 @@ class Day08 : Solution<Int, Int>(year = 2021, day = 8) {
         signals.forEach { it.remove(segments[2]) }
         segments[5] = signals[0].first()
 
-        return segments.mapIndexed { j, c -> c.toChar() to j}.toMap()
+        return segments.mapIndexed { j, c -> c.toChar() to j }.toMap()
     }
 }

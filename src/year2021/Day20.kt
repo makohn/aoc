@@ -19,7 +19,7 @@ class Day20 : Solution<Int, Int>(year = 2021, day = 20) {
 
     fun runEnhancements(baseImage: Image, algorithm: String, count: Int): Int {
         var image = baseImage
-        var bounds = image.bounds().apply(padding = count*4)
+        var bounds = image.bounds().apply(padding = count * 4)
         repeat(count) {
             image = enhance(image, algorithm, bounds)
             bounds = bounds.apply(padding = -3)
@@ -38,12 +38,14 @@ class Day20 : Solution<Int, Int>(year = 2021, day = 20) {
 
     fun visualize(image: Image, padding: Int = 0) {
         val (minX, maxX, minY, maxY) = image.bounds()
-        println("=".repeat(maxX - minX + padding*2 + 1))
-        (minX - padding .. maxX + padding).map { x ->
-            (minY - padding .. maxY+ padding).map { y ->
-                x to y }.toList() }
+        println("=".repeat(maxX - minX + padding * 2 + 1))
+        (minX - padding..maxX + padding).map { x ->
+            (minY - padding..maxY + padding).map { y ->
+                x to y
+            }.toList()
+        }
             .forEach {
-                it.forEach { p -> print(if (image.contains(p)) "#" else ".")}
+                it.forEach { p -> print(if (image.contains(p)) "#" else ".") }
                 println()
             }
     }
@@ -51,8 +53,8 @@ class Day20 : Solution<Int, Int>(year = 2021, day = 20) {
     private fun enhance(image: Image, algorithm: String, bounds: Bounds): Image {
         val (minX, maxX, minY, maxY) = bounds
         val outputImage = mutableSetOf<Pair<Int, Int>>()
-        (minX .. maxX).forEach { x ->
-            (minY ..maxY).forEach { y ->
+        (minX..maxX).forEach { x ->
+            (minY..maxY).forEach { y ->
                 var sum = 0
                 for (i in (-1..1)) {
                     for (j in (-1..1)) {
@@ -77,6 +79,6 @@ class Day20 : Solution<Int, Int>(year = 2021, day = 20) {
         this@apply[0] - padding,
         this@apply[1] + padding,
         this@apply[2] - padding,
-        this@apply[3] + padding
+        this@apply[3] + padding,
     )
 }

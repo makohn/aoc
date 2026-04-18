@@ -5,7 +5,7 @@ import util.parse.*
 
 class Day14(
     private val w: Int = 101,
-    private val h: Int = 103
+    private val h: Int = 103,
 ) : Solution<Int, Int>(year = 2024, day = 14) {
 
     override fun part1(input: String): Int {

@@ -11,23 +11,23 @@ class Day19 : Solution<Int, Long>(year = 2023, day = 19) {
 
     data class PartRange(val x: IntRange, val m: IntRange, val a: IntRange, val s: IntRange) {
         fun countPossibilities() = 1L *
-                (x.last - x.first + 1) *
-                (m.last - m.first + 1) *
-                (a.last - a.first + 1) *
-                (s.last - s.first + 1)
+            (x.last - x.first + 1) *
+            (m.last - m.first + 1) *
+            (a.last - a.first + 1) *
+            (s.last - s.first + 1)
     }
 
     abstract class Rule(val target: String) {
         abstract fun evaluate(part: Part): Boolean
         abstract fun narrow(range: PartRange, negate: Boolean = false): PartRange
     }
-    class DirectRule(target: String): Rule(target) {
+    class DirectRule(target: String) : Rule(target) {
         override fun evaluate(part: Part) = true
         override fun narrow(range: PartRange, negate: Boolean) = range
     }
-    class EvaluationRule(val category: String, val op: String, val value: Int, target: String): Rule(target) {
+    class EvaluationRule(val category: String, val op: String, val value: Int, target: String) : Rule(target) {
         override fun evaluate(part: Part): Boolean {
-            val rating = when(category) {
+            val rating = when (category) {
                 "x" -> part.x
                 "m" -> part.m
                 "a" -> part.a
@@ -44,12 +44,18 @@ class Day19 : Solution<Int, Long>(year = 2023, day = 19) {
         override fun narrow(range: PartRange, negate: Boolean): PartRange {
             val constraint = when (op) {
                 "<" ->
-                    if (negate) { r: IntRange -> max(r.first, value)..r.last }
-                    else { r: IntRange -> r.first..min(r.last, value - 1) }
+                    if (negate) {
+                        { r: IntRange -> max(r.first, value)..r.last }
+                    } else {
+                        { r: IntRange -> r.first..min(r.last, value - 1) }
+                    }
 
                 ">" ->
-                    if (negate) { r: IntRange -> r.first..min(r.last, value) }
-                    else { r: IntRange -> max(r.first, value + 1)..r.last }
+                    if (negate) {
+                        { r: IntRange -> r.first..min(r.last, value) }
+                    } else {
+                        { r: IntRange -> max(r.first, value + 1)..r.last }
+                    }
 
                 else -> error("Undefined")
             }
@@ -73,7 +79,7 @@ class Day19 : Solution<Int, Long>(year = 2023, day = 19) {
         return EvaluationRule(category, op, value.toInt(), target)
     }
 
-    fun parse(input: String): Pair<Map<String, List<Rule>>, List<Part>>  {
+    fun parse(input: String): Pair<Map<String, List<Rule>>, List<Part>> {
         val (workflowList, partList) = input.split("\n\n")
 
         val workflows = workflowList

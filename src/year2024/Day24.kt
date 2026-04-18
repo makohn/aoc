@@ -5,8 +5,7 @@ import util.parse.*
 
 class Day24 : Solution<Long, String>(year = 2024, day = 24) {
 
-    private fun String.index() =
-        ((this[0].code and 31) shl 10) + ((this[1].code and 31) shl 5) + (this[2].code and 31)
+    private fun String.index() = ((this[0].code and 31) shl 10) + ((this[1].code and 31) shl 5) + (this[2].code and 31)
 
     override fun part1(input: String): Long {
         val (wires, gateStr) = input.split("\n\n")
@@ -55,21 +54,25 @@ class Day24 : Solution<Long, String>(year = 2024, day = 24) {
             output.add(right to type)
         }
 
-        for ((left, type, right, _, to) in gates) when (type) {
-            "AND" -> if (left != "x00" && right != "x00" && (to to "OR") !in output) {
-                res.add(to)
-            }
-            "OR" -> if ((to.startsWith('z') && to != "z45") || (to to "OR") in output) {
-                res.add(to)
-            }
-            "XOR" -> {
-                if (left.startsWith('x') || right.startsWith('x')) {
-                    if (left != "x00" && right != "x00" && (to to "XOR") !in output) {
+        for ((left, type, right, _, to) in gates) {
+            when (type) {
+                "AND" -> if (left != "x00" && right != "x00" && (to to "OR") !in output) {
+                    res.add(to)
+                }
+                "OR" -> if ((to.startsWith('z') && to != "z45") || (to to "OR") in output) {
+                    res.add(to)
+                }
+                "XOR" -> {
+                    if (left.startsWith('x') || right.startsWith('x')) {
+                        if (left != "x00" && right != "x00" && (to to "XOR") !in output) {
+                            res.add(to)
+                        }
+                    } else if (!to.startsWith('z')) {
                         res.add(to)
                     }
-                } else if (!to.startsWith('z')) res.add(to)
+                }
+                else -> error("Unreachable")
             }
-            else -> error("Unreachable")
         }
         return res.sorted().joinToString(",")
     }

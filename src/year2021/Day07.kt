@@ -17,7 +17,7 @@ class Day07 : Solution<Int, Int>(year = 2021, day = 7) {
         return minimizeCost(positions) { goal ->
             positions.sumOf { pos ->
                 var sum = 0
-                for (j in (1 .. abs(pos - goal))) sum += j
+                for (j in (1..abs(pos - goal))) sum += j
                 sum
             }
         }

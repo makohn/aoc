@@ -13,8 +13,8 @@ class Day07 : Solution<Int, Long>(year = 2025, day = 7) {
             val splitters = row.withIndex().filter { (_, c) -> c == '^' }.map { it.index }
             for (s in splitters) {
                 if (s in beams) {
-                    beams.add(s-1)
-                    beams.add(s+1)
+                    beams.add(s - 1)
+                    beams.add(s + 1)
                     beams.remove(s)
                     numSplit++
                 }

@@ -13,7 +13,7 @@ class Day07 : Solution<Int, Int>(year = 2023, day = 7) {
         ThreeOfAKind(listOf(1, 1, 3)),
         TwoPair(listOf(1, 2, 2)),
         OnePair(listOf(1, 1, 1, 2)),
-        HighCard(listOf(1, 1, 1, 1, 1));
+        HighCard(listOf(1, 1, 1, 1, 1)),
     }
 
     internal fun List<Int>.toHandType() = HandType.entries.firstOrNull { this == it.cardDistribution }
@@ -24,12 +24,13 @@ class Day07 : Solution<Int, Int>(year = 2023, day = 7) {
             .map { it.split(" ") }
             .map { (a, b) -> Hand(a, b.toInt()) }
 
-        val handTypes = parsed.map { hand -> hand to hand.cards
-            .groupingBy { it }
-            .eachCount()
-            .values
-            .sorted()
-            .toHandType()
+        val handTypes = parsed.map { hand ->
+            hand to hand.cards
+                .groupingBy { it }
+                .eachCount()
+                .values
+                .sorted()
+                .toHandType()
         }
 
         val sorted = handTypes.sortedWith(
@@ -41,9 +42,10 @@ class Day07 : Solution<Int, Int>(year = 2023, day = 7) {
                         .replace('Q', 'X')
                         .replace('J', 'W')
                         .replace('T', 'V')
-                })
+                },
+        )
 
-        return sorted.withIndex().sumOf { (idx, pair) -> (idx+1) * pair.first.bid }
+        return sorted.withIndex().sumOf { (idx, pair) -> (idx + 1) * pair.first.bid }
     }
 
     override fun part2(input: String): Int {
@@ -52,17 +54,18 @@ class Day07 : Solution<Int, Int>(year = 2023, day = 7) {
             .map { it.split(" ") }
             .map { (a, b) -> Hand(a, b.toInt()) }
 
-        val handTypes = parsed.map { hand -> hand to hand.cards
-            .groupingBy { it }
-            .eachCount()
-            .toList()
-            .sortedByDescending { it.second }
-            .toMap()
-            .toMutableMap()
+        val handTypes = parsed.map { hand ->
+            hand to hand.cards
+                .groupingBy { it }
+                .eachCount()
+                .toList()
+                .sortedByDescending { it.second }
+                .toMap()
+                .toMutableMap()
         }.map numCards@{ (hand, cardCount) ->
             val first = cardCount.toList().firstOrNull { it.first != 'J' } ?: return@numCards hand to HandType.FiveOfAKind
             val joker = cardCount['J']
-            cardCount.replace(first.first, first.second + (joker?:0))
+            cardCount.replace(first.first, first.second + (joker ?: 0))
             cardCount.remove('J')
             val handType = cardCount.values.sorted().toHandType()
             hand to handType
@@ -77,8 +80,9 @@ class Day07 : Solution<Int, Int>(year = 2023, day = 7) {
                         .replace('Q', 'X')
                         .replace('T', 'W')
                         .replace('J', '1')
-                })
+                },
+        )
 
-        return sorted.withIndex().sumOf { (idx, pair) -> (idx+1) * pair.first.bid }
+        return sorted.withIndex().sumOf { (idx, pair) -> (idx + 1) * pair.first.bid }
     }
 }

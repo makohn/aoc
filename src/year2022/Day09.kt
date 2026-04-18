@@ -8,8 +8,7 @@ class Day09 : Solution<Int, Int>(year = 2022, day = 9) {
 
     data class Pos(var x: Int, var y: Int)
 
-    infix fun Pos.dist(other: Pos) =
-        (this.x - other.x) to (this.y - other.y)
+    infix fun Pos.dist(other: Pos) = (this.x - other.x) to (this.y - other.y)
 
     override fun part1(input: String): Int {
         val head = Pos(0, 0)
@@ -41,7 +40,7 @@ class Day09 : Solution<Int, Int>(year = 2022, day = 9) {
         val knots = Array(10) { Pos(0, 0) }
         val head = knots[0]
 
-        val knotPositions = mutableSetOf(Pos(0,0))
+        val knotPositions = mutableSetOf(Pos(0, 0))
 
         for ((op, count) in input.lines().map { it.split(" ") }) {
             repeat(count.toInt()) {
@@ -53,7 +52,7 @@ class Day09 : Solution<Int, Int>(year = 2022, day = 9) {
                 }
                 for (i in 1 until knots.size) {
                     val knot = knots[i]
-                    val pred = knots[i-1]
+                    val pred = knots[i - 1]
                     val (dx, dy) = pred dist knot
                     if (abs(dx) > 1 || abs(dy) > 1) {
                         knot.x += dx.sign

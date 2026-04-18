@@ -3,7 +3,7 @@ package year2021
 import util.core.*
 
 class Day06(
-    private val n: Int = 80
+    private val n: Int = 80,
 ) : Solution<Int, Long>(year = 2021, day = 6) {
 
     override fun part1(input: String): Int {
@@ -19,9 +19,7 @@ class Day06(
         return count(counts, 256)
     }
 
-    private fun parse(input: String): MutableList<Int> {
-        return input.lines().first().split(',').map { it.toInt() }.toMutableList()
-    }
+    private fun parse(input: String): MutableList<Int> = input.lines().first().split(',').map { it.toInt() }.toMutableList()
 
     private fun iterate(fish: MutableList<Int>): MutableList<Int> {
         var newFish = fish
@@ -38,6 +36,6 @@ class Day06(
             counts[6] += nextGen
             counts.add(nextGen)
         }
-        return counts.fold(0L) { acc, e -> acc + e}
+        return counts.fold(0L) { acc, e -> acc + e }
     }
 }

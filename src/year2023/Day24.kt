@@ -8,21 +8,21 @@ import kotlin.math.roundToLong
 
 class Day24(
     val min: Double = 200000000000000.0,
-    val max: Double = 400000000000000.0
+    val max: Double = 400000000000000.0,
 ) : Solution<Int, Long>(year = 2023, day = 24) {
 
     data class Vec2(val x: Double, val y: Double)
 
     data class LinearFunction(val a: Double, val m: Double) {
-        operator fun invoke(x: Double) = a*x + m
+        operator fun invoke(x: Double) = a * x + m
     }
 
     data class Hailstone(val x: Double, val y: Double, val z: Double, val vx: Double, val vy: Double, val vz: Double) {
-        val f = LinearFunction(vy/vx, -((vy/vx) * x - y))
+        val f = LinearFunction(vy / vx, -((vy / vx) * x - y))
 
         infix fun intersect(other: Hailstone): Vec2 {
             val g = other.f
-            val ix = (g.m - f.m)/(f.a - g.a)
+            val ix = (g.m - f.m) / (f.a - g.a)
             val iy = f(ix)
             return Vec2(ix, iy)
         }
@@ -39,13 +39,14 @@ class Day24(
         val intersections = mutableListOf<Vec2>()
 
         for ((i, stone) in hailstones.withIndex()) {
-            for (otherStone in hailstones.drop(i+1)) {
+            for (otherStone in hailstones.drop(i + 1)) {
                 val intersection = stone intersect otherStone
 
                 if (intersection.x in min..max &&
                     intersection.y in min..max &&
                     stone.inFuture(intersection) &&
-                    otherStone.inFuture(intersection)) {
+                    otherStone.inFuture(intersection)
+                ) {
                     intersections += intersection
                 }
             }
@@ -65,14 +66,14 @@ class Day24(
             .take(4)
             .map { (h1, h2) ->
                 listOf(h2.vy - h1.vy, h1.vx - h2.vx, h1.y - h2.y, h2.x - h1.x) to
-                        h1.vx * h1.y - h2.vx * h2.y + h2.x * h2.vy - h1.x * h1.vy
+                    h1.vx * h1.y - h2.vx * h2.y + h2.x * h2.vy - h1.x * h1.vy
             }
             .toList()
 
-        val A = Matrix4x4(res.map { (a, _) -> a }.flatten().toDoubleArray())
+        val mA = Matrix4x4(res.map { (a, _) -> a }.flatten().toDoubleArray())
         val v = Matrix(4, 1, res.map { (_, b) -> b }.toDoubleArray())
 
-        val x = A.inverse() * v
+        val x = mA.inverse() * v
         val (a, b, d, _) = x.data.map { it.roundToLong() }
 
         val h0 = hailstones[0]

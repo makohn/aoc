@@ -5,7 +5,7 @@ import util.grid.*
 
 class Day21(
     val s1: Int = 64,
-    val s2: Int = 26501365
+    val s2: Int = 26501365,
 ) : Solution<Int, Long>(year = 2023, day = 21) {
 
     val directions = arrayOf(Direction.North, Direction.East, Direction.South, Direction.West)

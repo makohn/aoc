@@ -13,7 +13,7 @@ class Day10 : Solution<Int, Int>(year = 2024, day = 10) {
         val di = intArrayOf(-1, 0, 1, 0)
         val dj = intArrayOf(0, 1, 0, -1)
 
-        fun findPath(i :Int, j: Int, found: HashSet<Point>) {
+        fun findPath(i: Int, j: Int, found: HashSet<Point>) {
             val v = grid[i][j]
             if (v == 9) {
                 found.add(Point(i, j))
@@ -29,11 +29,13 @@ class Day10 : Solution<Int, Int>(year = 2024, day = 10) {
         }
 
         var sum = 0
-        for (i in 0..<n) for (j in 0..<m) {
-            if (grid[i][j] == 0) {
-                val found = HashSet<Point>()
-                findPath(i, j, found)
-                sum += found.size
+        for (i in 0..<n) {
+            for (j in 0..<m) {
+                if (grid[i][j] == 0) {
+                    val found = HashSet<Point>()
+                    findPath(i, j, found)
+                    sum += found.size
+                }
             }
         }
         return sum
@@ -46,7 +48,7 @@ class Day10 : Solution<Int, Int>(year = 2024, day = 10) {
         val di = intArrayOf(-1, 0, 1, 0)
         val dj = intArrayOf(0, 1, 0, -1)
 
-        fun findPath(i :Int, j: Int): Int {
+        fun findPath(i: Int, j: Int): Int {
             val v = grid[i][j]
             if (v == 9) return 1
             var score = 0
@@ -61,10 +63,12 @@ class Day10 : Solution<Int, Int>(year = 2024, day = 10) {
         }
 
         var sum = 0
-        for (i in 0..<n) for (j in 0..<m) {
-            if (grid[i][j] == 0) {
-                val score = findPath(i, j)
-                sum += score
+        for (i in 0..<n) {
+            for (j in 0..<m) {
+                if (grid[i][j] == 0) {
+                    val score = findPath(i, j)
+                    sum += score
+                }
             }
         }
         return sum

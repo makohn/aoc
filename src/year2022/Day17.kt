@@ -12,7 +12,7 @@ class Day17 : Solution<Int, Long>(year = 2022, day = 17) {
             Rock(0b00000000_00010000_00111000_00010000, 3),
             Rock(0b00000000_00001000_00001000_00111000, 3),
             Rock(0b00100000_00100000_00100000_00100000, 4),
-            Rock(0b00000000_00000000_00110000_00110000, 2)
+            Rock(0b00000000_00000000_00110000_00110000, 2),
         )
         private const val BORDER = 0b00000001_00000001_00000001_00000001
         private const val MAX_TOWER_SIZE = 13_000
@@ -36,7 +36,8 @@ class Day17 : Solution<Int, Long>(year = 2022, day = 17) {
     }
 
     private class Stream<T>(private val array: Array<T>) {
-        var index = 0; private set
+        var index = 0
+            private set
         fun next(): T {
             val next = array[index]
             index = (index + 1) % array.size
@@ -45,7 +46,8 @@ class Day17 : Solution<Int, Long>(year = 2022, day = 17) {
     }
 
     private class StringStream(private val string: String) {
-        var index = 0; private set
+        var index = 0
+            private set
         fun next(): Char {
             val next = string[index]
             index = (index + 1) % string.length
@@ -57,7 +59,8 @@ class Day17 : Solution<Int, Long>(year = 2022, day = 17) {
         val tower = initTower()
         val rocks = Stream(ROCKS)
         val jets = StringStream(input)
-        var height = 0; private set
+        var height = 0
+            private set
 
         fun dropRock(): Boolean {
             val rock = rocks.next()
