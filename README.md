@@ -1,32 +1,26 @@
 # aoc
 
-Fast and idiomatic Kotlin solutions for [Advent of Code][aoc] puzzles from 2021-2025.
+Kotlin solutions for [Advent of Code][aoc] puzzles.
 
 ## Usage
 
-Input files are expected in `data/YYYY/DD.txt`. 
-For instance:
-- `data/2021/3.txt`
-- `data/2024/21.txt`
+Place your input files in `input/yearYYYY/DayDD.txt`. For example:
+- `input/year2021/Day03.txt`
+- `input/year2024/Day21.txt`
 
-To run a specific day:
-```shell
+Run a specific day:
+```
 ./gradlew run --args year2024.Day21
 ```
 
-To test a specific day:
-```shell
+Test a specific day:
+```
 ./gradlew test --tests year2024.Day21Test
 ```
 
-To test a specific year:
-```shell
-./gradlew test --tests year2024*
+Test a specific year:
 ```
-
-To run a specific benchmark:
-```shell
-./gradlew benchmark -Pinclude=".*2024.*day22.*"
+./gradlew test --tests year2024*
 ```
 
 [aoc]: https://adventofcode.com

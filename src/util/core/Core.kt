@@ -1,10 +1,9 @@
 package util.core
 
 import kotlin.io.path.Path
-import kotlin.io.path.exists
 import kotlin.io.path.readText
 
-const val LOCAL_DATA_DIR = "data"
+const val LOCAL_DATA_DIR = "input"
 
 /**
  * Abstract template for an AoC solution.
@@ -25,26 +24,7 @@ abstract class Solution<T, U>(val year: Int, val day: Int) {
  * @param year the year of the AoC puzzle
  * @param day the day of the AoC puzzle
  */
-fun readInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/$year/$day.txt").readText().trimEnd()
-
-/**
- * Reads the AoC example input which can be found in the puzzle text.
- *
- * @param year the year of the AoC puzzle
- * @param day the day of the AoC puzzle
- */
-fun readTestInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/$year/test/${day}_test.txt").readText().trimEnd()
-
-/**
- * Reads a specific version of AoC example input which can be found in the puzzle text.
- *
- * @param year the year of the AoC puzzle
- * @param day the day of the AoC puzzle
- * @param suffix an optional suffix, used to distinguish between multiple inputs
- */
-fun readTestInput(year: Int, day: Int, suffix: String) = Path("$LOCAL_DATA_DIR/$year/test/${day}_test$suffix.txt").let {
-    if (it.exists()) it.readText().trimEnd() else readTestInput(year, day)
-}
+fun readInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/year$year/Day${day.toString().padStart(2, '0')}.txt").readText().trimEnd()
 
 /**
  * Returns 6th *element* from the list.
