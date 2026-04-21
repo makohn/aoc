@@ -3,7 +3,7 @@ package year2021
 import util.core.*
 import util.fromAsciiArt
 
-class Day13 : Solution<Int, String>(year = 2021, day = 13) {
+class Day13 : Solution<Int, String> {
 
     companion object {
         private const val PREFIX = "fold along "

@@ -4,7 +4,7 @@ import util.core.*
 import util.grid.*
 import util.point.*
 
-class Day08 : Solution<Int, Int>(year = 2024, day = 8) {
+class Day08 : Solution<Int, Int> {
 
     private fun parse(grid: CharGrid): Map<Char, ArrayList<Point>> {
         val (m, n) = grid.shape

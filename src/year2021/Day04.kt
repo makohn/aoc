@@ -3,7 +3,7 @@ package year2021
 import util.core.*
 import util.iter.transpose
 
-class Day04 : Solution<Int, Int>(year = 2021, day = 4) {
+class Day04 : Solution<Int, Int> {
 
     companion object {
         const val NUM_ROWS = 5

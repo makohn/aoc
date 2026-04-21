@@ -3,7 +3,7 @@ package year2020
 import util.core.*
 import util.parse.*
 
-class Day02 : Solution<Int, Int>(year = 2020, day = 2) {
+class Day02 : Solution<Int, Int> {
 
     private class Input(
         val first: Int,

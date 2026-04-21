@@ -4,7 +4,7 @@ import util.core.*
 
 class Day06(
     private val n: Int = 80,
-) : Solution<Int, Long>(year = 2021, day = 6) {
+) : Solution<Int, Long> {
 
     override fun part1(input: String): Int {
         var fish = parse(input)

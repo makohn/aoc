@@ -2,7 +2,7 @@ package year2023
 
 import util.core.*
 
-class Day09 : Solution<Int, Int>(year = 2023, day = 9) {
+class Day09 : Solution<Int, Int> {
 
     fun predictLast(history: List<Int>): Int {
         if (history.all { it == 0 }) return 0

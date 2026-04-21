@@ -4,7 +4,7 @@ import util.algorithm.dijkstra
 import util.core.*
 import util.grid.*
 
-class Day17 : Solution<Int, Int>(year = 2023, day = 17) {
+class Day17 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val map = input.lines().toCharGrid()

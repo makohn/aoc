@@ -5,7 +5,7 @@ import util.iter.*
 import util.math.*
 import util.parse.*
 
-class Day16 : Solution<Int, Int>(year = 2022, day = 16) {
+class Day16 : Solution<Int, Int> {
 
     private data class Valve(val name: String, val flow: Int, val tunnels: List<String>) : Comparable<Valve> {
         override fun compareTo(other: Valve): Int = compareValuesBy(this, other, { -it.flow }, { it.name })

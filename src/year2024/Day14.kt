@@ -6,7 +6,7 @@ import util.parse.*
 class Day14(
     private val w: Int = 101,
     private val h: Int = 103,
-) : Solution<Int, Int>(year = 2024, day = 14) {
+) : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val robots = input.extractInts().chunked(4)

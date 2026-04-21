@@ -3,7 +3,7 @@ package year2023
 import util.core.*
 import util.grid.*
 
-class Day13 : Solution<Int, Int>(year = 2023, day = 13) {
+class Day13 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         fun verticalMirrorPosition(pattern: CharGrid): Int {

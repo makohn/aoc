@@ -4,7 +4,7 @@ import util.core.*
 import kotlin.math.abs
 import kotlin.math.sign
 
-class Day09 : Solution<Int, Int>(year = 2022, day = 9) {
+class Day09 : Solution<Int, Int> {
 
     data class Pos(var x: Int, var y: Int)
 

@@ -4,7 +4,7 @@ import util.core.*
 import util.parse.*
 import kotlin.math.sqrt
 
-class Day20 : Solution<Long, Long>(year = 2022, day = 20) {
+class Day20 : Solution<Long, Long> {
 
     private fun mix(values: List<Long>, times: Int = 1): Long {
         val n = values.size

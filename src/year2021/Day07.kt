@@ -3,7 +3,7 @@ package year2021
 import util.core.*
 import kotlin.math.abs
 
-class Day07 : Solution<Int, Int>(year = 2021, day = 7) {
+class Day07 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val positions = parse(input)

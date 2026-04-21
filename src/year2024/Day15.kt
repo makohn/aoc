@@ -4,7 +4,7 @@ import util.core.*
 import util.grid.*
 import util.point.*
 
-class Day15 : Solution<Int, Int>(year = 2024, day = 15) {
+class Day15 : Solution<Int, Int> {
 
     private fun push(grid: CharGrid, start: Point, dir: Point) {
         var k = 1

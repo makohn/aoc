@@ -3,7 +3,7 @@ package year2020
 import util.core.*
 import util.parse.extractInts
 
-class Day01 : Solution<Int, Int>(year = 2020, day = 1) {
+class Day01 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val numbers = input.extractInts()

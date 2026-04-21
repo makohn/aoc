@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day13 : Solution<Int, Int>(year = 2022, day = 13) {
+class Day13 : Solution<Int, Int> {
 
     fun eval(str: MutableList<Char>): List<Any> {
         val list = mutableListOf<Any>()

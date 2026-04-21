@@ -2,7 +2,7 @@ package year2023
 
 import util.core.*
 
-class Day04 : Solution<Int, Int>(year = 2023, day = 4) {
+class Day04 : Solution<Int, Int> {
 
     val numberRegex = Regex("\\d+")
 

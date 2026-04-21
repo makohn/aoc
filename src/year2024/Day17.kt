@@ -3,7 +3,7 @@ package year2024
 import util.core.*
 import util.parse.*
 
-class Day17 : Solution<String, Long>(year = 2024, day = 17) {
+class Day17 : Solution<String, Long> {
 
     private class Computer(
         private val program: List<Int>,

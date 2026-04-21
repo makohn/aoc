@@ -4,7 +4,7 @@ import util.algorithm.bfs
 import util.core.*
 import util.grid.*
 
-class Day10 : Solution<Int, Int>(year = 2023, day = 10) {
+class Day10 : Solution<Int, Int> {
 
     fun getNeighbours(input: String): Pair<CharPoint, Map<CharPoint, List<CharPoint>>> {
         val grid = input.lines().toCharGrid()

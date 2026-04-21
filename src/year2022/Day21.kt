@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day21 : Solution<Long, Long>(year = 2022, day = 21) {
+class Day21 : Solution<Long, Long> {
 
     private enum class Operation {
         Add,

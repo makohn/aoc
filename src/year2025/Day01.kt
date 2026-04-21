@@ -2,7 +2,7 @@ package year2025
 
 import util.core.*
 
-class Day01 : Solution<Int, Int>(year = 2025, day = 1) {
+class Day01 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         var dial = 50

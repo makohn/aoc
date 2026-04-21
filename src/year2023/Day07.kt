@@ -2,7 +2,7 @@ package year2023
 
 import util.core.*
 
-class Day07 : Solution<Int, Int>(year = 2023, day = 7) {
+class Day07 : Solution<Int, Int> {
 
     data class Hand(val cards: String, val bid: Int)
 

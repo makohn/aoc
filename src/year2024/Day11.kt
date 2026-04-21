@@ -3,7 +3,7 @@ package year2024
 import util.core.*
 import util.parse.*
 
-class Day11 : Solution<Long, Long>(year = 2024, day = 11) {
+class Day11 : Solution<Long, Long> {
 
     private fun MutableMap<Long, Long>.addTo(k: Long, v: Long) {
         put(k, getOrDefault(k, 0) + v)

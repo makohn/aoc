@@ -4,7 +4,7 @@ import util.core.*
 import util.iter.transpose
 import kotlin.math.abs
 
-class Day11(val addEmpty: Int = 1_000_000) : Solution<Int, Long>(year = 2023, day = 11) {
+class Day11(val addEmpty: Int = 1_000_000) : Solution<Int, Long> {
 
     override fun part1(input: String): Int {
         val universe = mutableListOf<String>()

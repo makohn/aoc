@@ -4,7 +4,7 @@ import util.core.*
 import util.math.*
 import util.parse.*
 
-class Day19 : Solution<Int, Int>(year = 2022, day = 19) {
+class Day19 : Solution<Int, Int> {
 
     private data class ResourceBundle(
         var ore: Int,

@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day14 : Solution<Long, Long>(year = 2021, day = 14) {
+class Day14 : Solution<Long, Long> {
 
     override fun part1(input: String): Long {
         val (template, rules) = parse(input)

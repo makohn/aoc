@@ -4,7 +4,7 @@ import util.core.*
 import util.grid.*
 import util.point.*
 
-class Day12 : Solution<Int, Int>(year = 2024, day = 12) {
+class Day12 : Solution<Int, Int> {
 
     private val di = intArrayOf(-1, 0, 1, 0)
     private val dj = intArrayOf(0, 1, 0, -1)

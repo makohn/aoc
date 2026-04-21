@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day18 : Solution<Int, Int>(year = 2021, day = 18) {
+class Day18 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val snailFishNumbers = parse(input)

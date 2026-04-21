@@ -3,7 +3,7 @@ package year2025
 import util.core.*
 import util.parse.*
 
-class Day12 : Solution<Int, Int>(year = 2025, day = 12) {
+class Day12 : Solution<Int, Int> {
 
     override fun part1(input: String) = input
         .split("\n\n")

@@ -1,30 +1,17 @@
 package util.core
 
-import kotlin.io.path.Path
-import kotlin.io.path.readText
-
 const val LOCAL_DATA_DIR = "input"
 
 /**
- * Abstract template for an AoC solution.
+ * AoC solution interface.
  *
  * @param T the return type of the part 1 solution
  * @param U the return type of the part 2 solution
  */
-abstract class Solution<T, U>(val year: Int, val day: Int) {
-    val input by lazy { readInput(year, day) }
-
-    abstract fun part1(input: String): T
-    abstract fun part2(input: String): U
+interface Solution<T, U> {
+    fun part1(input: String): T
+    fun part2(input: String): U
 }
-
-/**
- * Reads the AoC input file for the given day in the given year.
- *
- * @param year the year of the AoC puzzle
- * @param day the day of the AoC puzzle
- */
-fun readInput(year: Int, day: Int) = Path("$LOCAL_DATA_DIR/year$year/Day${day.toString().padStart(2, '0')}.txt").readText().trimEnd()
 
 /**
  * Returns 6th *element* from the list.

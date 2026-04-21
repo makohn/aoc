@@ -2,7 +2,7 @@ package year2024
 
 import util.core.*
 
-class Day19 : Solution<Int, Long>(year = 2024, day = 19) {
+class Day19 : Solution<Int, Long> {
 
     class Node {
         val next = IntArray(6)

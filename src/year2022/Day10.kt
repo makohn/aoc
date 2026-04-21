@@ -3,7 +3,7 @@ package year2022
 import util.core.*
 import util.fromAsciiArt
 
-class Day10 : Solution<Int, String>(year = 2022, day = 10) {
+class Day10 : Solution<Int, String> {
 
     override fun part1(input: String): Int {
         var acc = 0

@@ -4,7 +4,7 @@ import util.core.*
 import java.util.*
 import kotlin.math.abs
 
-class Day23 : Solution<Int, Int>(year = 2021, day = 23) {
+class Day23 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val inputLines = input.lines()

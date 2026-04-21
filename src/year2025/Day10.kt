@@ -4,7 +4,7 @@ import util.core.*
 import util.iter.combineElements
 import kotlin.math.min
 
-class Day10 : Solution<Int, Int>(year = 2025, day = 10) {
+class Day10 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         var sum = 0

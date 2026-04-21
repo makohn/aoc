@@ -2,7 +2,7 @@ package year2023
 
 import util.core.*
 
-class Day12 : Solution<Int, Long>(year = 2023, day = 12) {
+class Day12 : Solution<Int, Long> {
 
     fun checkPattern(str: String, distribution: List<Int>): Boolean {
         val actualDistribution = mutableListOf<Int>()

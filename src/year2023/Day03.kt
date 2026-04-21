@@ -4,7 +4,7 @@ import util.core.*
 import util.grid.*
 import util.math.product
 
-class Day03 : Solution<Int, Int>(year = 2023, day = 3) {
+class Day03 : Solution<Int, Int> {
 
     fun Char.isSymbol(): Boolean = !this.isDigit() && this != '.'
 

@@ -6,7 +6,7 @@ import util.parse.*
 import util.point.*
 import kotlin.math.abs
 
-class Day21 : Solution<Long, Long>(year = 2024, day = 21) {
+class Day21 : Solution<Long, Long> {
 
     private typealias KeyPad = Map<Char, Point>
     private typealias Sequences = HashMap<Pair<Char, Char>, ArrayList<String>>

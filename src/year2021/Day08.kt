@@ -3,7 +3,7 @@ package year2021
 import util.core.*
 import kotlin.streams.asSequence
 
-class Day08 : Solution<Int, Int>(year = 2021, day = 8) {
+class Day08 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val outputs = input

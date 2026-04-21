@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day21 : Solution<Int, Long>(year = 2021, day = 21) {
+class Day21 : Solution<Int, Long> {
 
     override fun part1(input: String): Int {
         var playerPositions = input.lines().map { it.last().digitToInt() }

@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day24 : Solution<Long, Long>(year = 2021, day = 24) {
+class Day24 : Solution<Long, Long> {
 
     override fun part1(input: String): Long = findSerialNumber(input)
 

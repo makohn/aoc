@@ -3,7 +3,7 @@ package year2025
 import util.core.*
 import kotlin.math.abs
 
-class Day09 : Solution<Long, Long>(year = 2025, day = 9) {
+class Day09 : Solution<Long, Long> {
 
     override fun part1(input: String): Long {
         val tiles = input.lines().map { it.split(",") }.map { (a, b) -> a.toInt() to b.toInt() }

@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day02 : Solution<Int, Int>(year = 2022, day = 2) {
+class Day02 : Solution<Int, Int> {
 
     private fun toScore(c: Char) = when (c) {
         'X',

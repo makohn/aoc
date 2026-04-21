@@ -2,7 +2,7 @@ package year2020
 
 import util.core.*
 
-class Day04 : Solution<Int, Int>(year = 2020, day = 4) {
+class Day04 : Solution<Int, Int> {
 
     private data class Data(val key: String, val value: String)
 

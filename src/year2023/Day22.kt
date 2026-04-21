@@ -5,7 +5,7 @@ import util.parse.*
 import kotlin.math.max
 import kotlin.math.min
 
-class Day22 : Solution<Int, Int>(year = 2023, day = 22) {
+class Day22 : Solution<Int, Int> {
 
     data class Brick(val x0: Int, val y0: Int, var z0: Int, val x1: Int, val y1: Int, var z1: Int) {
         val supportedBricks = mutableSetOf<Brick>()

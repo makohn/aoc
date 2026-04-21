@@ -3,7 +3,7 @@ package year2024
 import util.core.*
 import util.parse.*
 
-class Day13 : Solution<Long, Long>(year = 2024, day = 13) {
+class Day13 : Solution<Long, Long> {
 
     private fun solve(input: String, add: Long = 0L): Long {
         val machines = input.extractLongs().chunked(6)

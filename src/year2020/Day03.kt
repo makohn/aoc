@@ -4,7 +4,7 @@ import util.core.*
 import util.grid.*
 import util.point.*
 
-class Day03 : Solution<Int, Long>(year = 2020, day = 3) {
+class Day03 : Solution<Int, Long> {
 
     private fun countTrees(grid: CharGrid, slope: Point): Int {
         val (width, height) = grid.shape

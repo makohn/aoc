@@ -3,7 +3,7 @@ package year2023
 import util.core.*
 import util.math.lcm
 
-class Day08 : Solution<Int, Long>(year = 2023, day = 8) {
+class Day08 : Solution<Int, Long> {
 
     override fun part1(input: String): Int {
         val inputLines = input.lines()

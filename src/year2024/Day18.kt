@@ -9,7 +9,7 @@ import java.util.*
 class Day18(
     private val size: Int = 71,
     private val bytes: Int = 1024,
-) : Solution<Int, String>(year = 2024, day = 18) {
+) : Solution<Int, String> {
 
     private data class Item(val t: Int, val p: Point) : Comparable<Item> {
         override fun compareTo(other: Item) = other.t.compareTo(this.t)

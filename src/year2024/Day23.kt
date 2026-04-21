@@ -2,7 +2,7 @@ package year2024
 
 import util.core.*
 
-class Day23 : Solution<Int, String>(year = 2024, day = 23) {
+class Day23 : Solution<Int, String> {
 
     companion object {
         private const val ALPHABET_SIZE = 26

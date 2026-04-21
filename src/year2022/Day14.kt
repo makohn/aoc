@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day14 : Solution<Int, Int>(year = 2022, day = 14) {
+class Day14 : Solution<Int, Int> {
 
     data class Pos(val x: Int, val y: Int)
 

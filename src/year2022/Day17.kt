@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day17 : Solution<Int, Long>(year = 2022, day = 17) {
+class Day17 : Solution<Int, Long> {
 
     private data class Rock(val shape: Int, val height: Int)
 

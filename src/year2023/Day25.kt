@@ -2,7 +2,7 @@ package year2023
 
 import util.core.*
 
-class Day25 : Solution<Int, Int>(year = 2023, day = 25) {
+class Day25 : Solution<Int, Int> {
 
     fun globalMinCut(mat: Array<IntArray>): Pair<Int, List<Int>> {
         var best = Int.MAX_VALUE to listOf<Int>()

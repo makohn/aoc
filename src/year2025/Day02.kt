@@ -3,7 +3,7 @@ package year2025
 import util.core.*
 import kotlin.math.pow
 
-class Day02 : Solution<Long, Long>(year = 2025, day = 2) {
+class Day02 : Solution<Long, Long> {
 
     override fun part1(input: String): Long {
         val ranges = input.split(",")

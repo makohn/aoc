@@ -5,7 +5,7 @@ import util.math.*
 import util.parse.*
 import util.point.*
 
-class Day22 : Solution<Int, Int>(year = 2022, day = 22) {
+class Day22 : Solution<Int, Int> {
 
     private sealed interface Move {
         data object Left : Move

@@ -2,7 +2,7 @@ package year2025
 
 import util.core.*
 
-class Day11 : Solution<Int, Long>(year = 2025, day = 11) {
+class Day11 : Solution<Int, Long> {
 
     override fun part1(input: String): Int {
         val connections = input.lines().map { it.split(":") }.associate { (m, t) -> m to t.trim().split(" ") }

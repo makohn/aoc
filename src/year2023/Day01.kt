@@ -2,7 +2,7 @@ package year2023
 
 import util.core.*
 
-class Day01 : Solution<Int, Int>(year = 2023, day = 1) {
+class Day01 : Solution<Int, Int> {
 
     val digits = mapOf(
         "one" to "1",

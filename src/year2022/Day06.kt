@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day06 : Solution<Int, Int>(year = 2022, day = 6) {
+class Day06 : Solution<Int, Int> {
 
     fun findMarker(input: String, windowSize: Int) = input
         .withIndex()

@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day25 : Solution<Int, Int>(year = 2021, day = 25) {
+class Day25 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         var mat = input.lines().map { it.toCharArray() }.toTypedArray()

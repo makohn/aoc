@@ -3,7 +3,7 @@ package year2024
 import util.core.*
 import util.grid.*
 
-class Day04 : Solution<Int, Int>(year = 2024, day = 4) {
+class Day04 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val grid = input.lines().toCharGrid()

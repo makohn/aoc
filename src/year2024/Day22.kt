@@ -4,7 +4,7 @@ import util.core.*
 import util.parse.*
 import util.thread.*
 
-class Day22 : Solution<Long, Int>(year = 2024, day = 22) {
+class Day22 : Solution<Long, Int> {
 
     companion object {
         const val MASK = (1 shl 24) - 1

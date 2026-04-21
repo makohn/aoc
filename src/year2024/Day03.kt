@@ -2,7 +2,7 @@ package year2024
 
 import util.core.*
 
-class Day03 : Solution<Int, Int>(year = 2024, day = 3) {
+class Day03 : Solution<Int, Int> {
 
     private fun solve(input: String, ignoreEnabled: Boolean): Int {
         var i = 0

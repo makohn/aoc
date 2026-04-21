@@ -3,7 +3,7 @@ package year2022
 import util.core.*
 import util.parse.extractInts
 
-class Day18 : Solution<Int, Int>(year = 2022, day = 18) {
+class Day18 : Solution<Int, Int> {
 
     companion object {
         private const val SIZE = 24

@@ -4,7 +4,7 @@ import util.core.*
 import kotlin.math.max
 import kotlin.math.min
 
-class Day05 : Solution<Long, Long>(year = 2023, day = 5) {
+class Day05 : Solution<Long, Long> {
 
     fun LongRange.mapBy(sourceRange: LongRange, destRange: LongRange): Pair<LongRange, List<LongRange>> {
         // `this intersect sourceRange` is slow

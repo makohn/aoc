@@ -3,7 +3,7 @@ package year2025
 import util.core.*
 import kotlin.math.pow
 
-class Day03 : Solution<Int, Long>(year = 2025, day = 3) {
+class Day03 : Solution<Int, Long> {
 
     override fun part1(input: String): Int {
         var sum = 0

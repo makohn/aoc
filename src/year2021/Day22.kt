@@ -3,7 +3,7 @@ package year2021
 import util.core.*
 import util.parse.*
 
-class Day22 : Solution<Long, Long>(year = 2021, day = 22) {
+class Day22 : Solution<Long, Long> {
 
     override fun part1(input: String): Long {
         val steps = parse(input)

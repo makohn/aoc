@@ -3,7 +3,7 @@ package year2024
 import util.core.*
 import util.parse.*
 
-class Day24 : Solution<Long, String>(year = 2024, day = 24) {
+class Day24 : Solution<Long, String> {
 
     private fun String.index() = ((this[0].code and 31) shl 10) + ((this[1].code and 31) shl 5) + (this[2].code and 31)
 

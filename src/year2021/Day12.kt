@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day12 : Solution<Int, Int>(year = 2021, day = 12) {
+class Day12 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val connections = parse(input)

@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day11 : Solution<Long, Long>(year = 2022, day = 11) {
+class Day11 : Solution<Long, Long> {
 
     fun toOperation(input: String): (Long) -> Long {
         val (x, op, y) = input.split(" ")

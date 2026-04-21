@@ -8,7 +8,7 @@ import kotlin.math.abs
 class Day20(
     private val picos1: Int = 100,
     private val picos2: Int = 100,
-) : Solution<Int, Int>(year = 2024, day = 20) {
+) : Solution<Int, Int> {
 
     private fun parse(input: String): IntGrid {
         val grid = input.lines().toCharGrid()

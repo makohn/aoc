@@ -3,7 +3,7 @@ package year2023
 import util.core.*
 import util.math.product
 
-class Day06 : Solution<Int, Int>(year = 2023, day = 6) {
+class Day06 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val (raceLengths, records) = input.lines().map { it.substringAfter(":").split("\\s".toRegex()).filter { it.isNotEmpty() }.map { it.toInt() } }

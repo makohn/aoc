@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day02 : Solution<Int, Int>(year = 2021, day = 2) {
+class Day02 : Solution<Int, Int> {
 
     data class Position(var hor: Int = 0, var aim: Int = 0, var depth: Int = 0)
 

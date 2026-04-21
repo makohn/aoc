@@ -3,7 +3,7 @@ package year2021
 import util.core.*
 import kotlin.math.abs
 
-class Day17 : Solution<Int, Int>(year = 2021, day = 17) {
+class Day17 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val area = parse(input)

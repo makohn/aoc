@@ -4,7 +4,7 @@ import util.core.*
 import util.grid.*
 import kotlin.math.max
 
-class Day23 : Solution<Int, Int>(year = 2023, day = 23) {
+class Day23 : Solution<Int, Int> {
 
     val directions = mapOf(
         '>' to arrayOf(Direction.East),

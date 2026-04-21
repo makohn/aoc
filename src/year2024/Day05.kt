@@ -3,7 +3,7 @@ package year2024
 import util.core.*
 import util.parse.*
 
-class Day05 : Solution<Int, Int>(year = 2024, day = 5) {
+class Day05 : Solution<Int, Int> {
 
     private fun solve(input: String): Pair<Int, Int> {
         val (rules, updates) = input.split("\n\n")

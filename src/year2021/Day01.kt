@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day01 : Solution<Int, Int>(year = 2021, day = 1) {
+class Day01 : Solution<Int, Int> {
 
     override fun part1(input: String): Int = input
         .lines()

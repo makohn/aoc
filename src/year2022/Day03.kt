@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day03 : Solution<Int, Int>(year = 2022, day = 3) {
+class Day03 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val items = mutableListOf<Char>()

@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day04 : Solution<Int, Int>(year = 2022, day = 4) {
+class Day04 : Solution<Int, Int> {
 
     operator fun IntRange.contains(other: IntRange) = other.first >= this.first && other.last <= this.last
     infix fun IntRange.overlapsWith(other: IntRange) = (

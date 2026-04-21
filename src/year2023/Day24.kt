@@ -9,7 +9,7 @@ import kotlin.math.roundToLong
 class Day24(
     val min: Double = 200000000000000.0,
     val max: Double = 400000000000000.0,
-) : Solution<Int, Long>(year = 2023, day = 24) {
+) : Solution<Int, Long> {
 
     data class Vec2(val x: Double, val y: Double)
 

@@ -2,7 +2,7 @@ package year2023
 
 import util.core.*
 
-class Day02 : Solution<Int, Int>(year = 2023, day = 2) {
+class Day02 : Solution<Int, Int> {
 
     data class Step(var r: Int, var g: Int, var b: Int)
     data class Game(val steps: MutableList<Step>)

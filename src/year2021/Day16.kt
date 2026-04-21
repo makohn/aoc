@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day16 : Solution<Long, Long>(year = 2021, day = 16) {
+class Day16 : Solution<Long, Long> {
 
     typealias BitStream = MutableList<String>
 

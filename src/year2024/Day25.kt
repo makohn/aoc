@@ -2,7 +2,7 @@ package year2024
 
 import util.core.*
 
-class Day25 : Solution<Int, Int>(year = 2024, day = 25) {
+class Day25 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val locks = ArrayList<Int>(256)

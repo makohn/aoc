@@ -3,7 +3,7 @@ package year2023
 import util.core.*
 import util.grid.*
 
-class Day16 : Solution<Int, Int>(year = 2023, day = 16) {
+class Day16 : Solution<Int, Int> {
 
     private data class Pos(val i: Int, val j: Int, val d: Dir)
 

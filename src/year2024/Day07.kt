@@ -3,7 +3,7 @@ package year2024
 import util.core.*
 import util.parse.*
 
-class Day07 : Solution<Long, Long>(year = 2024, day = 7) {
+class Day07 : Solution<Long, Long> {
 
     override fun part1(input: String): Long {
         var sum = 0L

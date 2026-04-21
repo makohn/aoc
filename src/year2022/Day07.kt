@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day07 : Solution<Int, Int>(year = 2022, day = 7) {
+class Day07 : Solution<Int, Int> {
 
     class TreeNode<T>(val name: String, val value: T, val parent: TreeNode<T>? = null) {
         val children = mutableListOf<TreeNode<T>>()

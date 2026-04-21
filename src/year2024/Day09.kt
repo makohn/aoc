@@ -2,7 +2,7 @@ package year2024
 
 import util.core.*
 
-class Day09 : Solution<Long, Long>(year = 2024, day = 9) {
+class Day09 : Solution<Long, Long> {
 
     companion object {
         private const val FREE = -1L

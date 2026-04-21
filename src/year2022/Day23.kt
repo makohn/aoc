@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day23 : Solution<Int, Int>(year = 2022, day = 23) {
+class Day23 : Solution<Int, Int> {
 
     private data class Vec2(val x: Int, val y: Int) {
         operator fun plus(other: Vec2) = Vec2(x + other.x, y + other.y)

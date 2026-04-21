@@ -3,7 +3,7 @@ package year2021
 import util.core.*
 import util.iter.transpose
 
-class Day03 : Solution<Int, Int>(year = 2021, day = 3) {
+class Day03 : Solution<Int, Int> {
 
     override fun part1(input: String): Int = input
         .lines()

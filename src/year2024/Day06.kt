@@ -4,7 +4,7 @@ import util.core.*
 import util.grid.*
 import util.point.*
 
-class Day06 : Solution<Int, Int>(year = 2024, day = 6) {
+class Day06 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         val grid = input.lines().toCharGrid()

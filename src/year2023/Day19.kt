@@ -5,7 +5,7 @@ import util.parse.*
 import kotlin.math.max
 import kotlin.math.min
 
-class Day19 : Solution<Int, Long>(year = 2023, day = 19) {
+class Day19 : Solution<Int, Long> {
 
     data class Part(val x: Int, val m: Int, val a: Int, val s: Int)
 

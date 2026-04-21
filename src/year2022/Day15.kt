@@ -8,7 +8,7 @@ import kotlin.math.abs
 class Day15(
     private val row: Int = 2000000,
     private val range: IntRange = 0..4000000,
-) : Solution<Int, Long>(year = 2022, day = 15) {
+) : Solution<Int, Long> {
 
     fun List<List<Point>>.scanArea(row: Int) = this.map { (scanner, beacon) ->
         val yDistance = abs(scanner.x - row)

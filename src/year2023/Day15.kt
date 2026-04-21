@@ -3,7 +3,7 @@ package year2023
 import util.core.*
 import util.iter.replaceFirst
 
-class Day15 : Solution<Int, Int>(year = 2023, day = 15) {
+class Day15 : Solution<Int, Int> {
 
     fun hash(str: String): Int {
         var curVal = 0

@@ -2,7 +2,7 @@ package year2021
 
 import util.core.*
 
-class Day20 : Solution<Int, Int>(year = 2021, day = 20) {
+class Day20 : Solution<Int, Int> {
 
     typealias Image = Set<Pair<Int, Int>>
     typealias Bounds = List<Int>

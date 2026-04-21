@@ -4,7 +4,7 @@ import util.core.*
 import java.util.*
 import kotlin.math.abs
 
-class Day24 : Solution<Int, Int>(year = 2022, day = 24) {
+class Day24 : Solution<Int, Int> {
 
     private data class Vec2(val x: Int, val y: Int) {
         operator fun plus(other: Vec2) = Vec2(x + other.x, y + other.y)

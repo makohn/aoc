@@ -3,7 +3,7 @@ package year2024
 import util.core.*
 import kotlin.math.abs
 
-class Day02 : Solution<Int, Int>(year = 2024, day = 2) {
+class Day02 : Solution<Int, Int> {
 
     override fun part1(input: String): Int {
         var acc = 0

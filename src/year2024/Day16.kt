@@ -5,7 +5,7 @@ import util.grid.*
 import util.point.*
 import java.util.PriorityQueue
 
-class Day16 : Solution<Int, Int>(year = 2024, day = 16) {
+class Day16 : Solution<Int, Int> {
 
     private data class Node(val pos: Point, val dir: Int, val cost: Int) : Comparable<Node> {
         override fun compareTo(other: Node) = this.cost.compareTo(other.cost)

@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm") version "2.3.0"
-    id("org.jetbrains.kotlinx.benchmark") version "0.4.15"
     id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
 }
 
@@ -23,25 +22,6 @@ sourceSets {
     }
     test {
         kotlin.srcDir("test")
-        kotlin.srcDir("benchmark")
-    }
-}
-
-benchmark {
-    targets {
-        register("test")
-    }
-    configurations {
-        named("main") {
-            iterations = 10
-            warmups = 5
-            iterationTime = 1
-            iterationTimeUnit = "s"
-            mode = "avgt"
-            reportFormat = "text"
-            outputTimeUnit = "ms"
-            include(project.findProperty("include") as String? ?: ".*")
-        }
     }
 }
 
@@ -79,5 +59,4 @@ tasks.withType<Test> {
 
 dependencies {
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.15")
 }

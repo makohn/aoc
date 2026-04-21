@@ -3,7 +3,7 @@ package year2023
 import util.core.*
 import util.math.lcm
 
-class Day20 : Solution<Int, Long>(year = 2023, day = 20) {
+class Day20 : Solution<Int, Long> {
 
     abstract class Module(open val id: String, open val targets: List<String>)
 

@@ -3,7 +3,7 @@ package year2022
 import util.core.*
 import java.util.*
 
-class Day05 : Solution<String, String>(year = 2022, day = 5) {
+class Day05 : Solution<String, String> {
 
     override fun part1(input: String): String {
         val stacks = mutableListOf<Stack<Char>>()

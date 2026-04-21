@@ -2,7 +2,7 @@ package year2022
 
 import util.core.*
 
-class Day25 : Solution<String, Int>(year = 2022, day = 25) {
+class Day25 : Solution<String, Int> {
 
     private fun fromSnafu(snafu: String): Long = snafu.fold(0) { acc, c ->
         val digit = when (c) {
