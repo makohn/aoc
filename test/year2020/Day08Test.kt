@@ -28,6 +28,6 @@ class Day08Test {
 
     @Test
     fun part2() {
-        assertEquals(0, day.part2(INPUT))
+        assertEquals(8, day.part2(INPUT))
     }
 }
