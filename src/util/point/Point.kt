@@ -10,6 +10,16 @@ val DOWN = Point(0, 1)
 val LEFT = Point(-1, 0)
 
 val RDLU = arrayOf(RIGHT, DOWN, LEFT, UP)
+val DIRS_8 = arrayOf(
+    RIGHT,
+    Point(1, 1),
+    DOWN,
+    Point(-1, 1),
+    LEFT,
+    Point(-1, -1),
+    UP,
+    Point(1, -1),
+)
 
 /**
  * Represents a coordinate in a 2D grid.
