@@ -37,15 +37,15 @@ class Point(x: Int, y: Int) {
     operator fun plus(other: Point) = Point(this.x + other.x, this.y + other.y)
 
     operator fun plusAssign(other: Point) {
-        this.y += other.y
         this.x += other.x
+        this.y += other.y
     }
 
     operator fun minus(other: Point) = Point(this.x - other.x, this.y - other.y)
 
     operator fun minusAssign(other: Point) {
-        this.y -= other.y
         this.x -= other.x
+        this.y -= other.y
     }
 
     operator fun times(rhs: Int) = Point(this.x * rhs, this.y * rhs)
@@ -53,17 +53,17 @@ class Point(x: Int, y: Int) {
     /**
      * Returns the Manhattan distance to the other point.
      */
-    fun distanceTo(other: Point) = abs(this.y - other.y) + abs(this.x - other.x)
+    fun distanceTo(other: Point) = abs(this.x - other.x) + abs(this.y - other.y)
 
     /**
      * Rotates in clockwise direction.
      */
-    fun clockwise() = Point(this.y, -this.x)
+    fun clockwise() = Point(-this.y, this.x)
 
     /**
      * Rotates in counterclockwise direction.
      */
-    fun counterClockwise() = Point(-this.y, this.x)
+    fun counterClockwise() = Point(this.y, -this.x)
 
     operator fun component1() = this.x
     operator fun component2() = this.y

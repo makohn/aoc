@@ -77,8 +77,8 @@ class Day22 : Solution<Int, Int> {
         var dir = RIGHT
         for (move in moves) {
             when (move) {
-                is Move.Left -> dir = dir.clockwise()
-                is Move.Right -> dir = dir.counterClockwise()
+                is Move.Left -> dir = dir.counterClockwise()
+                is Move.Right -> dir = dir.clockwise()
                 is Move.Forward -> {
                     repeat(move.n) {
                         val next = pos + dir
