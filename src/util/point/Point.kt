@@ -27,12 +27,9 @@ val DIRS_8 = arrayOf(
  * @param x the column
  * @param y the row
  */
-class Point(x: Int, y: Int) {
+class Point(var x: Int, var y: Int) {
 
-    var x: Int = x
-        private set
-    var y: Int = y
-        private set
+    constructor(point: Point) : this(point.x, point.y)
 
     operator fun plus(other: Point) = Point(this.x + other.x, this.y + other.y)
 
