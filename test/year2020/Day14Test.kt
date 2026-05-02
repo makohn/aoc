@@ -12,6 +12,13 @@ class Day14Test {
             mem[7] = 101
             mem[8] = 0
         """.trimIndent()
+
+        private val INPUT2 = """
+            mask = 000000000000000000000000000000X1001X
+            mem[42] = 100
+            mask = 00000000000000000000000000000000X0XX
+            mem[26] = 1
+        """.trimIndent()
     }
 
     private val day = Day14()
@@ -23,6 +30,6 @@ class Day14Test {
 
     @Test
     fun part2() {
-        assertEquals(0, day.part2(INPUT))
+        assertEquals(208, day.part2(INPUT2))
     }
 }
