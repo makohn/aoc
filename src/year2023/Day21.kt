@@ -2,49 +2,75 @@ package year2023
 
 import util.core.*
 import util.grid.*
+import util.point.*
 
 class Day21(
-    val s1: Int = 64,
-    val s2: Int = 26501365,
+    val part1StepLimit: Int = 64,
+    val part2StepLimit: Int = 26501365,
 ) : Solution<Int, Long> {
 
-    val directions = arrayOf(Direction.North, Direction.East, Direction.South, Direction.West)
+    private abstract class Bfs(
+        grid: CharGrid,
+        private vararg val limit: Int,
+    ) : Iterator<Int> {
 
-    fun countReachableCells(map: CharGrid, vararg steps: Int, adjacentTo: (CharPoint) -> List<CharPoint>) = sequence {
-        val charCells = map.flatMapIndexed { i, row -> row.mapIndexed { j, char -> CharPoint(i, j, char) } }
-        val startCell = charCells.first { it.data == 'S' }
+        private val start = grid.positionOf('S')
+        private var steps = 0
+        private var current = hashSetOf(start)
 
-        val newCells = mutableSetOf<CharPoint>()
-        newCells.add(startCell)
+        override fun hasNext(): Boolean = true
 
-        for (x in generateSequence(1) { it + 1 }) {
-            val cells = newCells.flatMap {
-                adjacentTo(it).filter { it.data != '#' }
+        override fun next(): Int {
+            while (true) {
+                val next = HashSet<Point>()
+                for (position in current) {
+                    findNext(next, position)
+                }
+                current = next
+                steps++
+                if (steps in limit) {
+                    return current.size
+                }
             }
-            newCells.clear()
-            newCells.addAll(cells)
-            if (x in steps) yield(newCells.size)
         }
+
+        protected abstract fun findNext(next: HashSet<Point>, position: Point)
     }
 
     override fun part1(input: String): Int {
-        val map = input.lines().toCharGrid()
-        return countReachableCells(map, s1) {
-            map.neighborsOf(it, *directions)
-        }.take(1).first()
+        val grid = input.lines().toCharGrid()
+        return object : Bfs(grid, part1StepLimit) {
+            override fun findNext(next: HashSet<Point>, position: Point) {
+                for (direction in RDLU) {
+                    val nextPosition = position + direction
+                    if (nextPosition in grid && grid[nextPosition] != '#') {
+                        next.add(nextPosition)
+                    }
+                }
+            }
+        }.next()
     }
 
     override fun part2(input: String): Long {
-        val map = input.lines().toCharGrid()
-        val (_, n) = map.shape
-        val x0 = s2 % n
-        val (a, b, c) = countReachableCells(map, x0, x0 + 1 * n, x0 + 2 * n) {
-            map.neighborsOfUnbound(it, *directions)
-        }.take(3).map { it.toLong() }.toList()
+        val grid = input.lines().toCharGrid()
+        val (width, height) = grid.shape
+        val limit = part2StepLimit % height
+        val bfs = object : Bfs(grid, limit, limit + height, limit + 2 * height) {
+            override fun findNext(next: HashSet<Point>, position: Point) {
+                for (direction in RDLU) {
+                    val nextPosition = position + direction
+                    if (grid[nextPosition.y.mod(height)][nextPosition.x.mod(width)] != '#') {
+                        next.add(nextPosition)
+                    }
+                }
+            }
+        }
+        val a = bfs.next().toLong()
+        val b = bfs.next().toLong()
+        val c = bfs.next().toLong()
 
-        fun f(x: Long) = a + (b - a) * x + (x * (x - 1) / 2L) * ((c - b) - (b - a))
+        val x = ((part2StepLimit - limit) / height).toLong()
 
-        val x = ((this.s2 - x0) / n).toLong()
-        return f(x)
+        return a + (b - a) * x + (x * (x - 1) / 2) * ((c - b) - (b - a))
     }
 }
