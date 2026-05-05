@@ -2,108 +2,107 @@ package year2023
 
 import util.core.*
 import util.grid.*
-import kotlin.math.max
+import util.point.*
 
 class Day23 : Solution<Int, Int> {
 
-    val directions = mapOf(
-        '>' to arrayOf(Direction.East),
-        '<' to arrayOf(Direction.West),
-        'v' to arrayOf(Direction.South),
-        '^' to arrayOf(Direction.North),
-        '.' to arrayOf(Direction.North, Direction.East, Direction.South, Direction.West),
-    )
+    private data class Node(val point: Point, val weight: Int)
+
+    companion object {
+        private val DIRECTIONS = mapOf(
+            '>' to arrayOf(RIGHT),
+            'v' to arrayOf(DOWN),
+            '<' to arrayOf(LEFT),
+            '^' to arrayOf(UP),
+            '.' to RDLU,
+        )
+    }
 
     override fun part1(input: String): Int {
-        val map = input.lines().toCharGrid()
-        val (_, n) = map.shape
-        val startCell = map[0].mapIndexed { i, d -> CharPoint(0, i, d) }.first { it.data != '#' }
-        val endCell = map[n - 1].mapIndexed { i, d -> CharPoint(n - 1, i, d) }.last { it.data != '#' }
-        val visited = HashSet<CharPoint>()
+        val grid = input.lines().toCharGrid()
+        val (width, height) = grid.shape
+        val start = Point(1, 0)
+        val end = Point(width - 2, height - 1)
+        val visited = BooleanGrid(grid.shape)
 
-        fun dfs(node: CharPoint): Int {
-            if (node == endCell) return 0
-            var ans = 0
-            visited += node
-            val neighbours = map
-                .neighborsOf(node, *directions[node.data]!!)
-                .filter { it.data != '#' }
-
-            for (otherNode in neighbours) {
-                if (otherNode !in visited) {
-                    val pathLength = dfs(otherNode)
-                    if (pathLength >= 0) ans = max(ans, pathLength + 1)
+        fun dfs(position: Point): Int {
+            if (position == end) return 0
+            var max = 0
+            visited[position] = true
+            for (next in DIRECTIONS[grid[position]]!!.map { position + it }) {
+                if (next in grid && grid[next] != '#' && !visited[next]) {
+                    val pathLength = dfs(next)
+                    if (pathLength >= 0) max = maxOf(max, pathLength + 1)
                 }
             }
-            visited -= node
-
-            return ans
+            visited[position] = false
+            return max
         }
 
-        return dfs(startCell)
+        return dfs(start)
     }
 
     override fun part2(input: String): Int {
-        val map = input.lines().toCharGrid()
-        val (_, n) = map.shape
-        val charCells = map.dataPoints()
-        val startCell = map[0].mapIndexed { i, d -> CharPoint(0, i, d) }.first { it.data != '#' }
-        val endCell = map[n - 1].mapIndexed { i, d -> CharPoint(n - 1, i, d) }.last { it.data != '#' }
+        val grid = input.lines().toCharGrid()
+        val shape = grid.shape
+        val (width, height) = shape
+        val start = Point(1, 0)
+        val end = Point(width - 2, height - 1)
 
-        val forks = charCells
-            .filter { it.data != '#' }
-            .map { it to map.neighborsOf(it, *directions['.']!!) }
-            .filter { (_, neighbours) -> neighbours.count { it.data != '#' } >= 3 }
-            .map { (fork, _) -> fork }
-            .toTypedArray()
+        val pois = arrayListOf(start, end)
 
-        val nodes = listOf(startCell, endCell, *forks)
+        // Find junctions
+        for (y in 0..<height) {
+            for (x in 0..<width) {
+                if (grid[y][x] != '#') {
+                    val position = Point(x, y)
+                    val neighbors = DIRECTIONS['.']!!.map { position + it }.filter { it in grid && grid[it] != '#' }
+                    if (neighbors.size >= 3) {
+                        pois.add(position)
+                    }
+                }
+            }
+        }
+        val graph = pois.associateWith { HashSet<Node>() }
 
-        data class WeightedNode(val cell: CharPoint, val weight: Int)
-
-        val graph = HashMap<CharPoint, HashSet<WeightedNode>>()
-        for (node in nodes) {
-            val stack = ArrayDeque<WeightedNode>()
-            val visited = HashSet<CharPoint>()
-            val current = WeightedNode(node, 0)
-            stack += current
-            visited += current.cell
+        for (poi in pois) {
+            val visited = BooleanGrid(shape)
+            val stack = arrayListOf(Node(poi, 0))
+            visited[poi] = true
 
             while (stack.isNotEmpty()) {
-                val otherNode = stack.removeLast()
-                if (otherNode.weight != 0 && otherNode.cell in nodes) {
-                    graph.computeIfAbsent(node) { HashSet() }
-                    graph[node]!! += otherNode
+                val node = stack.removeLast()
+                val (position, weight) = node
+                if (weight != 0 && position in pois) {
+                    graph[poi]!!.add(node)
                 } else {
-                    for (neighbour in map
-                        .neighborsOf(otherNode.cell, *directions['.']!!)
-                        .filter { it.data != '#' && it !in visited }) {
-                        stack += WeightedNode(neighbour, otherNode.weight + 1)
-                        visited += neighbour
+                    val neighbors = DIRECTIONS['.']!!
+                        .map { direction -> position + direction }
+                        .filter { it in grid && grid[it] != '#' && !visited[it] }
+                    for (next in neighbors) {
+                        stack.add(Node(next, weight + 1))
+                        visited[next] = true
                     }
                 }
             }
         }
 
-        val visited = HashSet<CharPoint>()
+        val visited = BooleanGrid(shape)
 
-        fun dfs(node: CharPoint): Int {
-            if (node == endCell) return 0
-            var ans = -1
-            visited += node
-            val neighbours = graph[node]!!
-
-            for (otherNode in neighbours) {
-                if (otherNode.cell !in visited) {
-                    val pathLength = dfs(otherNode.cell)
-                    if (pathLength >= 0) ans = max(ans, pathLength + otherNode.weight)
+        fun dfs(position: Point): Int {
+            if (position == end) return 0
+            var max = -1
+            visited[position] = true
+            val neighbors = graph[position]!!
+            for ((next, weight) in neighbors) {
+                if (!visited[next]) {
+                    val pathLength = dfs(next)
+                    if (pathLength >= 0) max = maxOf(max, pathLength + weight)
                 }
             }
-            visited -= node
-
-            return ans
+            visited[position] = false
+            return max
         }
-
-        return dfs(startCell)
+        return dfs(start)
     }
 }
