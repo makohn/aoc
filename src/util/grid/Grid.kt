@@ -180,39 +180,6 @@ fun CharGrid.rotated(): CharGrid {
     return ret
 }
 
-//region DataPoint
-/**
- * Represents a datum in a 2D grid with its x and y coordinates.
- */
-data class DataPoint<T>(val x: Int, val y: Int, val data: T)
-
-/**
- * Represents a char in a 2D grid with its x and y coordinates.
- */
-typealias CharPoint = DataPoint<Char>
-
-/**
- * Returns the elements of this 2D char array as a list of [DataPoint]s.
- */
-fun CharGrid.dataPoints() = flatMapIndexed { i, r -> r.mapIndexed { j, d -> DataPoint(i, j, d) } }
-
-/**
- * Returns a list of all points adjacent to the given x, y coordinates.
- */
-fun CharGrid.neighborsOf(x: Int, y: Int): List<DataPoint<Char>> {
-    val arr = this
-    val (width, height) = shape
-    return buildList {
-        for (i in -1..1) {
-            for (j in -1..1) {
-                val dx = x + i
-                val dy = y + j
-                if (dx in 0..<height && dy in 0..<width) add(DataPoint(dx, dy, arr[dx][dy]))
-            }
-        }
-    }
-}
-
 /**
  * Represents a direction in a 2D grid.
  */
@@ -226,38 +193,3 @@ enum class Direction(val xDir: Int, val yDir: Int) {
     operator fun component1() = xDir
     operator fun component2() = yDir
 }
-
-/**
- * Returns a list of points adjacent to the given point in provided directions.
- */
-fun CharGrid.neighborsOf(point: DataPoint<Char>, vararg dirs: Direction): List<DataPoint<Char>> {
-    val arr = this
-    val (x, y, _) = point
-    val (width, height) = shape
-    return buildList {
-        for ((j, i) in dirs) {
-            val dx = x + i
-            val dy = y + j
-            if (dx in 0..<height && dy in 0..<width) add(DataPoint(dx, dy, arr[dx][dy]))
-        }
-    }
-}
-
-/**
- * Returns a list of points adjacent to the given point in provided directions.
- *
- * The grid is considered to be wrapped around.
- */
-fun CharGrid.neighborsOfUnbound(point: DataPoint<Char>, vararg dirs: Direction): List<DataPoint<Char>> {
-    val arr = this
-    val (x, y, _) = point
-    val (width, height) = shape
-    return buildList {
-        for ((j, i) in dirs) {
-            val dx = x + i
-            val dy = y + j
-            add(DataPoint(dx, dy, arr[dx.mod(height)][dy.mod(width)]))
-        }
-    }
-}
-//endregion
