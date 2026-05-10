@@ -1,54 +1,57 @@
 package year2023
 
-import util.algorithm.dijkstra
 import util.core.*
 import util.grid.*
+import util.point.*
+import java.util.*
 
 class Day17 : Solution<Int, Int> {
 
-    override fun part1(input: String): Int {
-        val map = input.lines().toCharGrid()
-        val (m, n) = map.shape
-
-        data class Node(val x: Int, val y: Int, val d: Direction, val s: Int)
-
-        val start = Node(0, 0, Direction.East, 1)
-        val res = dijkstra(start) { cell ->
-            val (x, y, currentDir, steps) = cell
-            Direction.entries
-                .filter { it.ordinal != 3 - currentDir.ordinal }
-                // xDir and yDir are vice-versa in the Direction enum
-                .map { dir -> Node(x + dir.yDir, y + dir.xDir, dir, if (dir == currentDir) steps + 1 else 1) }
-                .filter { it.x in 0..<n && it.y in 0..<m && it.s <= 3 }
-                .map { it to map[it.x][it.y].digitToInt() }
-        }
-
-        return res
-            .filter { (k, _) -> k.x == n - 1 && k.y == m - 1 }
-            .minBy { it.value }
-            .value
+    companion object {
+        private val DIRECTIONS = mapOf(
+            LEFT to setOf(LEFT, UP, DOWN),
+            RIGHT to setOf(RIGHT, DOWN, UP),
+            UP to setOf(UP, RIGHT, LEFT),
+            DOWN to setOf(DOWN, LEFT, RIGHT),
+        )
     }
 
-    override fun part2(input: String): Int {
-        val map = input.lines().toCharGrid()
-        val (m, n) = map.shape
+    private data class State(val position: Point, val direction: Point, val steps: Int)
 
-        data class Node(val x: Int, val y: Int, val d: Direction, val s: Int)
+    private fun dijkstra(input: String, min: Int, max: Int): Int {
+        val grid = input.lines().toIntGrid()
+        val (width, height) = grid.shape
 
-        val start = Node(0, 0, Direction.East, 0)
-        val res = dijkstra(start) { cell ->
-            val (x, y, currentDir, steps) = cell
-            Direction.entries
-                .filter { if (steps < 4) it == currentDir else it.ordinal != 3 - currentDir.ordinal }
-                // xDir and yDir are vice-versa in the Direction enum
-                .map { dir -> Node(x + dir.yDir, y + dir.xDir, dir, if (dir == currentDir) steps + 1 else 1) }
-                .filter { it.x in 0..<n && it.y in 0..<m && steps <= 10 }
-                .map { it to map[it.x][it.y].digitToInt() }
+        val visited = HashMap<State, Int>()
+        val todo = PriorityQueue<Pair<State, Int>>(compareBy { it.second })
+        val start = State(Point(0, 0), RIGHT, 0)
+
+        visited[start] = 0
+        todo.add(start to 0)
+
+        while (todo.isNotEmpty()) {
+            val (state, cost) = todo.remove()
+            if (cost <= visited[state]!!) {
+                val (position, direction, steps) = state
+                val nextDirections = if (steps < min) setOf(direction) else DIRECTIONS[direction]!!
+                for (nextDirection in nextDirections) {
+                    val next = nextDirection + position
+                    val nextState = State(next, nextDirection, if (nextDirection == direction) steps + 1 else 1)
+                    if (next in grid && nextState.steps <= max) {
+                        val nextSteps = grid[next] + cost
+                        if (nextState !in visited || nextSteps < visited[nextState]!!) {
+                            visited[nextState] = nextSteps
+                            todo.add(nextState to nextSteps)
+                        }
+                    }
+                }
+            }
         }
-
-        return res
-            .filter { (k, _) -> k.x == n - 1 && k.y == m - 1 && k.s >= 4 }
-            .minBy { it.value }
-            .value
+        val end = Point(width - 1, height - 1)
+        return visited.filterKeys { it.position == end && it.steps >= min }.minBy { it.value }.value
     }
+
+    override fun part1(input: String): Int = dijkstra(input, 0, 3)
+
+    override fun part2(input: String): Int = dijkstra(input, 4, 10)
 }

@@ -179,17 +179,3 @@ fun CharGrid.rotated(): CharGrid {
     }
     return ret
 }
-
-/**
- * Represents a direction in a 2D grid.
- */
-enum class Direction(val xDir: Int, val yDir: Int) {
-    North(0, -1),
-    West(-1, 0),
-    East(1, 0),
-    South(0, 1),
-    ;
-
-    operator fun component1() = xDir
-    operator fun component2() = yDir
-}
