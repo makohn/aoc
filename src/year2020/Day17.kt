@@ -9,24 +9,25 @@ class Day17 : Solution<Int, Int> {
         private const val X = 22
         private const val Y = 22
         private const val Z = 15
+        private const val W = 15
 
         private const val STRIDE_X = 1
         private const val STRIDE_Y = X
         private const val STRIDE_Z = Y * X
+        private const val STRIDE_W = Z * Y * X
     }
 
-    override fun part1(input: String): Int {
-        val grid = input.lines().toCharGrid()
-        val size = X * Y * Z
-        val base = STRIDE_X + STRIDE_Y + STRIDE_Z
+    private fun boot(grid: CharGrid, size: Int, base: Int, ws: IntRange): Int {
         val neighbors = ArrayList<Int>()
 
         for (x in -1..1) {
             for (y in -1..1) {
                 for (z in -1..1) {
-                    val offset = x * STRIDE_X + y * STRIDE_Y + z * STRIDE_Z
-                    if (offset != 0) {
-                        neighbors.add(offset)
+                    for (w in ws) {
+                        val offset = x * STRIDE_X + y * STRIDE_Y + z * STRIDE_Z + w * STRIDE_W
+                        if (offset != 0) {
+                            neighbors.add(offset)
+                        }
                     }
                 }
             }
@@ -68,5 +69,17 @@ class Day17 : Solution<Int, Int> {
         return active.size
     }
 
-    override fun part2(input: String): Int = 0
+    override fun part1(input: String): Int {
+        val grid = input.lines().toCharGrid()
+        val size = X * Y * Z
+        val base = STRIDE_X + STRIDE_Y + STRIDE_Z
+        return boot(grid, size, base, 0..0)
+    }
+
+    override fun part2(input: String): Int {
+        val grid = input.lines().toCharGrid()
+        val size = X * Y * Z * W
+        val base = STRIDE_X + STRIDE_Y + STRIDE_Z + STRIDE_W
+        return boot(grid, size, base, -1..1)
+    }
 }
